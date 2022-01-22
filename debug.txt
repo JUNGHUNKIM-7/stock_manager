@@ -1,0 +1,6 @@
+# FirstPage
+home - all history
+search - search by item name + month filter
+
+# SecondPage
+Second 페이지 마다 패칭. => 패칭1번 => 스트림?
