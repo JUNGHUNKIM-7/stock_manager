@@ -27,7 +27,7 @@ class DarkModeContainer extends StatelessWidget {
         alignment: align ?? Alignment.center,
         height: MediaQuery.of(context).size.height * height,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).scaffoldBackgroundColor,
           boxShadow: reverse != null && reverse == true
               ? Styles.innerShadow

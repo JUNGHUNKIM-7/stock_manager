@@ -11,6 +11,7 @@ import 'inventory_form_field.dart';
 class InventoryForm extends StatefulWidget {
   const InventoryForm({Key? key}) : super(key: key);
 
+
   @override
   State<InventoryForm> createState() => _InventoryFormState();
 }
@@ -22,10 +23,10 @@ class _InventoryFormState extends State<InventoryForm> {
 
   @override
   void initState() {
+    super.initState();
     _uuid = const Uuid();
     _handler = GSheetHandler();
     _formKey = GlobalKey<FormState>();
-    super.initState();
   }
 
   @override
@@ -38,7 +39,7 @@ class _InventoryFormState extends State<InventoryForm> {
         body: ListView(
           children: [
             const SizedBox(
-              height: outerSpace,
+              height: outerSpacing,
             ),
             Center(
               child: Text(
@@ -47,17 +48,17 @@ class _InventoryFormState extends State<InventoryForm> {
               ),
             ),
             const SizedBox(
-              height: outerSpace,
+              height: outerSpacing,
             ),
             const SizedBox(
-              height: outerSpace,
+              height: outerSpacing,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: outerSpace),
+              padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
               child: FormGroup(formKey: _formKey),
             ),
             const SizedBox(
-              height: outerSpace,
+              height: outerSpacing,
             ),
             FormBtns(combiner: combiner, uuid: _uuid, handler: _handler),
           ],

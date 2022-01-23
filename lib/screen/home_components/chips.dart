@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:router_go/bloc/atom_blocs/filter_chip_bloc.dart';
+import 'package:router_go/styles.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
 
@@ -38,7 +39,7 @@ class Chips extends StatelessWidget {
             itemBuilder: (context, idx) {
               return ChipOfList(
                 idx: idx,
-                snapshot: snapshot,
+                idxSnapShot: snapshot,
                 months: months,
                 chip: chip,
               );
@@ -65,34 +66,51 @@ class ChipOfList extends StatelessWidget {
     required this.months,
     required this.chip,
     required this.idx,
-    required this.snapshot,
+    required this.idxSnapShot,
   }) : super(key: key);
 
   final List<String> months;
   final ChipBloc chip;
   final int idx;
-  final AsyncSnapshot<int> snapshot;
+  final AsyncSnapshot<int> idxSnapShot;
 
   @override
   Widget build(BuildContext context) {
+    final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6.0),
-      child: FilterChip(
-        labelStyle: TextStyle(color: Colors.grey.shade400),
-        checkmarkColor: Colors.greenAccent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4),
-        ),
-        backgroundColor: Colors.grey[600],
-        selectedColor: Colors.grey[800],
-        label: Text(Chips.months[idx].toUpperCase()),
-        selected: snapshot.data == idx,
-        onSelected: (bool selected) {
-          if (selected) {
-            chip.setIdx(idx);
-          }
-        },
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      child: StreamBuilder(
+          stream: theme.stream,
+          builder: (context, AsyncSnapshot<bool> snapshot) {
+            return FilterChip(
+              selectedColor: snapshot.data == true ? Styles.darkColor : Styles.lightColor,
+              checkmarkColor: snapshot.data == true ? Styles.lightColor : Styles.darkColor,
+              showCheckmark: true,
+              labelStyle: snapshot.data == true
+                  ? const TextStyle(color: Styles.lightColor)
+                  : const TextStyle(color: Styles.darkColor),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: BorderSide(
+                  width: 2,
+                  style: BorderStyle.solid,
+                  color: snapshot.data == true
+                      ? Styles.lightColor
+                      : Styles.darkColor,
+                ),
+              ),
+              backgroundColor:
+                  snapshot.data == true ? Styles.darkColor : Styles.lightColor,
+              label: Text(Chips.months[idx].toUpperCase()),
+              selected: idxSnapShot.data == idx,
+              onSelected: (bool selected) {
+                if (selected) {
+                  chip.setIdx(idx);
+                }
+              },
+            );
+          }),
     );
   }
 }

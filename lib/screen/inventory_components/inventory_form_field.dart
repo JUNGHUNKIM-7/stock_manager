@@ -4,35 +4,30 @@ import 'package:router_go/bloc/constant/provider.dart';
 import 'package:router_go/screen/global_components/dark_mode_container.dart';
 import '../../styles.dart';
 
-class FormGroup extends StatefulWidget {
+class FormGroup extends StatelessWidget {
   const FormGroup({Key? key, required this.formKey}) : super(key: key);
 
   final GlobalKey<FormState> formKey;
 
   @override
-  State<FormGroup> createState() => _FormGroupState();
-}
-
-class _FormGroupState extends State<FormGroup> {
-  @override
   Widget build(BuildContext context) {
     return DarkModeContainer(
       height: 0.55,
       child: Form(
-        key: widget.formKey,
-        // autovalidateMode: AutovalidateMode.always,
+        key: formKey,
         child: Wrap(
           children: List<Widget>.generate(
             InputDeco.icons.length,
             (int idx) {
               return Padding(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: innerSpace, vertical: innerSpace),
+                    horizontal: innerSpacing, vertical: innerSpacing),
                 child: DarkModeContainer(
                   reverse: true,
                   height: 0.15,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: innerSpace),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: innerSpacing),
                     child: TextFormFields(idx: idx),
                   ),
                 ),

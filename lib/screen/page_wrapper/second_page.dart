@@ -21,7 +21,7 @@ class SecondPage extends StatelessWidget {
             height: height * 0.04,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: outerSpace),
+            padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
             child: DarkModeContainer(
               height: height * 0.00012,
               theme: theme,
@@ -33,17 +33,20 @@ class SecondPage extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: outerSpace,
+            height: outerSpacing,
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: outerSpace),
+              padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
               child: DarkModeContainer(
                 theme: theme,
                 height: 0,
                 child: InventoryView(theme: theme),
               ),
             ),
+          ),
+          const SizedBox(
+            height: outerSpacing,
           ),
         ],
       ),

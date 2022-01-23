@@ -33,7 +33,6 @@ class FormControlBloc extends BaseStreamController<String>
 
   @override
   void getValue(String? value) {
-    print(value);
     if (value != null) {
       state = value;
     }
@@ -43,5 +42,4 @@ class FormControlBloc extends BaseStreamController<String>
   void clear() {
     state = '';
   }
-
 }

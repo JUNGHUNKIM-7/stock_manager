@@ -1,42 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const outerSpace = 15.0;
-const innerSpace = 10.0;
+const outerSpacing = 15.0;
+const innerSpacing = 10.0;
 
 class Styles {
   bool darkMode;
 
   Styles({required this.darkMode});
 
-  static const lightColor = Color(0xffA3A3A3);
+  static const lightColor = Color(0xffD4D4D4);
   static const darkColor = Color(0xff404040);
 
   static final lightShadow = [
     BoxShadow(
-      color: Colors.white.withOpacity(0.5),
-      blurRadius: 10,
-      spreadRadius: 1,
+      color: Colors.grey.withOpacity(0.3),
+      blurRadius: 1,
       offset: const Offset(-2, -2),
     ),
     BoxShadow(
       color: Colors.black.withOpacity(0.5),
-      blurRadius: 5,
-      offset: const Offset(3, 3),
+      blurRadius: 1,
+      offset: const Offset(2, 2),
     ),
   ];
 
   static final innerShadow = [
     BoxShadow(
-      color: Colors.black.withOpacity(0.7),
+      color: Colors.black.withOpacity(0.5),
       blurRadius: 1,
       offset: const Offset(-2, -2),
     ),
     BoxShadow(
-      color: Colors.white.withOpacity(0.5),
+      color: Colors.grey.withOpacity(0.3),
       blurRadius: 1,
-      // spreadRadius: 1,
-      offset: const Offset(1, 1),
+      offset: const Offset(2, 2),
     ),
   ];
 
@@ -118,9 +116,10 @@ class Styles {
       scaffoldBackgroundColor: darkMode ? darkColor : lightColor,
       inputDecorationTheme: darkMode
           ? const InputDecorationTheme(
-              iconColor: Colors.orange, suffixIconColor: Colors.orange)
+              iconColor: Colors.redAccent, suffixIconColor: Colors.redAccent)
           : const InputDecorationTheme(
-              iconColor: Colors.redAccent, suffixIconColor: Colors.redAccent),
+              iconColor: Colors.orangeAccent,
+              suffixIconColor: Colors.orangeAccent),
       bottomNavigationBarTheme: returnBottomTheme(),
       textTheme: TextTheme(
         headline1: highlight.copyWith(

@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:router_go/screen/bottom_nav_components/bottom_nav_home.dart';
 import 'package:router_go/screen/inventory_components/inventory_form_group.dart';
 import 'package:router_go/screen/inventory_components/qr_page.dart';
-
 import 'database/model/inventory_model.dart';
 
 class PageRouter {

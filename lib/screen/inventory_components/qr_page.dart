@@ -24,9 +24,7 @@ class QrPage extends StatelessWidget {
               size: 250,
             ),
           ),
-          const SizedBox(
-            height: 80,
-          ),
+          const SizedBox(height: outerSpacing),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -47,32 +45,15 @@ class QrPage extends StatelessWidget {
             ],
           ),
           const SizedBox(
-            height: outerSpace * 2,
+            height: outerSpacing * 2,
           ),
           Center(
             child: Text(inventory.createAt.toString().split(' ')[0],
                 style: Theme.of(context).textTheme.headline2),
           ),
           const SizedBox(
-            height: outerSpace * 2,
+            height: outerSpacing * 2,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  //
-                },
-                child: Text('Edit'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  //
-                },
-                child: Text('Edit'),
-              ),
-            ],
-          )
         ],
       ),
     );

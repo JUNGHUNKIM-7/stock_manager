@@ -22,7 +22,7 @@ class FirstPage extends StatelessWidget {
             height: height * 0.04,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: outerSpace),
+            padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
             child: DarkModeContainer(
               theme: theme,
               height: height * 0.00012,
@@ -33,10 +33,10 @@ class FirstPage extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: outerSpace,
+            height: outerSpacing,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: outerSpace),
+            padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
             child: DarkModeContainer(
               theme: theme,
               height: height * 0.0001,
@@ -44,11 +44,11 @@ class FirstPage extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: outerSpace,
+            height: outerSpacing,
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: outerSpace),
+              padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
               child: DarkModeContainer(
                 theme: theme,
                 height: 0,
@@ -57,7 +57,7 @@ class FirstPage extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: outerSpace,
+            height: outerSpacing,
           )
         ],
       ),

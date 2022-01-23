@@ -1,8 +1,9 @@
-import 'package:router_go/database/model/history_model.dart';
-import 'package:router_go/database/model/inventory_model.dart';
-import 'package:router_go/database/repository/gsheet_handler.dart';
 import 'package:rxdart/rxdart.dart';
 import 'dart:async';
+
+import '../../database/model/history_model.dart';
+import '../../database/model/inventory_model.dart';
+import '../../database/repository/gsheet_handler.dart';
 import '../../bloc/atom_blocs/form_control.dart';
 import '../../bloc/atom_blocs/form_control_memo.dart';
 import '../../bloc/atom_blocs/in_out_status.dart';
@@ -25,16 +26,17 @@ class _Blocs {
   late List<History> historyData;
   late List<Inventory> inventoryData;
 
-  final themeBloc = ThemeBloc(state: false);
-  final pageBloc = PageBloc(state: 0);
-
   final chipBloc = ChipBloc(state: 0);
-  late final historyBloc =
-      HistoryBloc(state: historyData, handler: GSheetHandler());
+  late final historyBloc = HistoryBloc(
+    state: historyData,
+    handler: GSheetHandler(),
+  );
   final historySearchBloc = HistorySearchBloc(state: '');
 
-  late final inventoryBloc =
-      InventoryBloc(state: inventoryData, handler: GSheetHandler());
+  late final inventoryBloc = InventoryBloc(
+    state: inventoryData,
+    handler: GSheetHandler(),
+  );
   final inventorySearchBloc = InventorySearchBloc(state: '');
   final inStatus = FilterButtonStatusBloc(state: true);
   final outStatus = FilterButtonStatusBloc(state: true);
@@ -42,6 +44,13 @@ class _Blocs {
   final titleField = FormControlBloc(state: '');
   final memoField = MemoFieldBloc(state: '');
   final qtyField = FormControlBloc(state: '');
+
+  final themeBloc = ThemeBloc(state: false);
+  late final pageBloc = PageBloc(
+    state: 0,
+    historySearch: historySearchBloc,
+    inventorySearch: inventorySearchBloc,
+  );
 }
 
 class BlocsCombiner extends _Blocs
@@ -84,13 +93,16 @@ class BlocsCombiner extends _Blocs
       CombineLatestStream.combine3(
           chipBloc.stream, historyBloc.stream, historySearchBloc.stream,
           (int chipIdx, List<History> historyData, String searchParams) {
-        final filteredByMonth = historyData.where((element) =>
-            element.date!.substring(4, 6).contains((chipIdx + 1).toString()));
+        final filteredByMonth = historyData.where(
+          (element) =>
+              element.date!.split(' ')[0].split('-')[1].contains((chipIdx + 1).toString()),
+        );
 
         if (searchParams.isNotEmpty) {
           return filteredByMonth
-              .where((element) =>
-                  element.title.toLowerCase().contains(searchParams))
+              .where(
+                (element) => element.title.toLowerCase().contains(searchParams),
+              )
               .toList();
         }
         return filteredByMonth.toList();
@@ -117,13 +129,14 @@ class BlocsCombiner extends _Blocs
       }).transform(historyNotEmpty);
 
   @override
-  Stream<List<Inventory>>
-      get filterInventoryStream => CombineLatestStream.combine2(
+  Stream<List<Inventory>> get filterInventoryStream =>
+      CombineLatestStream.combine2(
           inventoryBloc.stream,
           inventorySearchBloc.stream,
           (List<Inventory> inventoryData, String searchParams) => inventoryData
-              .where((element) =>
-                  element.title.toLowerCase().contains(searchParams))
+              .where(
+                (element) => element.title.toLowerCase().contains(searchParams),
+              )
               .toList()).transform(inventoryNotEmpty);
 
   @override
@@ -179,7 +192,7 @@ mixin BlocsCombinerMixins {
       if (data.isNotEmpty) {
         sink.add(data);
       } else {
-        sink.addError('ITEM ISN\'T EXIST');
+        sink.addError('NO INVENTORY DATA');
       }
     },
   );

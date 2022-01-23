@@ -4,6 +4,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:router_go/bloc/constant/blocs_combiner.dart';
 import 'package:router_go/bloc/constant/provider.dart';
 import 'package:router_go/database/model/inventory_model.dart';
+import 'package:router_go/screen/global_components/healine_btns.dart';
 import 'package:router_go/screen/home_components/history_view.dart';
 
 import '../../styles.dart';
@@ -75,7 +76,7 @@ class InventoryList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       padding: const EdgeInsets.symmetric(
-          vertical: innerSpace, horizontal: innerSpace),
+          vertical: innerSpacing, horizontal: innerSpacing),
       itemCount: snapshot.data!.length,
       itemBuilder: (context, idx) {
         return DarkModeContainer(
@@ -88,7 +89,7 @@ class InventoryList extends StatelessWidget {
       },
       separatorBuilder: (BuildContext context, int index) {
         return const SizedBox(
-          height: innerSpace,
+          height: innerSpacing,
         );
       },
     );

@@ -22,7 +22,7 @@ class FormBtns extends StatelessWidget {
       stream: combiner.formStreams,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
         return ElevatedButton(
-          onPressed: (snapshot.hasData)
+          onPressed: (snapshot.hasData && snapshot.data!.isNotEmpty)
               ? () async {
                   try {
                     await handler
@@ -30,9 +30,9 @@ class FormBtns extends StatelessWidget {
                           inventory: Inventory.toMap(
                             Inventory(
                               id: uuid.v4(),
-                              title: snapshot.data!['title'] ?? '',
-                              memo: snapshot.data!['memo'] ?? '',
-                              qty: snapshot.data!['qty'] ?? '0',
+                              title: snapshot.data?['title'] ?? '',
+                              memo: snapshot.data?['memo'] ?? '',
+                              qty: snapshot.data?['qty'] ?? '0',
                             ),
                           ),
                           type: SheetType.inventory,

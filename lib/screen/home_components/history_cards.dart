@@ -17,26 +17,28 @@ class CardListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       padding: const EdgeInsets.symmetric(
-        horizontal: innerSpace,
+        horizontal: innerSpacing,
       ),
       itemCount: snapshot.data!.length,
       itemBuilder: (context, idx) {
         final card = snapshot.data?[idx];
 
         return Padding(
-          padding: const EdgeInsets.only(top: innerSpace),
+          padding: const EdgeInsets.only(top: innerSpacing),
           child: EachCard(
-              theme: theme,
-              out: card.out,
-              title: card.title,
-              qty: card.qty,
-              date: card.date,
-              time: card.time),
+            theme: theme,
+            out: card.out,
+            title: card.title,
+            qty: card.qty,
+            date: card.date,
+            remained: card.remained,
+            // time: card.time,
+          ),
         );
       },
       separatorBuilder: (BuildContext context, int index) {
         return const SizedBox(
-          height: innerSpace / 4,
+          height: innerSpacing / 4,
         );
       },
     );
@@ -44,22 +46,22 @@ class CardListView extends StatelessWidget {
 }
 
 class EachCard extends StatelessWidget {
-  const EachCard(
-      {Key? key,
-      required this.out,
-      required this.title,
-      this.date,
-      required this.theme,
-      required this.qty,
-      required this.time})
-      : super(key: key);
+  const EachCard({
+    Key? key,
+    required this.out,
+    required this.title,
+    this.date,
+    required this.theme,
+    required this.qty,
+    required this.remained,
+  }) : super(key: key);
 
   final String out;
   final String title;
   final int qty;
+  final int remained;
   final ThemeBloc theme;
   final String? date;
-  final String? time;
 
   @override
   Widget build(BuildContext context) {
@@ -73,26 +75,34 @@ class EachCard extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(
-              horizontal: innerSpace, vertical: innerSpace),
+            horizontal: innerSpacing,
+            vertical: innerSpacing,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
                 children: [
-                  Text(date!),
-                  Text(time!),
+                  Text(date!.split(' ')[0]),
+                  Text(date!.split(' ')[1]),
                 ],
               ),
               const SizedBox(
-                width: 14,
+                width: innerSpacing * 2,
               ),
               Expanded(
-                child: Text(title),
+                child: title.length > 18
+                    ? Text('${title.substring(0, 18)}...')
+                    : Text(title),
+              ),
+              Text(remained.toString()),
+              const SizedBox(
+                width: innerSpacing,
               ),
               Text(qty.toString()),
               const SizedBox(
-                width: 14,
+                width: innerSpacing,
               ),
               if (out.toLowerCase() == 'y')
                 const Icon(

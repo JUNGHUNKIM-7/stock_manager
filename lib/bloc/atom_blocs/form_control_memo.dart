@@ -21,7 +21,6 @@ class MemoFieldBloc extends BaseStreamController<String?>
 
   @override
   void getValue(String? value) {
-    print(value);
     if (value != null) {
       state = value;
     }

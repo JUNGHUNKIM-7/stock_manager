@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
 import '../../styles.dart';
-
-//화면이동시, 검색어에 따라 bloc 상태가 남아있음.
-//화면전환시에 bloc 초기화
 
 class SearchField extends StatefulWidget {
   const SearchField({Key? key, required this.type, required this.hintText})
@@ -19,20 +15,11 @@ class SearchField extends StatefulWidget {
 }
 
 class _SearchFieldState extends State<SearchField> {
-  late final TextEditingController _controller;
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
-    _controller.addListener(() {
-      final bloc = getSearchBloc(context, widget.type);
-      if (_controller.text.isNotEmpty) {
-        bloc.onChanged(_controller.text.trim().toLowerCase());
-      } else {
-        bloc.onChanged('');
-      }
-    });
   }
 
   @override
@@ -44,8 +31,11 @@ class _SearchFieldState extends State<SearchField> {
         builder: (context, AsyncSnapshot<String> snapshot) {
           if (snapshot.hasData) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: innerSpace * 2),
+              padding: const EdgeInsets.symmetric(horizontal: innerSpacing * 2),
               child: TextField(
+                onChanged: (String val) {
+                  bloc.onChanged(val);
+                },
                 textInputAction: TextInputAction.done,
                 controller: _controller,
                 style: Theme.of(context).textTheme.bodyText1,
@@ -58,17 +48,19 @@ class _SearchFieldState extends State<SearchField> {
                         ?.copyWith(fontSize: 16),
                     hintText: '"Your Item Name?"',
                     hintStyle: const TextStyle(fontSize: 14.0),
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.clear),
-                      iconSize: 26,
-                      splashColor: Colors.red,
-                      onPressed: _controller.text.isNotEmpty
-                          ? () {
-                              _controller.clear();
-                              bloc.onChanged('');
-                            }
-                          : null,
-                    ),
+                    suffixIcon: snapshot.data!.isNotEmpty
+                        ? IconButton(
+                            icon: const Icon(Icons.clear),
+                            iconSize: 26,
+                            splashColor: Colors.red,
+                            onPressed: _controller.text.isNotEmpty
+                                ? () {
+                                    _controller.clear();
+                                    bloc.onChanged('');
+                                  }
+                                : null,
+                          )
+                        : null,
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none),
               ),
@@ -89,14 +81,9 @@ class _SearchFieldState extends State<SearchField> {
     }
   }
 
-  // @override
-  // void deactivate() {
-  //   _controller.clear();
-  //   super.deactivate();
-  // }
-
   @override
   void dispose() {
+    _controller.clear();
     _controller.dispose();
     super.dispose();
   }
