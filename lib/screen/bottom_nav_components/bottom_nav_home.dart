@@ -9,14 +9,13 @@ import '../global_components/appbar_icons.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
 
-//todo drawer설치
 class TabNavHome extends StatelessWidget {
   const TabNavHome({Key? key}) : super(key: key);
 
   static final pages = [
     const FirstPage(),
     const SecondPage(),
-    const ThirdPage(),
+    const QrCamera(),
     const FourthPage(),
   ];
 
@@ -26,19 +25,19 @@ class TabNavHome extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        drawer: Drawer(
-          child: Column(
-            children: const [
-              Text('test'),
-              Text('test'),
-              Text('test'),
-              Text('test'),
-              Text('test'),
-              Text('test'),
-              Text('test'),
-            ],
-          ),
-        ),
+        // drawer: Drawer(
+        //   child: Column(
+        //     children: const [
+        //       Text('test'),
+        //       Text('test'),
+        //       Text('test'),
+        //       Text('test'),
+        //       Text('test'),
+        //       Text('test'),
+        //       Text('test'),
+        //     ],
+        //   ),
+        // ),
         appBar: showAppBar(context),
         bottomNavigationBar: const BottomNavBar(),
         body: StreamBuilder(

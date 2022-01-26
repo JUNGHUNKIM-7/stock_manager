@@ -1,4 +1,5 @@
-import '../../bloc/constant/base_controller.dart';
+
+import 'package:router_go/bloc/constant/base_controller.dart';
 
 abstract class ChipInterface {
   void setIdx(int selectedVal);

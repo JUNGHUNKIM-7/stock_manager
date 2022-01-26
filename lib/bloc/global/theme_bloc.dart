@@ -1,4 +1,4 @@
-import '../constant/base_controller.dart';
+import 'package:router_go/bloc/constant/base_controller.dart';
 
 abstract class ThemeBlocInterface {
   void darkMode();

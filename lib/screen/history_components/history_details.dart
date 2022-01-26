@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class SearchResultPage extends StatelessWidget {
-  const SearchResultPage({Key? key, required this.text}) : super(key: key);
+class HistoryDetails extends StatelessWidget {
+  const HistoryDetails({Key? key, required this.text}) : super(key: key);
 
   final String text;
 
@@ -15,10 +15,11 @@ class SearchResultPage extends StatelessWidget {
           children: [
             Text(text),
             ElevatedButton(
-                onPressed: () {
-                  context.goNamed('home');
-                },
-                child: const Text('home'))
+              onPressed: () {
+                context.goNamed('home');
+              },
+              child: const Text('home'),
+            )
           ],
         ),
       ),

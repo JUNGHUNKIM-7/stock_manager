@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:router_go/bloc/global/theme_bloc.dart';
 import 'package:router_go/database/model/history_model.dart';
-import 'package:router_go/screen/global_components/healine_btns.dart';
-import 'package:router_go/screen/global_components/lined_btn_set.dart';
+import 'package:router_go/screen/global_components/filter_section.dart';
 
-import '../../bloc/atom_blocs/theme_bloc.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
-import '../../styles.dart';
 import 'history_cards.dart';
 
 class HistoryView extends StatelessWidget {
@@ -28,7 +25,8 @@ class HistoryView extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HeadlineSectionWithBtns(
+
+              const FilterSectionWithBtns(
                 title: '0 Histories',
                 btnType: 'history',
               ),
@@ -39,7 +37,7 @@ class HistoryView extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              HeadlineSectionWithBtns(
+              FilterSectionWithBtns(
                 title: '${snapshot.data!.length} Histories',
                 btnType: 'history',
               ),
@@ -64,4 +62,3 @@ class HistoryView extends StatelessWidget {
     );
   }
 }
-

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:router_go/bloc/atom_blocs/theme_bloc.dart';
+import 'package:router_go/bloc/global/theme_bloc.dart';
 
 import '../../styles.dart';
 
@@ -32,7 +32,6 @@ class CardListView extends StatelessWidget {
             qty: card.qty,
             date: card.date,
             remained: card.remained,
-            // time: card.time,
           ),
         );
       },
@@ -83,9 +82,10 @@ class EachCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(date!.split(' ')[0]),
-                  Text(date!.split(' ')[1]),
+                  Text(date!.split(' ')[1].substring(0, 8)),
                 ],
               ),
               const SizedBox(

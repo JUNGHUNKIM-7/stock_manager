@@ -28,7 +28,6 @@ class SecondPage extends StatelessWidget {
               child: const SearchField(
                 type: 'inventory',
                 hintText: 'Inventory Field',
-                // theme: theme,
               ),
             ),
           ),

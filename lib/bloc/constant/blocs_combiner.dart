@@ -3,57 +3,9 @@ import 'dart:async';
 
 import '../../database/model/history_model.dart';
 import '../../database/model/inventory_model.dart';
-import '../../database/repository/gsheet_handler.dart';
-import '../../bloc/atom_blocs/form_control.dart';
-import '../../bloc/atom_blocs/form_control_memo.dart';
-import '../../bloc/atom_blocs/in_out_status.dart';
-import '../../bloc/atom_blocs/inventory_bloc.dart';
-import '../../bloc/atom_blocs/inventory_search_bloc.dart';
-import '../../bloc/atom_blocs/filter_chip_bloc.dart';
-import '../../bloc/atom_blocs/history_bloc.dart';
-import '../../bloc/atom_blocs/page_bloc.dart';
-import '../../bloc/atom_blocs/history_search_bloc.dart';
-import '../../bloc/atom_blocs/theme_bloc.dart';
+import 'bloc_container.dart';
 
-class _Blocs {
-  _Blocs._();
-
-  _Blocs.initializer({required this.historyData, required this.inventoryData}) {
-    historyData = historyData;
-    inventoryData = inventoryData;
-  }
-
-  late List<History> historyData;
-  late List<Inventory> inventoryData;
-
-  final chipBloc = ChipBloc(state: 0);
-  late final historyBloc = HistoryBloc(
-    state: historyData,
-    handler: GSheetHandler(),
-  );
-  final historySearchBloc = HistorySearchBloc(state: '');
-
-  late final inventoryBloc = InventoryBloc(
-    state: inventoryData,
-    handler: GSheetHandler(),
-  );
-  final inventorySearchBloc = InventorySearchBloc(state: '');
-  final inStatus = FilterButtonStatusBloc(state: true);
-  final outStatus = FilterButtonStatusBloc(state: true);
-
-  final titleField = FormControlBloc(state: '');
-  final memoField = MemoFieldBloc(state: '');
-  final qtyField = FormControlBloc(state: '');
-
-  final themeBloc = ThemeBloc(state: false);
-  late final pageBloc = PageBloc(
-    state: 0,
-    historySearch: historySearchBloc,
-    inventorySearch: inventorySearchBloc,
-  );
-}
-
-class BlocsCombiner extends _Blocs
+class BlocsCombiner extends Blocs
     with BlocsCombinerMixins
     implements BlocsCombinerInterface {
   BlocsCombiner({this.fetchedData})
@@ -90,12 +42,17 @@ class BlocsCombiner extends _Blocs
 
   @override
   Stream<List<History>> get filteredHistoryStream =>
-      CombineLatestStream.combine3(
-          chipBloc.stream, historyBloc.stream, historySearchBloc.stream,
-          (int chipIdx, List<History> historyData, String searchParams) {
-        final filteredByMonth = historyData.where(
-          (element) =>
-              element.date!.split(' ')[0].split('-')[1].contains((chipIdx + 1).toString()),
+      CombineLatestStream.combine4(yearSelection.yearStream, chipBloc.stream,
+          historyBloc.stream, historySearchBloc.stream, (int year, int chipIdx,
+              List<History> historyData, String searchParams) {
+        final filterByYear = historyData.where(
+            (element) => element.date!.substring(0, 4) == year.toString());
+
+        final filteredByMonth = filterByYear.where(
+          (element) => element.date!
+              .split(' ')[0]
+              .split('-')[1]
+              .contains((chipIdx + 1).toString()),
         );
 
         if (searchParams.isNotEmpty) {

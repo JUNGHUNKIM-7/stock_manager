@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:router_go/bloc/constant/blocs_combiner.dart';
-import 'package:router_go/database/model/inventory_model.dart';
-import 'package:router_go/database/repository/gsheet_handler.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../bloc/constant/blocs_combiner.dart';
+import '../../database/model/inventory_model.dart';
+import '../../database/repository/gsheet_handler.dart';
 
 class FormBtns extends StatelessWidget {
   const FormBtns({
@@ -62,7 +63,7 @@ class FormBtns extends StatelessWidget {
                   }
                 }
               : null,
-          child: const Text('ADD TO INVENTORY'),
+          child: const Text('Save to Excel'),
         );
       },
     );

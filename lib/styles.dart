@@ -9,30 +9,32 @@ class Styles {
 
   Styles({required this.darkMode});
 
-  static const lightColor = Color(0xffD4D4D4);
+  static const lightColor = Color(0xffA3A3A3);
   static const darkColor = Color(0xff404040);
 
   static final lightShadow = [
     BoxShadow(
-      color: Colors.grey.withOpacity(0.3),
-      blurRadius: 1,
+      color: Colors.white.withOpacity(0.2),
+      blurRadius: 3,
+      spreadRadius: 1,
       offset: const Offset(-2, -2),
     ),
     BoxShadow(
       color: Colors.black.withOpacity(0.5),
-      blurRadius: 1,
-      offset: const Offset(2, 2),
+      blurRadius: 3,
+      offset: const Offset(1.5, 1.5),
     ),
   ];
 
   static final innerShadow = [
     BoxShadow(
       color: Colors.black.withOpacity(0.5),
+      blurStyle: BlurStyle.solid,
       blurRadius: 1,
-      offset: const Offset(-2, -2),
+      offset: const Offset(-1.5, -1.5),
     ),
     BoxShadow(
-      color: Colors.grey.withOpacity(0.3),
+      color: Colors.white.withOpacity(0.2),
       blurRadius: 1,
       offset: const Offset(2, 2),
     ),

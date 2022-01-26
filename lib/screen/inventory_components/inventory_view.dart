@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:router_go/bloc/constant/blocs_combiner.dart';
-import 'package:router_go/bloc/constant/provider.dart';
-import 'package:router_go/database/model/inventory_model.dart';
-import 'package:router_go/screen/global_components/healine_btns.dart';
-import 'package:router_go/screen/home_components/history_view.dart';
+import 'package:router_go/bloc/global/theme_bloc.dart';
 
+import '../../bloc/constant/blocs_combiner.dart';
+import '../../bloc/constant/provider.dart';
+import '../../database/model/inventory_model.dart';
+import '../../screen/global_components/filter_section.dart';
 import '../../styles.dart';
-import '../../bloc/atom_blocs/theme_bloc.dart';
 import '../global_components/dark_mode_container.dart';
 
 class InventoryView extends StatelessWidget {
@@ -30,7 +29,7 @@ class InventoryView extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HeadlineSectionWithBtns(
+              const FilterSectionWithBtns(
                 title: '0 Items',
                 btnType: 'inventory',
               ),
@@ -47,7 +46,7 @@ class InventoryView extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              HeadlineSectionWithBtns(
+              FilterSectionWithBtns(
                 title: '${snapshot.data!.length} items',
                 btnType: 'inventory',
               ),
@@ -112,7 +111,6 @@ class DismissibleWrapper extends StatelessWidget {
       onDismissed: (direction) {
         if (direction == DismissDirection.endToStart) {
           //delete data to gsheet and screen
-          print('hello world');
         }
       },
       confirmDismiss: (direction) {
@@ -158,6 +156,8 @@ class Tiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final inventory = data[idx];
+    final inventoryHistory =
+        BlocProvider.of<BlocsCombiner>(context).inventoryView;
 
     return ListTile(
       trailing: Text(inventory.qty.toString()),
@@ -166,7 +166,10 @@ class Tiles extends StatelessWidget {
         version: QrVersions.auto,
         size: 60,
       ),
-      onTap: () => context.goNamed('check_qr', extra: inventory),
+      onTap: () {
+        inventoryHistory.push(inventory);
+        context.goNamed('check_qr', extra: inventory);
+      },
       title: Text(
         inventory.title,
         style: Theme.of(context).textTheme.bodyText1,

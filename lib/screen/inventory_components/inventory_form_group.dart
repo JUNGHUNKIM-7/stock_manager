@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:router_go/bloc/constant/provider.dart';
-import 'package:router_go/bloc/constant/blocs_combiner.dart';
-import 'package:router_go/database/repository/gsheet_handler.dart';
-import 'package:router_go/screen/global_components/appbar_icons.dart';
-import 'package:router_go/styles.dart';
 import 'package:uuid/uuid.dart';
 import 'inventory_form_btn.dart';
 import 'inventory_form_field.dart';
 
+import '../../bloc/constant/provider.dart';
+import '../../bloc/constant/blocs_combiner.dart';
+import '../../database/repository/gsheet_handler.dart';
+import '../../screen/global_components/appbar_icons.dart';
+import '../../styles.dart';
+
 class InventoryForm extends StatefulWidget {
   const InventoryForm({Key? key}) : super(key: key);
-
 
   @override
   State<InventoryForm> createState() => _InventoryFormState();
@@ -43,7 +43,7 @@ class _InventoryFormState extends State<InventoryForm> {
             ),
             Center(
               child: Text(
-                'Add Item to Inventory',
+                'Add Item Form'.toUpperCase(),
                 style: Theme.of(context).textTheme.headline2,
               ),
             ),
@@ -58,9 +58,12 @@ class _InventoryFormState extends State<InventoryForm> {
               child: FormGroup(formKey: _formKey),
             ),
             const SizedBox(
-              height: outerSpacing,
+              height: outerSpacing * 3,
             ),
-            FormBtns(combiner: combiner, uuid: _uuid, handler: _handler),
+            Center(
+              child:
+                  FormBtns(combiner: combiner, uuid: _uuid, handler: _handler),
+            ),
           ],
         ),
       ),

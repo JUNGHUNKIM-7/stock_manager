@@ -1,5 +1,6 @@
-import '../../bloc/constant/base_controller.dart';
 import 'dart:async';
+
+import 'package:router_go/bloc/constant/base_controller.dart';
 
 abstract class HistorySearchBlocInterface {
   void onChanged(String val);

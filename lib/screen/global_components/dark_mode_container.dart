@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:router_go/bloc/global/theme_bloc.dart';
 
 import '../../styles.dart';
-import '../../bloc/atom_blocs/theme_bloc.dart';
 
 class DarkModeContainer extends StatelessWidget {
   const DarkModeContainer(

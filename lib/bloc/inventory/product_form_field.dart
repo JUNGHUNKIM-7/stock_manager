@@ -1,13 +1,13 @@
 import 'package:router_go/bloc/constant/base_controller.dart';
 import 'dart:async';
 
-abstract class FormControlBlocInterface {
+abstract class ProductFieldInterface {
   void getValue(String? value);
 
   void clear();
 }
 
-mixin FormControlMixin<T extends String> {
+mixin ProductFieldMixin<T extends String> {
   final validText = StreamTransformer<String, String>.fromHandlers(
       handleData: (String value, EventSink<String> sink) {
         if (value.isEmpty) {
@@ -18,10 +18,10 @@ mixin FormControlMixin<T extends String> {
       });
 }
 
-class FormControlBloc extends BaseStreamController<String>
-    with FormControlMixin
-    implements BaseInterface<String>, FormControlBlocInterface {
-  FormControlBloc({required state}) : super(state: state);
+class ProductField extends BaseStreamController<String>
+    with ProductFieldMixin
+    implements BaseInterface<String>, ProductFieldInterface {
+  ProductField({required state}) : super(state: state);
 
   @override
   void dispose() {

@@ -34,8 +34,8 @@ class BottomNavBar extends StatelessWidget {
               label: 'QR Camera',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.category),
-              label: 'Inventory',
+              icon: Icon(Icons.bar_chart),
+              label: 'Statistics',
             ),
           ],
         );

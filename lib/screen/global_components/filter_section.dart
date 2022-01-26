@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:router_go/bloc/constant/blocs_combiner.dart';
-import 'package:router_go/bloc/constant/provider.dart';
 
+import '../../bloc/constant/blocs_combiner.dart';
+import '../../bloc/constant/provider.dart';
 import '../../styles.dart';
-import 'lined_btn_set.dart';
+import 'filter_btns.dart';
 
-class HeadlineSectionWithBtns extends StatelessWidget {
-  const HeadlineSectionWithBtns({
+class FilterSectionWithBtns extends StatelessWidget {
+  const FilterSectionWithBtns({
     Key? key,
     required this.title,
     required this.btnType,
@@ -29,7 +29,7 @@ class HeadlineSectionWithBtns extends StatelessWidget {
           Text(
             title,
             style:
-                Theme.of(context).textTheme.headline2?.copyWith(fontSize: 24),
+                Theme.of(context).textTheme.headline2?.copyWith(fontSize: 20),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -54,7 +54,20 @@ class HeadlineSectionWithBtns extends StatelessWidget {
               builder: (context, AsyncSnapshot<bool> snapshot) {
                 return Row(
                   children: [
-                    LinedBtn(
+                    // todo additional btns
+                    // if (idx == 0)
+                    //   StreamBuilder(
+                    //     stream: theme.stream,
+                    //     builder: (context, AsyncSnapshot<bool> snapshot) {
+                    //       return YearSelectionSlider(
+                    //           yearSelection: yearSelection, theme: snapshot);
+                    //     },
+                    //   ),
+                    // if (idx == 0)
+                    //   const SizedBox(
+                    //     width: 8,
+                    //   ),
+                    FilterBtnSet(
                       text: historyBtnText[idx],
                       onPressed: () {
                         if (idx == 0) {
@@ -74,14 +87,17 @@ class HeadlineSectionWithBtns extends StatelessWidget {
               });
         });
       case 'inventory':
-        return List.generate(1, (int idx) {
-          return LinedBtn(
-            text: inventoryBtnText[idx],
-            onPressed: () {
-              context.goNamed('addItem');
-            },
-          );
-        });
+        return List.generate(
+          1,
+          (int idx) {
+            return FilterBtnSet(
+              text: inventoryBtnText[idx],
+              onPressed: () {
+                context.goNamed('addItem');
+              },
+            );
+          },
+        );
       default:
         throw Exception('Not Implemented : Filter Btns');
     }

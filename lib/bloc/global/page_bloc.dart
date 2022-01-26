@@ -1,7 +1,8 @@
-import 'package:router_go/bloc/atom_blocs/history_search_bloc.dart';
-import 'package:router_go/bloc/atom_blocs/inventory_search_bloc.dart';
 
-import '../../bloc/constant/base_controller.dart';
+
+import 'package:router_go/bloc/constant/base_controller.dart';
+import 'package:router_go/bloc/history/history_search_bloc.dart';
+import 'package:router_go/bloc/inventory/inventory_search_bloc.dart';
 
 abstract class PageBlocInterface {
   void switchPage(int onTapVal);

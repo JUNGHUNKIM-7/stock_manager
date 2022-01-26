@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../screen/home_components/chips.dart';
-import '../../screen/home_components/history_view.dart';
+import 'package:router_go/screen/global_components/years_picker.dart';
+import '../../screen/history_components/history_chips.dart';
+import '../../screen/history_components/history_view.dart';
 import '../../screen/global_components/dark_mode_container.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
@@ -23,13 +24,27 @@ class FirstPage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
-            child: DarkModeContainer(
-              theme: theme,
-              height: height * 0.00012,
-              child: const SearchField(
-                type: 'history',
-                hintText: 'Get History By Your Item!',
-              ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: DarkModeContainer(
+                    theme: theme,
+                    height: height * 0.00012,
+                    child: const SearchField(
+                      type: 'history',
+                      hintText: 'Get History By Your Item!',
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 12,
+                ),
+                DarkModeContainer(
+                  theme: theme,
+                  height: height * 0.00012,
+                  child: Years(theme: theme),
+                )
+              ],
             ),
           ),
           const SizedBox(

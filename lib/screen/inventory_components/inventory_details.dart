@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:router_go/database/model/inventory_model.dart';
-import 'package:router_go/screen/global_components/appbar_icons.dart';
-import 'package:router_go/styles.dart';
+import 'package:router_go/bloc/constant/blocs_combiner.dart';
+import 'package:router_go/bloc/constant/provider.dart';
 
-class QrPage extends StatelessWidget {
-  const QrPage({Key? key, required this.inventory}) : super(key: key);
+import '../../database/model/inventory_model.dart';
+import '../../screen/global_components/appbar_icons.dart';
+import '../../styles.dart';
+
+class InventoryDetails extends StatelessWidget {
+  const InventoryDetails({Key? key, required this.inventory}) : super(key: key);
 
   final Inventory inventory;
 
   @override
   Widget build(BuildContext context) {
+    final combiner = BlocProvider.of<BlocsCombiner>(context);
     return Scaffold(
-      appBar: showAppBarWithBackBtn(context),
+      appBar: showAppBarWithBackBtn(context, combiner: combiner),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,5 +63,3 @@ class QrPage extends StatelessWidget {
     );
   }
 }
-//todo edit qty
-//todo update to history

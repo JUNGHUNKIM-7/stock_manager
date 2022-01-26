@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:router_go/screen/bottom_nav_components/bottom_nav_home.dart';
 import 'package:router_go/screen/inventory_components/inventory_form_group.dart';
-import 'package:router_go/screen/inventory_components/qr_page.dart';
+import 'package:router_go/screen/inventory_components/inventory_details.dart';
 import 'database/model/inventory_model.dart';
 
 class PageRouter {
@@ -18,7 +18,7 @@ class PageRouter {
           name: 'check_qr',
           path: '/check_qr',
           builder: (context, state) {
-            return QrPage(inventory: state.extra! as Inventory);
+            return InventoryDetails(inventory: state.extra! as Inventory);
           }),
       GoRoute(
         name: 'addItem',

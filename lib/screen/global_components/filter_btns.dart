@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:router_go/bloc/constant/blocs_combiner.dart';
-import 'package:router_go/bloc/constant/provider.dart';
+import '../../bloc/constant/blocs_combiner.dart';
+import '../../bloc/constant/provider.dart';
 
-class LinedBtn extends StatelessWidget {
-  const LinedBtn({
+class FilterBtnSet extends StatelessWidget {
+  const FilterBtnSet({
     Key? key,
     required this.text,
     this.onPressed,

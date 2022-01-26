@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:router_go/bloc/atom_blocs/filter_chip_bloc.dart';
+import 'package:router_go/bloc/history/chip_bloc.dart';
 import 'package:router_go/styles.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
