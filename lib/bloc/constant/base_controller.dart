@@ -1,6 +1,5 @@
 import 'package:rxdart/rxdart.dart';
 
-//todo private 상태로 전환하기 => private constructor ...
 class BaseStreamController<T> {
   T _state;
   late final BehaviorSubject<T> _subject;

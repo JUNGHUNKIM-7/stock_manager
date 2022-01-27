@@ -26,11 +26,16 @@ class Years extends StatelessWidget {
                   color: themeSnapShot.data == true
                       ? Styles.darkColor
                       : Styles.lightColor,
-                  icon: const Icon(
-                    Icons.date_range,
-                    color: Colors.black,
-                  ),
-                  iconSize: 30,
+                  icon: themeSnapShot.data == true
+                      ? const Icon(
+                          Icons.arrow_drop_down_rounded,
+                          color: Styles.lightColor,
+                        )
+                      : const Icon(
+                          Icons.arrow_drop_down_rounded,
+                          color: Styles.darkColor,
+                        ),
+                  iconSize: 40,
                   itemBuilder: (BuildContext context) =>
                       List.generate(yearSnapShot.data! ~/ 200, (index) {
                     return PopupMenuItem(

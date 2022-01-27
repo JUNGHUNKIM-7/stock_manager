@@ -16,7 +16,7 @@ class BottomNavBar extends StatelessWidget {
         return BottomNavigationBar(
           showUnselectedLabels: false,
           iconSize: 20.0,
-          elevation: 0.0,
+          elevation: 5.0,
           onTap: pageIdx.switchPage,
           type: BottomNavigationBarType.fixed,
           currentIndex: pageIdx.state,
@@ -30,12 +30,12 @@ class BottomNavBar extends StatelessWidget {
               label: 'Inventory',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.linked_camera),
-              label: 'QR Camera',
+              icon: Icon(Icons.bookmarks_outlined),
+              label: 'Bookmarks',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.bar_chart),
-              label: 'Statistics',
+              icon: Icon(Icons.settings),
+              label: 'Settings',
             ),
           ],
         );

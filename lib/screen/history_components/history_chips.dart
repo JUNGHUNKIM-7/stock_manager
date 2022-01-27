@@ -84,12 +84,20 @@ class ChipOfList extends StatelessWidget {
           stream: theme.stream,
           builder: (context, AsyncSnapshot<bool> snapshot) {
             return FilterChip(
-              selectedColor: snapshot.data == true ? Styles.darkColor : Styles.lightColor,
-              checkmarkColor: snapshot.data == true ? Styles.lightColor : Styles.darkColor,
+              selectedColor:
+                  snapshot.data == true ? Styles.darkColor : Styles.lightColor,
+              checkmarkColor:
+                  snapshot.data == true ? Styles.lightColor : Styles.darkColor,
               showCheckmark: true,
               labelStyle: snapshot.data == true
-                  ? const TextStyle(color: Styles.lightColor)
-                  : const TextStyle(color: Styles.darkColor),
+                  ? Theme.of(context)
+                      .textTheme
+                      .headline2
+                      ?.copyWith(color: Styles.lightColor, fontSize: 18)
+                  : Theme.of(context)
+                      .textTheme
+                      .headline2
+                      ?.copyWith(color: Styles.darkColor, fontSize: 18),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
                 side: BorderSide(

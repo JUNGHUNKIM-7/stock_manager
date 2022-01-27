@@ -11,9 +11,9 @@ mixin QtyFieldMixin<T extends String> {
   final validText = StreamTransformer<String, String>.fromHandlers(
       handleData: (String value, EventSink<String> sink) {
     if (value.contains(RegExp(r'[a-zA-Z]'))) {
-      sink.addError('Only number is allowed');
+      sink.addError('Only Number is Allowed');
     } else if (value.isEmpty) {
-      sink.addError('This Field is required');
+      sink.addError('This Field is Required');
     } else {
       sink.add(value.trim());
     }

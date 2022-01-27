@@ -6,10 +6,7 @@ abstract class FilterButtonStatusInterface {
   void printStatus(int where);
 }
 
-mixin FilterButtonStatusMixin<T extends bool> {}
-
 class FilterButtonStatusBloc extends BaseStreamController<bool>
-    with FilterButtonStatusMixin
     implements BaseInterface<bool>, FilterButtonStatusInterface {
   FilterButtonStatusBloc({required state}) : super(state: state);
 

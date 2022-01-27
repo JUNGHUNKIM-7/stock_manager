@@ -17,6 +17,7 @@ class FirstPage extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+
       body: Column(
         children: [
           SizedBox(
@@ -32,7 +33,7 @@ class FirstPage extends StatelessWidget {
                     height: height * 0.00012,
                     child: const SearchField(
                       type: 'history',
-                      hintText: 'Get History By Your Item!',
+                      hintText: 'Get History By Item',
                     ),
                   ),
                 ),

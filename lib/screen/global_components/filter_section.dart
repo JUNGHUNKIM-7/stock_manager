@@ -44,7 +44,7 @@ class FilterSectionWithBtns extends StatelessWidget {
     final inStatus = BlocProvider.of<BlocsCombiner>(context).inStatus;
     final outStatus = BlocProvider.of<BlocsCombiner>(context).outStatus;
     const historyBtnText = ['In', 'Out'];
-    const inventoryBtnText = ['Add'];
+    const inventoryBtnText = ['Add Product'];
 
     switch (btnType) {
       case 'history':
@@ -54,20 +54,7 @@ class FilterSectionWithBtns extends StatelessWidget {
               builder: (context, AsyncSnapshot<bool> snapshot) {
                 return Row(
                   children: [
-                    // todo additional btns
-                    // if (idx == 0)
-                    //   StreamBuilder(
-                    //     stream: theme.stream,
-                    //     builder: (context, AsyncSnapshot<bool> snapshot) {
-                    //       return YearSelectionSlider(
-                    //           yearSelection: yearSelection, theme: snapshot);
-                    //     },
-                    //   ),
-                    // if (idx == 0)
-                    //   const SizedBox(
-                    //     width: 8,
-                    //   ),
-                    FilterBtnSet(
+                    FilterBtns(
                       text: historyBtnText[idx],
                       onPressed: () {
                         if (idx == 0) {
@@ -90,11 +77,13 @@ class FilterSectionWithBtns extends StatelessWidget {
         return List.generate(
           1,
           (int idx) {
-            return FilterBtnSet(
-              text: inventoryBtnText[idx],
-              onPressed: () {
-                context.goNamed('addItem');
-              },
+            return Row(
+              children: [
+                FilterBtns(
+                  text: inventoryBtnText[idx],
+                  onPressed: () => context.goNamed('inventoryForm'),
+                ),
+              ],
             );
           },
         );

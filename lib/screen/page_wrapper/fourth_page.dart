@@ -6,7 +6,7 @@ class FourthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('History Price Calculation Page'),
+      child: Text('fourth page'),
     );
   }
 }

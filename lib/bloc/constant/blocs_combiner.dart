@@ -3,7 +3,7 @@ import 'dart:async';
 
 import '../../database/model/history_model.dart';
 import '../../database/model/inventory_model.dart';
-import 'bloc_container.dart';
+import 'blocs_container.dart';
 
 class BlocsCombiner extends Blocs
     with BlocsCombinerMixins
@@ -15,6 +15,9 @@ class BlocsCombiner extends Blocs
               : [],
           inventoryData: fetchedData != null
               ? fetchedData['inventory'] as List<Inventory>
+              : [],
+          bookMarkData: fetchedData != null
+              ? fetchedData['bookmark'] as List<Inventory>
               : [],
         );
 

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:router_go/bloc/constant/blocs_combiner.dart';
+import 'package:router_go/bloc/constant/provider.dart';
 import 'package:router_go/bloc/global/theme_bloc.dart';
+import 'package:router_go/database/model/history_model.dart';
 
 import '../../styles.dart';
 
@@ -21,17 +25,13 @@ class CardListView extends StatelessWidget {
       ),
       itemCount: snapshot.data!.length,
       itemBuilder: (context, idx) {
-        final card = snapshot.data?[idx];
+        final history = snapshot.data?[idx];
 
         return Padding(
           padding: const EdgeInsets.only(top: innerSpacing),
-          child: EachCard(
+          child: Cards(
+            history: history,
             theme: theme,
-            out: card.out,
-            title: card.title,
-            qty: card.qty,
-            date: card.date,
-            remained: card.remained,
           ),
         );
       },
@@ -44,79 +44,78 @@ class CardListView extends StatelessWidget {
   }
 }
 
-class EachCard extends StatelessWidget {
-  const EachCard({
+class Cards extends StatelessWidget {
+  const Cards({
     Key? key,
-    required this.out,
-    required this.title,
-    this.date,
+    required this.history,
     required this.theme,
-    required this.qty,
-    required this.remained,
   }) : super(key: key);
 
-  final String out;
-  final String title;
-  final int qty;
-  final int remained;
+  final History history;
   final ThemeBloc theme;
-  final String? date;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: theme.stream,
-      builder: (context, snapshot) => Container(
-        decoration: BoxDecoration(
-          color: snapshot.data == true ? Styles.darkColor : Styles.lightColor,
-          boxShadow: Styles.innerShadow,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: innerSpacing,
-            vertical: innerSpacing,
+    final historyHistory = BlocProvider.of<BlocsCombiner>(context).historyView;
+    return GestureDetector(
+      onTap: () {
+        historyHistory.push(history);
+        context.goNamed('historyDetails', extra: history);
+      },
+      child: StreamBuilder(
+        stream: theme.stream,
+        builder: (context, snapshot) => Container(
+          decoration: BoxDecoration(
+            color: snapshot.data == true ? Styles.darkColor : Styles.lightColor,
+            boxShadow: Styles.innerShadow,
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(date!.split(' ')[0]),
-                  Text(date!.split(' ')[1].substring(0, 8)),
-                ],
-              ),
-              const SizedBox(
-                width: innerSpacing * 2,
-              ),
-              Expanded(
-                child: title.length > 18
-                    ? Text('${title.substring(0, 18)}...')
-                    : Text(title),
-              ),
-              Text(remained.toString()),
-              const SizedBox(
-                width: innerSpacing,
-              ),
-              Text(qty.toString()),
-              const SizedBox(
-                width: innerSpacing,
-              ),
-              if (out.toLowerCase() == 'y')
-                const Icon(
-                  Icons.arrow_circle_up_outlined,
-                  color: Color(0xffD946EF),
-                  size: 30,
-                )
-              else
-                const Icon(
-                  Icons.arrow_circle_down_outlined,
-                  color: Color(0xff4ADE80),
-                  size: 30,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: innerSpacing,
+              vertical: innerSpacing,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(history.date!.split(' ')[0]),
+                    Text(history.date!.split(' ')[1].substring(0, 8)),
+                  ],
                 ),
-            ],
+                const SizedBox(
+                  width: innerSpacing * 2,
+                ),
+                Expanded(
+                  child: history.title.length > 18
+                      ? Text('${history.title.substring(0, 18)}...')
+                      : Text(history.title),
+                ),
+                Text(history.remained.toString()),
+                const SizedBox(
+                  width: innerSpacing,
+                ),
+                Text(history.qty.toString()),
+                const SizedBox(
+                  width: innerSpacing,
+                ),
+                if (history.out.toLowerCase() == 'y')
+                  const Icon(
+                    Icons.arrow_circle_up_outlined,
+                    color: Color(0xffD946EF),
+                    size: 30,
+                  )
+                else
+                  const Icon(
+                    Icons.arrow_circle_down_outlined,
+                    color: Color(0xff4ADE80),
+                    size: 30,
+                  ),
+              ],
+            ),
           ),
         ),
       ),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
 
-class FilterBtnSet extends StatelessWidget {
-  const FilterBtnSet({
+class FilterBtns extends StatelessWidget {
+  const FilterBtns({
     Key? key,
     required this.text,
     this.onPressed,

@@ -44,7 +44,7 @@ class _SearchFieldState extends State<SearchField> {
                       .textTheme
                       .headline2
                       ?.copyWith(fontSize: 16),
-                  hintText: '"Your Item Name?"',
+                  hintText: '"Product Name?"',
                   hintStyle: const TextStyle(fontSize: 14.0),
                   suffixIcon: snapshot.data!.isNotEmpty
                       ? IconButton(
@@ -86,7 +86,3 @@ class _SearchFieldState extends State<SearchField> {
   }
 }
 
-// I/TextInputPlugin( 7521): Composing region changed by the framework. Restarting the input method.
-// W/IInputConnectionWrapper( 7521): getTextBeforeCursor on inactive InputConnection
-// W/IInputConnectionWrapper( 7521): getSelectedText on inactive InputConnection
-// W/IInputConnectionWrapper( 7521): getTextAfterCursor on inactive InputConnection

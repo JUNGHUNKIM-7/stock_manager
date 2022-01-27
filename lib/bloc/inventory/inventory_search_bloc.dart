@@ -4,10 +4,7 @@ abstract class InventorySearchBlocInterface {
   void onChanged(String val);
 }
 
-mixin InventorySearchMixin<T extends String> {}
-
 class InventorySearchBloc extends BaseStreamController<String>
-    with InventorySearchMixin
     implements BaseInterface<String>, InventorySearchBlocInterface {
   InventorySearchBloc({required state}) : super(state: state);
 
