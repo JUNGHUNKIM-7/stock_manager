@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:router_go/screen/global_components/years_picker.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
 
@@ -15,11 +14,12 @@ class SearchField extends StatefulWidget {
 }
 
 class _SearchFieldState extends State<SearchField> {
-  final TextEditingController _controller = TextEditingController();
+  late final TextEditingController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = TextEditingController();
   }
 
   @override
@@ -85,4 +85,3 @@ class _SearchFieldState extends State<SearchField> {
     super.dispose();
   }
 }
-

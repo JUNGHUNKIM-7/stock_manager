@@ -123,7 +123,7 @@ class DialogList extends StatelessWidget {
                     : Colors.white.withOpacity(0.9),
                 title: Text(
                   'Trade History',
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline3?.copyWith(fontSize: 24),
                 ),
                 actions:
                     List.generate(historySnapshot!.data!.length, (int idx) {
@@ -133,10 +133,16 @@ class DialogList extends StatelessWidget {
                     subtitle: Text('${history.date}'.substring(0, 10)),
                     title: history.title.length > 20
                         ? Text('${history.title.substring(0, 20)}...',
-                            style: Theme.of(context).textTheme.bodyText2)
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                ?.copyWith(fontWeight: FontWeight.w600))
                         : Text('${history.title}',
-                            style: Theme.of(context).textTheme.bodyText2),
-                    trailing: history.out == 'y'
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                ?.copyWith(fontWeight: FontWeight.w600)),
+                    trailing: history.status == 'y'
                         ? const Icon(Icons.arrow_circle_up_outlined,
                             color: Color(0xffD946EF), size: 30)
                         : const Icon(Icons.arrow_circle_down_outlined,
@@ -157,7 +163,7 @@ class DialogList extends StatelessWidget {
                     : Colors.white.withOpacity(0.9),
                 title: Text(
                   'Inventory\'s History',
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline3?.copyWith(fontSize: 24),
                 ),
                 actions:
                     List.generate(inventorySnapshot!.data!.length, (int idx) {
@@ -166,9 +172,15 @@ class DialogList extends StatelessWidget {
                     leading: const Icon(Icons.history),
                     title: inventory.title.length > 20
                         ? Text('${inventory.title.substring(0, 20)}...',
-                            style: Theme.of(context).textTheme.bodyText2)
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                ?.copyWith(fontWeight: FontWeight.w600))
                         : Text('${inventory.title}',
-                            style: Theme.of(context).textTheme.bodyText2),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                ?.copyWith(fontWeight: FontWeight.w600)),
                     trailing: Text('${inventory.qty}'),
                     onTap: () =>
                         context.goNamed('inventoryDetails', extra: inventory),

@@ -15,6 +15,7 @@ class InventoryDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final combiner = BlocProvider.of<BlocsCombiner>(context);
+
     return Scaffold(
       appBar: showAppBarWithBackBtn(context, combiner: combiner),
       body: Column(
@@ -28,7 +29,9 @@ class InventoryDetails extends StatelessWidget {
               size: 250,
             ),
           ),
-          const SizedBox(height: outerSpacing),
+          const SizedBox(
+            height: outerSpacing * 2,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -38,10 +41,11 @@ class InventoryDetails extends StatelessWidget {
                     inventory.title,
                     style: Theme.of(context).textTheme.headline2,
                   ),
-                  Text(
-                    inventory.memo,
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
+                  if (inventory.memo.isNotEmpty)
+                    Text(
+                      inventory.memo,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
                 ],
               ),
               Text(inventory.qty.toString(),
@@ -52,8 +56,40 @@ class InventoryDetails extends StatelessWidget {
             height: outerSpacing * 2,
           ),
           Center(
-            child: Text(inventory.createAt.toString().split(' ')[0],
-                style: Theme.of(context).textTheme.headline2),
+            child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Created at : ',
+                      style: Theme.of(context).textTheme.headline2,
+                    ),
+                    TextSpan(
+                        text: inventory.createAt
+                            .toString()
+                            .split(' ')[0]
+                            .toString(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            ?.copyWith(fontSize: 24)),
+                  ],
+                ),
+                style: Theme.of(context).textTheme.bodyText1),
+          ),
+          const SizedBox(
+            height: outerSpacing * 2,
+          ),
+          //when press, navigate to e
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              //navigate update form with Instance of inventory
+              ElevatedButton(onPressed: () {}, child: const Text('Update?')),
+              const SizedBox(
+                width: outerSpacing,
+              ),
+              ElevatedButton(onPressed: () {}, child: const Text('Edit?')),
+            ],
           ),
           const SizedBox(
             height: outerSpacing * 2,

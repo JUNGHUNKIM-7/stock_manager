@@ -40,8 +40,8 @@ class FilterBtns extends StatelessWidget {
                     text,
                     style: Theme.of(context)
                         .textTheme
-                        .headline2
-                        ?.copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+                        .headline3
+                        ?.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                   ),
                 );
               });

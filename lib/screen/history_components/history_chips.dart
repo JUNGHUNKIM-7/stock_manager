@@ -92,12 +92,12 @@ class ChipOfList extends StatelessWidget {
               labelStyle: snapshot.data == true
                   ? Theme.of(context)
                       .textTheme
-                      .headline2
-                      ?.copyWith(color: Styles.lightColor, fontSize: 18)
+                      .headline3
+                      ?.copyWith(color: Styles.lightColor )
                   : Theme.of(context)
                       .textTheme
-                      .headline2
-                      ?.copyWith(color: Styles.darkColor, fontSize: 18),
+                      .headline3
+                      ?.copyWith(color: Styles.darkColor),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
                 side: BorderSide(

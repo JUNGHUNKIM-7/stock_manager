@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:router_go/database/model/history_model.dart';
 import 'package:router_go/screen/global_components/appbar_icons.dart';
 
+//todo 남은 qty 표기
+
 class HistoryDetails extends StatelessWidget {
   const HistoryDetails({
     Key? key,

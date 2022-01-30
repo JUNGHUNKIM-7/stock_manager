@@ -4,6 +4,7 @@ import 'package:router_go/bloc/constant/blocs_combiner.dart';
 import 'package:router_go/bloc/constant/provider.dart';
 import 'package:router_go/bloc/global/theme_bloc.dart';
 import 'package:router_go/database/model/history_model.dart';
+import '../../utils/string_handler.dart';
 
 import '../../styles.dart';
 
@@ -82,37 +83,72 @@ class Cards extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(history.date!.split(' ')[0]),
-                    Text(history.date!.split(' ')[1].substring(0, 8)),
+                    Text(
+                      history.date!.split(' ')[0],
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline2
+                          ?.copyWith(fontSize: 14),
+                    ),
+                    Text(
+                      history.date!.split(' ')[1].substring(0, 8),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline2
+                          ?.copyWith(fontSize: 14),
+                    ),
                   ],
                 ),
                 const SizedBox(
-                  width: innerSpacing * 2,
+                  width: innerSpacing * 1.5,
                 ),
                 Expanded(
-                  child: history.title.length > 18
-                      ? Text('${history.title.substring(0, 18)}...')
-                      : Text(history.title),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      history.title.length > 10
+                          ? Text(
+                              '${history.title.substring(0, 10)}...'
+                                  .toTitleCase(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  ?.copyWith(fontSize: 16),
+                            )
+                          : Text(
+                              history.title.toTitleCase(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  ?.copyWith(fontSize: 16),
+                            ),
+                      Text(
+                        'memo'.length > 10
+                            ? 'memo...'.toCapitalized()
+                            : 'memo'.toCapitalized(),
+                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.normal),
+                      ),
+                    ],
+                  ),
                 ),
-                Text(history.remained.toString()),
-                const SizedBox(
-                  width: innerSpacing,
-                ),
-                Text(history.qty.toString()),
-                const SizedBox(
-                  width: innerSpacing,
-                ),
-                if (history.out.toLowerCase() == 'y')
+                Text(history.val.toString(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        ?.copyWith(fontSize: 14, fontWeight: FontWeight.w600)),
+                const SizedBox(width: innerSpacing),
+                if (history.status.toLowerCase() == 'y')
                   const Icon(
-                    Icons.arrow_circle_up_outlined,
-                    color: Color(0xffD946EF),
-                    size: 30,
+                    Icons.local_shipping_outlined,
+                    color: Colors.cyanAccent,
+                    size: 26,
                   )
                 else
                   const Icon(
-                    Icons.arrow_circle_down_outlined,
-                    color: Color(0xff4ADE80),
-                    size: 30,
+                    Icons.add_business,
+                    color: Colors.limeAccent,
+                    size: 26,
                   ),
               ],
             ),

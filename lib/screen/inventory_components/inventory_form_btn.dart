@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:router_go/bloc/global/form_bloc.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../database/model/inventory_model.dart';
 import '../../database/repository/gsheet_handler.dart';
 
-class FormBtns extends StatelessWidget {
-  const FormBtns({
+class InventorySubmit extends StatelessWidget {
+  const InventorySubmit({
     Key? key,
     required this.combiner,
     required this.handler,
@@ -20,7 +21,7 @@ class FormBtns extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: combiner.formStreams,
+      stream: combiner.inventoryAddFormStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
         return ElevatedButton(
           onPressed: (snapshot.hasData && snapshot.data!.isNotEmpty)
@@ -45,9 +46,10 @@ class FormBtns extends StatelessWidget {
                           () => context.goNamed('home'),
                         );
 
-                    combiner.titleField.clear();
-                    combiner.memoField.clear();
-                    combiner.qtyField.clear();
+                    combiner.titleFieldBloc
+                        .clearInventoryForm(FormFields.title);
+                    combiner.memoFieldBloc.clearInventoryForm(FormFields.memo);
+                    combiner.qtyFieldBloc.clearInventoryForm(FormFields.qty);
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -63,7 +65,7 @@ class FormBtns extends StatelessWidget {
                   }
                 }
               : null,
-          child: const Text('Save to Excel'),
+          child: const Text('Save to Inventory'),
         );
       },
     );

@@ -131,17 +131,22 @@ class Styles {
         headline2: header.copyWith(
           fontSize: 26.0,
         ),
-        subtitle1: subHeader.copyWith(
-          fontSize: 22.0,
-        ),
-        bodyText1: const TextStyle(
+        headline3: GoogleFonts.orbitron().copyWith(
           fontSize: 18.0,
           fontWeight: FontWeight.bold,
         ),
-        bodyText2: TextStyle(
-          fontSize: 14.0,
+        subtitle1: subHeader.copyWith(
+          fontSize: 22.0,
+        ),
+        bodyText1: GoogleFonts.montserrat().copyWith(
+          fontSize: 18.0,
+          fontWeight: FontWeight.w600,
+        ),
+        bodyText2: GoogleFonts.poppins().copyWith(
+          fontSize: 16.0,
+          color: Colors.black,
           fontWeight: FontWeight.normal,
-          fontFamily: GoogleFonts.openSans().fontFamily,
+          letterSpacing: 0.4,
         ),
       ),
       textSelectionTheme: TextSelectionThemeData(

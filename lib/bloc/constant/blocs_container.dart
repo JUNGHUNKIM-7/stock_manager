@@ -1,18 +1,16 @@
 import 'package:router_go/bloc/bookmark/bookmark_bloc.dart';
+import 'package:router_go/bloc/global/form_bloc.dart';
 
 import '../../bloc/global/history_view.dart';
 import '../../bloc/global/page_bloc.dart';
 import '../../bloc/global/theme_bloc.dart';
 import '../../bloc/history/chip_bloc.dart';
 import '../../bloc/history/filter_status_bloc.dart';
-import '../../bloc/history/history_data_bloc.dart';
+import '../../bloc/history/history_bloc.dart';
 import '../../bloc/history/history_search_bloc.dart';
 import '../../bloc/history/year_selection_bloc.dart';
-import '../../bloc/inventory/product_form_field.dart';
 import '../../bloc/inventory/inventory_bloc.dart';
 import '../../bloc/inventory/inventory_search_bloc.dart';
-import '../../bloc/inventory/memo_form_field.dart';
-import '../../bloc/inventory/quantity_form_field.dart';
 import '../../database/model/history_model.dart';
 import '../../database/model/inventory_model.dart';
 import '../../database/repository/gsheet_handler.dart';
@@ -54,10 +52,12 @@ class Blocs {
 
   final chipBloc = ChipBloc(state: DateTime.now().month - 1);
   final yearSelection = YearSelectionBloc(state: DateTime.now().year);
-  final inStatus = FilterButtonStatusBloc(state: true);
-  final outStatus = FilterButtonStatusBloc(state: true);
+  final inStatus = FilterButtonStatusBloc(state: false);
+  final outStatus = FilterButtonStatusBloc(state: false);
 
-  final titleField = ProductField(state: '');
-  final memoField = MemoFieldBloc(state: '');
-  final qtyField = QtyFieldBloc(state: '');
+  final titleFieldBloc = FormBloc(fields: FormFields.title);
+  final memoFieldBloc = FormBloc(fields: FormFields.memo);
+  final qtyFieldBloc = FormBloc(fields: FormFields.qty);
+  final statusFieldBloc = FormBloc(state: 'y', fields: FormFields.status);
+  final valFieldBloc = FormBloc(fields: FormFields.val);
 }

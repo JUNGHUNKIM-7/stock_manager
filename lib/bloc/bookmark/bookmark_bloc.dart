@@ -3,6 +3,8 @@ import 'package:router_go/database/model/inventory_model.dart';
 import 'package:router_go/database/repository/gsheet_handler.dart';
 
 abstract class BookMarkBlocInterface {
+  void reload();
+
   void push(Inventory inventory);
 }
 
@@ -22,6 +24,13 @@ class BookMarkBloc extends BaseStreamController<List<Inventory>>
 
   @override
   Stream<List<Inventory>> get stream => subject.stream;
+
+  @override
+  Future<void> reload() async {
+    final newState =
+        await handler.fetchData(SheetType.bookmark) as List<Inventory>;
+    state = newState;
+  }
 
   @override
   Future<void> push(Inventory inventory) async {

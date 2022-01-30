@@ -35,14 +35,13 @@ class TabNavHome extends StatelessWidget {
           if (snapshot.hasData) {
             return Scaffold(
               floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
-              floatingActionButton: snapshot.data == 0
+                  FloatingActionButtonLocation.endFloat,
+              floatingActionButton: snapshot.data == 1
                   ? StreamBuilder(
                       stream: theme.stream,
                       builder: (context, AsyncSnapshot<bool> snapshot) {
                         if (snapshot.hasData) {
                           return FloatingActionButton(
-                            mini: true,
                             foregroundColor: snapshot.data!
                                 ? Styles.darkColor
                                 : Styles.lightColor,

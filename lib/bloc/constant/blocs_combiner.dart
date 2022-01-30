@@ -38,9 +38,9 @@ class BlocsCombiner extends Blocs
 
   @override
   void disposeForm() {
-    titleField.dispose();
-    memoField.dispose();
-    qtyField.dispose();
+    titleFieldBloc.dispose();
+    memoFieldBloc.dispose();
+    qtyFieldBloc.dispose();
   }
 
   @override
@@ -77,11 +77,11 @@ class BlocsCombiner extends Blocs
           return historyData;
         } else if (inStatus == true) {
           return historyData
-              .where((element) => element.out.toLowerCase() == 'n')
+              .where((element) => element.status.toLowerCase() == 'n')
               .toList();
         } else if (outStatus == true) {
           return historyData
-              .where((element) => element.out.toLowerCase() == 'y')
+              .where((element) => element.status.toLowerCase() == 'y')
               .toList();
         } else {
           return historyData;
@@ -100,8 +100,9 @@ class BlocsCombiner extends Blocs
               .toList()).transform(inventoryNotEmpty);
 
   @override
-  Stream<Map<String, dynamic>> get formStreams => CombineLatestStream.combine3(
-          titleField.stream, memoField.stream, qtyField.stream, (
+  Stream<Map<String, dynamic>> get inventoryAddFormStream =>
+      CombineLatestStream.combine3(titleFieldBloc.titleStream!,
+          memoFieldBloc.memoStream!, qtyFieldBloc.qtyStream!, (
         String title,
         String? memo,
         String qty,
@@ -114,7 +115,24 @@ class BlocsCombiner extends Blocs
             'qty': int.parse(qty),
           };
         }
-        throw Exception('Form Data Error');
+        throw Exception('qty Error');
+      });
+
+  @override
+  Stream<Map<String, dynamic>> get historyAddFormStream =>
+      CombineLatestStream.combine2(
+          statusFieldBloc.outStream!, valFieldBloc.valStream!, (
+        String status,
+        String val,
+      ) {
+        if (!int.parse(val).isNegative &&
+            !val.contains(RegExp(r'^[a-zA-Z]+$'))) {
+          return {
+            'status': status,
+            'val': int.parse(val),
+          };
+        }
+        throw Exception('val Error');
       });
 }
 
@@ -131,7 +149,9 @@ abstract class BlocsCombinerInterface {
 
   Stream<List<Inventory>> get filterInventoryStream;
 
-  Stream<Map<String, dynamic>> get formStreams;
+  Stream<Map<String, dynamic>> get inventoryAddFormStream;
+
+  Stream<Map<String, dynamic>> get historyAddFormStream;
 }
 
 mixin BlocsCombinerMixins {
@@ -141,7 +161,7 @@ mixin BlocsCombinerMixins {
       if (data.isNotEmpty) {
         sink.add(data);
       } else {
-        sink.addError('NO HISTORY DATA');
+        sink.addError('No History Data');
       }
     },
   );
@@ -152,7 +172,7 @@ mixin BlocsCombinerMixins {
       if (data.isNotEmpty) {
         sink.add(data);
       } else {
-        sink.addError('NO INVENTORY DATA');
+        sink.addError('No Inventory Data');
       }
     },
   );

@@ -6,6 +6,7 @@ import 'package:router_go/screen/global_components/filter_section.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
 import 'history_cards.dart';
+import '../../utils/string_handler.dart';
 
 class HistoryView extends StatelessWidget {
   const HistoryView({
@@ -30,11 +31,16 @@ class HistoryView extends StatelessWidget {
                 btnType: 'history',
               ),
               Flexible(
-                  child: Center(
-                      child: Text(
-                snapshot.error.toString(),
-                style: Theme.of(context).textTheme.headline2,
-              ))),
+                child: Center(
+                  child: Text(
+                    snapshot.error.toString().toTitleCase(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3
+                        ?.copyWith(fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
             ],
           );
         } else if (snapshot.hasData) {

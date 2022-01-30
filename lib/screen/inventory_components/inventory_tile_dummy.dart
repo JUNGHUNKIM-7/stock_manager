@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -7,6 +8,7 @@ import 'package:router_go/bloc/global/theme_bloc.dart';
 import 'package:router_go/database/model/inventory_model.dart';
 import '../../styles.dart';
 import '../global_components/dark_mode_container.dart';
+import '../../utils/string_handler.dart';
 
 class InventoryList extends StatelessWidget {
   const InventoryList({
@@ -29,7 +31,7 @@ class InventoryList extends StatelessWidget {
       itemBuilder: (context, idx) {
         return DarkModeContainer(
           theme: theme,
-          height: 0.1,
+          height: 0.09,
           reverse: true,
           child: DismissibleWrapper(
             snapshot: snapshot,
@@ -64,39 +66,108 @@ class DismissibleWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final bookMark = BlocProvider.of<BlocsCombiner>(context).bookMarks;
-
     return Dismissible(
-      onDismissed: (direction) async {
-        if (direction == DismissDirection.startToEnd) {
-          // await bookMark.push(inventory);
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('Item Deleted'),
-          ));
-        }
-      },
+      dragStartBehavior: DragStartBehavior.down,
+      secondaryBackground: const SecondBackGround(),
+      background: const PrimaryBackGround(),
       confirmDismiss: (direction) {
         if (direction == DismissDirection.endToStart) {
-          return showDialog(
-            context: context,
-            builder: (context) {
-              final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
-              return StreamBuilder(
-                  stream: theme.stream,
-                  builder: (context, AsyncSnapshot<bool> snapshot) {
-                    return DeleteDialog(
-                      themeSnapShot: snapshot,
-                      combiner: combiner,
-                      id: inventory.id,
-                    );
-                  });
-            },
-          );
+          return checkDeleteDialog(context);
+        } else if (direction == DismissDirection.startToEnd) {
+          context.goNamed('historyForm', extra: inventory);
         }
-        throw Exception('unsupported direction');
+        return Future.value(false);
       },
-      key: UniqueKey(),
+      key: ValueKey(inventory.id),
       child: Tiles(idx: idx, data: snapshot.data!),
+    );
+  }
+
+  Future<bool?> checkDeleteDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
+        return StreamBuilder(
+            stream: theme.stream,
+            builder: (context, AsyncSnapshot<bool> snapshot) {
+              return DeleteDialog(
+                themeSnapShot: snapshot,
+                combiner: combiner,
+                id: inventory.id,
+              );
+            });
+      },
+    );
+  }
+}
+
+class PrimaryBackGround extends StatelessWidget {
+  const PrimaryBackGround({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.green, borderRadius: BorderRadius.circular(10.0)),
+      child: Row(
+        children: [
+          const SizedBox(
+            width: 10,
+          ),
+          const Icon(
+            Icons.playlist_add,
+            size: 30,
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            'Make a Deal',
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          const SizedBox(
+            width: 20,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class SecondBackGround extends StatelessWidget {
+  const SecondBackGround({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.redAccent,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            'Delete Item',
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          const Icon(
+            Icons.delete,
+            size: 30,
+          ),
+          const SizedBox(
+            width: 20,
+          )
+        ],
+      ),
     );
   }
 }
@@ -175,7 +246,11 @@ class Tiles extends StatelessWidget {
         BlocProvider.of<BlocsCombiner>(context).inventoryView;
 
     return ListTile(
-      trailing: Text(inventory.qty.toString()),
+      trailing: Text(
+        inventory.qty.toString(),
+        style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
+      ),
+      dense: true,
       leading: QrImage(
         data: inventory.id,
         version: QrVersions.auto,
@@ -186,12 +261,16 @@ class Tiles extends StatelessWidget {
         context.goNamed('inventoryDetails', extra: inventory);
       },
       title: Text(
-        inventory.title,
+        inventory.title.length > 12
+            ? '${inventory.title.substring(0, 12)}...'.toTitleCase()
+            : inventory.title.toTitleCase(),
         style: Theme.of(context).textTheme.bodyText1,
       ),
       subtitle: Text(
-        inventory.memo,
-        style: Theme.of(context).textTheme.bodyText2,
+        inventory.memo.length > 12
+            ? '${inventory.memo.substring(0, 12)}...'.toTitleCase()
+            : inventory.memo.toTitleCase(),
+        style: Theme.of(context).textTheme.bodyText1,
       ),
     );
   }

@@ -9,25 +9,10 @@ import '../../database/repository/gsheet_handler.dart';
 import '../../screen/global_components/appbar_icons.dart';
 import '../../styles.dart';
 
-class InventoryForm extends StatefulWidget {
-  const InventoryForm({Key? key}) : super(key: key);
-
-  @override
-  State<InventoryForm> createState() => _InventoryFormState();
-}
-
-class _InventoryFormState extends State<InventoryForm> {
-  late final GSheetHandler _handler;
-  late final Uuid _uuid;
-  late final GlobalKey<FormState> _formKey;
-
-  @override
-  void initState() {
-    super.initState();
-    _uuid = const Uuid();
-    _handler = GSheetHandler();
-    _formKey = GlobalKey<FormState>();
-  }
+class InventoryForm extends StatelessWidget {
+  InventoryForm({Key? key}) : super(key: key);
+  final _uuid = const Uuid();
+  final _handler = GSheetHandler();
 
   @override
   Widget build(BuildContext context) {
@@ -44,35 +29,29 @@ class _InventoryFormState extends State<InventoryForm> {
             Center(
               child: Text(
                 'Add Item Form'.toUpperCase(),
-                style: Theme.of(context).textTheme.headline2,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3
+                    ?.copyWith(fontSize: 26),
               ),
             ),
             const SizedBox(
-              height: outerSpacing,
+              height: outerSpacing * 2,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: outerSpacing),
+              child: InventoryFormGroup(),
             ),
             const SizedBox(
-              height: outerSpacing,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
-              child: FormGroup(formKey: _formKey),
-            ),
-            const SizedBox(
-              height: outerSpacing * 3,
+              height: outerSpacing * 2,
             ),
             Center(
-              child:
-                  FormBtns(combiner: combiner, uuid: _uuid, handler: _handler),
+              child: InventorySubmit(
+                  combiner: combiner, uuid: _uuid, handler: _handler),
             ),
           ],
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _formKey.currentState?.dispose();
-    super.dispose();
   }
 }

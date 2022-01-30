@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:router_go/bloc/global/form_bloc.dart';
 import 'package:router_go/bloc/global/history_view.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
@@ -68,9 +69,9 @@ AppBar showAppBarWithBackBtn(BuildContext context, {BlocsCombiner? combiner}) =>
         ),
         IconButton(
           onPressed: () {
-            combiner?.titleField.clear();
-            combiner?.memoField.clear();
-            combiner?.qtyField.clear();
+            combiner?.titleFieldBloc.clearInventoryForm(FormFields.title);
+            combiner?.memoFieldBloc.clearInventoryForm(FormFields.memo);
+            combiner?.qtyFieldBloc.clearInventoryForm(FormFields.qty);
             combiner?.historySearchBloc.onChanged('');
             combiner?.inventorySearchBloc.onChanged('');
 
