@@ -50,7 +50,7 @@ class HistoryForm extends StatelessWidget {
               child: DarkModeContainer(
                 height: height * 0.0008,
                 child:
-                    HistoryFormCard(inventory: inventory, out: out, val: val),
+                    HistoryInfoCard(inventory: inventory, out: out, val: val),
               ),
             ),
             const SizedBox(

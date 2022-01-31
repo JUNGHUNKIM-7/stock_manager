@@ -44,14 +44,19 @@ class BlocsCombiner extends Blocs
   }
 
   @override
-  Stream<List<History>> get filteredHistoryStream =>
-      CombineLatestStream.combine4(yearSelection.yearStream, chipBloc.stream,
-          historyBloc.stream, historySearchBloc.stream, (int year, int chipIdx,
-              List<History> historyData, String searchParams) {
-        final filterByYear = historyData.where(
-            (element) => element.date!.substring(0, 4) == year.toString());
+  Stream<List<History>> get filterStreamByYear => CombineLatestStream.combine2(
+      historyBloc.stream,
+      yearSelection.yearStream,
+      (List<History> historyData, int year) => historyData
+          .where((element) => element.date!.substring(0, 4) == year.toString())
+          .toList());
 
-        final filteredByMonth = filterByYear.where(
+  @override
+  Stream<List<History>> get filteredHistoryStream =>
+      CombineLatestStream.combine3(
+          filterStreamByYear, chipBloc.stream, historySearchBloc.stream,
+          (List<History> historyData, int chipIdx, String searchParams) {
+        final filteredByMonth = historyData.where(
           (element) => element.date!
               .split(' ')[0]
               .split('-')[1]
@@ -142,6 +147,8 @@ abstract class BlocsCombinerInterface {
   void disposeSecondPage();
 
   void disposeForm();
+
+  Stream<List<History>> get filterStreamByYear;
 
   Stream<List<History>> get filteredHistoryStream;
 

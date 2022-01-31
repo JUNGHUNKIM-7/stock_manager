@@ -58,6 +58,7 @@ class Cards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final historyHistory = BlocProvider.of<BlocsCombiner>(context).historyView;
+
     return GestureDetector(
       onTap: () {
         historyHistory.push(history);

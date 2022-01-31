@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:router_go/bloc/global/form_bloc.dart';
+import 'package:router_go/database/model/history_model.dart';
 import 'package:router_go/database/model/inventory_model.dart';
 import 'package:router_go/screen/history_components/history_form_field.dart';
 import '../../utils/string_handler.dart';
 
 import '../../styles.dart';
 
-class HistoryFormCard extends StatelessWidget {
-  const HistoryFormCard({
+class HistoryInfoCard extends StatelessWidget {
+  const HistoryInfoCard({
     Key? key,
-    required this.inventory,
-    required this.out,
-    required this.val,
+    this.inventory,
+    this.out,
+    this.val,
+    this.history,
   }) : super(key: key);
 
-  final Inventory inventory;
-  final FormBloc out;
-  final FormBloc val;
+  final Inventory? inventory;
+  final History? history;
+  final FormBloc? out;
+  final FormBloc? val;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +28,12 @@ class HistoryFormCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          StatusSwitch(out: out),
-          ProductDetails(inventory: inventory),
-          HistoryFormField(val: val)
+          if (out != null) StatusSwitch(out: out!),
+          if (inventory != null)
+            InventoryDetails(inventory: inventory!)
+          else if (history != null)
+            HistoryDetails(history: history!),
+          if (val != null) HistoryFormField(val: val!)
         ],
       ),
     );
@@ -85,8 +91,8 @@ class StatusSwitch extends StatelessWidget {
   }
 }
 
-class ProductDetails extends StatelessWidget {
-  const ProductDetails({
+class InventoryDetails extends StatelessWidget {
+  const InventoryDetails({
     Key? key,
     required this.inventory,
   }) : super(key: key);
@@ -119,7 +125,7 @@ class ProductDetails extends StatelessWidget {
                   Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
             ),
           ),
-          const SizedBox(height: innerSpacing * 1.5),
+          const SizedBox(height: innerSpacing),
           Text(
             'Item Memo'.toUpperCase(),
             style:
@@ -139,9 +145,9 @@ class ProductDetails extends StatelessWidget {
                   Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
             ),
           ),
-          const SizedBox(height: innerSpacing * 1.5),
+          const SizedBox(height: innerSpacing),
           Text(
-            'Item Qty'.toUpperCase(),
+            'Current Qty'.toUpperCase(),
             style:
                 Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 20),
           ),
@@ -155,6 +161,76 @@ class ProductDetails extends StatelessWidget {
               inventory.qty.toString().length > 35
                   ? '${inventory.qty.toString().substring(0, 35)}...'
                   : inventory.qty.toString(),
+              style:
+                  Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class HistoryDetails extends StatelessWidget {
+  const HistoryDetails({Key? key, required this.history}) : super(key: key);
+  final History history;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: innerSpacing),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Item Memo'.toUpperCase(),
+            style:
+                Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
+          ),
+          const Divider(
+            color: Colors.black,
+            thickness: 2.0,
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              'Need To Fix',
+              // history.memo.length > 32
+              //     ? '${history.memo.substring(0, 32)}...'.toTitleCase()
+              //     : history.memo.toTitleCase(),
+              style:
+                  Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Latest Qty'.toUpperCase(),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    ?.copyWith(fontSize: 18),
+              ),
+              Text(
+                '- applied qty from latest transaction'.toTitleCase(),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    ?.copyWith(fontSize: 14),
+              ),
+            ],
+          ),
+          const Divider(
+            color: Colors.black,
+            thickness: 2.0,
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              history.qty.toString().length > 35
+                  ? '${history.qty.toString().substring(0, 35)}...'
+                  : history.qty.toString(),
               style:
                   Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
             ),
