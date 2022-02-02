@@ -34,7 +34,7 @@ class InventoryView extends StatelessWidget {
                   child: Center(
                       child: Text(
                 snapshot.error.toString(),
-                style: Theme.of(context).textTheme.headline2,
+                style: Theme.of(context).textTheme.headline3,
               ))),
             ],
           );

@@ -194,10 +194,9 @@ class HistoryDetails extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Text(
-              'Need To Fix',
-              // history.memo.length > 32
-              //     ? '${history.memo.substring(0, 32)}...'.toTitleCase()
-              //     : history.memo.toTitleCase(),
+              (history.memo ?? '').length > 32
+                  ? '${history.memo?.substring(0, 32)}...'.toTitleCase()
+                  : history.memo?.toTitleCase() ?? '',
               style:
                   Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
             ),
@@ -206,7 +205,7 @@ class HistoryDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Latest Qty'.toUpperCase(),
+                'Current Qty'.toUpperCase(),
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1

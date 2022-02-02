@@ -3,22 +3,33 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:router_go/bloc/constant/blocs_combiner.dart';
+import 'package:router_go/bloc/constant/provider.dart';
+import 'package:router_go/screen/global_components/appbar_icons.dart';
+import 'package:router_go/styles.dart';
 
 class QrCamera extends StatefulWidget {
   const QrCamera({Key? key}) : super(key: key);
 
   @override
-  State<QrCamera> createState() => _QrCameraState();
+  State<StatefulWidget> createState() => _QrCameraState();
 }
 
 class _QrCameraState extends State<QrCamera> {
   Barcode? result;
+  String? prod;
   QRViewController? controller;
+  late bool paused;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
-  // In order to get hot reload to work we need to pause the camera if the platform
-  // is android, or resume the camera if the platform is iOS.
+  @override
+  void initState() {
+    super.initState();
+    paused = false;
+  }
+
   @override
   void reassemble() {
     super.reassemble();
@@ -30,89 +41,157 @@ class _QrCameraState extends State<QrCamera> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Expanded(flex: 4, child: _buildQrView(context)),
-          Expanded(
-            flex: 1,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  if (result != null)
-                    Text(
-                        'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-                  else
-                    const Text('Scan a code'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            await controller?.toggleFlash();
-                            setState(() {});
-                          },
-                          child: FutureBuilder(
-                            future: controller?.getFlashStatus(),
-                            builder: (context, snapshot) {
-                              return Text('Flash: ${snapshot.data}');
-                            },
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            await controller?.flipCamera();
-                            setState(() {});
-                          },
-                          child: FutureBuilder(
-                            future: controller?.getCameraInfo(),
-                            builder: (context, snapshot) {
-                              if (snapshot.data != null) {
-                                return Text(
-                                    'Camera facing ${describeEnum(snapshot.data!)}');
-                              } else {
-                                return const Text('loading');
-                              }
-                            },
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ],
+    final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
+
+    return SafeArea(
+      child: Scaffold(
+        appBar: showAppBarWithBackBtn(context),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: outerSpacing, vertical: outerSpacing),
+          child: Column(
+            children: <Widget>[
+              Flexible(
+                flex: 3,
+                child: _buildQrView(context),
               ),
-            ),
-          )
-        ],
+              Flexible(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const SizedBox(
+                      height: innerSpacing * 2,
+                    ),
+                    if (result != null)
+                      Text(
+                        prod != null
+                            ? 'QR Type: ${describeEnum(result!.format)}  Data: $prod'
+                            : 'Not Found',
+                      )
+                    else
+                      Text(
+                        'No QR Detected',
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
+                    const SizedBox(
+                      height: innerSpacing * 2,
+                    ),
+                    StreamBuilder<bool>(
+                        stream: theme.stream,
+                        builder: (context, themeSnapShot) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              OutlinedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  )),
+                                  side: MaterialStateProperty.all(
+                                    BorderSide(
+                                        color: themeSnapShot.data == true
+                                            ? Styles.lightColor
+                                            : Styles.darkColor,
+                                        width: 2),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  await controller?.toggleFlash();
+                                  setState(() {});
+                                },
+                                child: FutureBuilder(
+                                  future: controller?.getFlashStatus(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.data == true) {
+                                      return Icon(
+                                        Icons.flash_on,
+                                        color: themeSnapShot.data == true
+                                            ? Styles.lightColor
+                                            : Styles.darkColor,
+                                      );
+                                    } else {
+                                      return Icon(
+                                        Icons.flash_off,
+                                        color: themeSnapShot.data == true
+                                            ? Styles.lightColor
+                                            : Styles.darkColor,
+                                      );
+                                    }
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: innerSpacing),
+                              OutlinedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  )),
+                                  side: MaterialStateProperty.all(
+                                    BorderSide(
+                                        color: themeSnapShot.data == true
+                                            ? Styles.lightColor
+                                            : Styles.darkColor,
+                                        width: 2),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  setState(() {
+                                    paused = !paused;
+                                  });
+                                  if (paused == true) {
+                                    await controller?.pauseCamera();
+                                  } else {
+                                    await controller?.resumeCamera();
+                                  }
+                                },
+                                child: paused == true
+                                    ? Icon(
+                                        Icons.play_arrow,
+                                        color: themeSnapShot.data == true
+                                            ? Styles.lightColor
+                                            : Styles.darkColor,
+                                      )
+                                    : Icon(
+                                        Icons.pause,
+                                        color: themeSnapShot.data == true
+                                            ? Styles.lightColor
+                                            : Styles.darkColor,
+                                      ),
+                              ),
+                            ],
+                          );
+                        }),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildQrView(BuildContext context) {
-    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
             MediaQuery.of(context).size.height < 400)
-        ? 150.0
-        : 300.0;
-    // To ensure the Scanner view is properly sizes after rotation
-    // we need to listen for Flutter SizeChanged notification and update controller
+        ? 200.0
+        : 350.0;
     return QRView(
+      cameraFacing: CameraFacing.back,
+      overlayMargin: EdgeInsets.symmetric(horizontal: scanArea / 4),
+      formatsAllowed: const [BarcodeFormat.qrcode],
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
-          borderColor: Colors.red,
-          borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
-          cutOutSize: scanArea),
+        borderColor: Colors.grey,
+        borderRadius: 10,
+        borderLength: 20,
+        borderWidth: 10,
+        cutOutSize: scanArea,
+      ),
       onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
     );
   }
@@ -125,6 +204,21 @@ class _QrCameraState extends State<QrCamera> {
       setState(() {
         result = scanData;
       });
+      final inventory = BlocProvider.of<BlocsCombiner>(context)
+          .inventoryBloc
+          .filterByIdWithQr(scanData);
+
+      setState(() {
+        prod = inventory.title;
+      });
+
+      Future.delayed(const Duration(seconds: 1));
+
+      try {
+        context.goNamed('HistoryForm', extra: inventory);
+      } catch (e) {
+        throw Exception(e.toString());
+      }
     });
   }
 

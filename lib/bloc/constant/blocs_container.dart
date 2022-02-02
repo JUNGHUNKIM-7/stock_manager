@@ -51,8 +51,9 @@ class Blocs {
 
   final chipBloc = ChipBloc(state: DateTime.now().month - 1);
   final yearSelection = YearSelectionBloc(state: DateTime.now().year);
-  final inStatus = FilterButtonStatusBloc(state: false);
-  final outStatus = FilterButtonStatusBloc(state: false);
+  final inStatus = FilterButtonStatusBloc(state: true);
+  final outStatus = FilterButtonStatusBloc(state: true);
+  final descendingStatus = FilterButtonStatusBloc(state: true);
 
   final titleFieldBloc = FormBloc(fields: FormFields.title);
   final memoFieldBloc = FormBloc(fields: FormFields.memo);

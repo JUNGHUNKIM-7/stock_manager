@@ -36,6 +36,7 @@ class SubmitHistory extends StatelessWidget {
                     val: snapshot.data?['val'] ?? 0,
                     id: inventory.id,
                     title: inventory.title,
+                    memo: inventory.memo,
                     //'y' => out
                     qty: snapshot.data?['status'] == 'y'
                         ? (inventory.qty != 0 &&

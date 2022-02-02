@@ -47,9 +47,10 @@ class PageRouter {
         builder: (context, state) => const QrCamera(),
       ),
     ],
-    errorBuilder: (context, state) => ErrorPage(
-      error: state.error,
-    ),
+    errorBuilder: (context, state) =>
+        ErrorPage(
+          error: state.error,
+        ),
   );
 }
 

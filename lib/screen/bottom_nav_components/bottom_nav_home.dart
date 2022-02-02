@@ -19,7 +19,7 @@ class TabNavHome extends StatelessWidget {
   static final pages = [
     const FirstPage(),
     const SecondPage(),
-    const ThirdPage(),
+    // const ThirdPage(),
     const FourthPage(),
   ];
 
@@ -41,7 +41,8 @@ class TabNavHome extends StatelessWidget {
                       stream: theme.stream,
                       builder: (context, AsyncSnapshot<bool> snapshot) {
                         if (snapshot.hasData) {
-                          return FloatingActionButton(
+                          return FloatingActionButton.extended(
+                            tooltip: 'Make a Deal with QR',
                             foregroundColor: snapshot.data!
                                 ? Styles.darkColor
                                 : Styles.lightColor,
@@ -49,8 +50,9 @@ class TabNavHome extends StatelessWidget {
                                 ? Styles.lightColor
                                 : Styles.darkColor,
                             elevation: 10.0,
-                            child: const Icon(Icons.qr_code_scanner_sharp),
+                            icon: const Icon(Icons.qr_code_scanner_sharp),
                             onPressed: () => context.goNamed('qrCamera'),
+                            label: Text('Qr Scan'.toUpperCase()),
                           );
                         }
                         return Container();

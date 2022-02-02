@@ -46,13 +46,19 @@ class FilterSectionWithBtns extends StatelessWidget {
   List<Widget> returnBtns(BuildContext context, String btnType) {
     final inStatus = BlocProvider.of<BlocsCombiner>(context).inStatus;
     final outStatus = BlocProvider.of<BlocsCombiner>(context).outStatus;
-    const historyBtnText = ['In', 'Out'];
+    final descendingStatus =
+        BlocProvider.of<BlocsCombiner>(context).descendingStatus;
+    const historyBtnText = ['In', 'Out', 'DESC'];
 
     switch (btnType) {
       case 'history':
-        return List.generate(2, (int idx) {
+        return List.generate(3, (int idx) {
           return StreamBuilder(
-              stream: idx == 0 ? inStatus.stream : outStatus.stream,
+              stream: idx == 0
+                  ? inStatus.stream
+                  : idx == 1
+                      ? outStatus.stream
+                      : descendingStatus.stream,
               builder: (context, AsyncSnapshot<bool> snapshot) {
                 return Row(
                   children: [
@@ -61,15 +67,21 @@ class FilterSectionWithBtns extends StatelessWidget {
                       onPressed: () {
                         if (idx == 0) {
                           inStatus.switchVal();
-                        } else {
+                        } else if (idx == 1) {
                           outStatus.switchVal();
+                        } else {
+                          descendingStatus.switchVal();
                         }
                       },
-                      bloc: idx == 0 ? inStatus : outStatus,
+                      bloc: idx == 0
+                          ? inStatus
+                          : idx == 1
+                              ? outStatus
+                              : descendingStatus,
                     ),
-                    if (idx == 0)
+                    if (idx == 0 || idx == 1)
                       const SizedBox(
-                        width: 8,
+                        width: 4,
                       )
                   ],
                 );

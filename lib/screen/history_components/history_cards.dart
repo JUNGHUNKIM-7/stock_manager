@@ -91,12 +91,24 @@ class Cards extends StatelessWidget {
                           .headline2
                           ?.copyWith(fontSize: 14),
                     ),
-                    Text(
-                      history.date!.split(' ')[1].substring(0, 8),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2
-                          ?.copyWith(fontSize: 14),
+                    Row(
+                      children: [
+                        Text(
+                          history.date!.split(' ')[1].substring(0, 5),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline2
+                              ?.copyWith(fontSize: 14),
+                        ),
+                        const SizedBox(width: innerSpacing / 2),
+                        Text(
+                          history.jm!,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline2
+                              ?.copyWith(fontSize: 14),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -124,20 +136,25 @@ class Cards extends StatelessWidget {
                                   ?.copyWith(fontSize: 16),
                             ),
                       Text(
-                        'memo'.length > 10
-                            ? 'memo...'.toCapitalized()
-                            : 'memo'.toCapitalized(),
+                        (history.memo ?? '').length > 32
+                            ? '${history.memo?.substring(0, 32)}...'
+                                .toTitleCase()
+                            : history.memo?.toTitleCase() ?? '',
                         style: Theme.of(context).textTheme.bodyText1?.copyWith(
                             fontSize: 14, fontWeight: FontWeight.normal),
                       ),
                     ],
                   ),
                 ),
-                Text(history.val.toString(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1
-                        ?.copyWith(fontSize: 14, fontWeight: FontWeight.w600)),
+                Text(
+                  history.val.toString(),
+                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: history.status == 'y'
+                          ? Colors.cyanAccent
+                          : Colors.limeAccent),
+                ),
                 const SizedBox(width: innerSpacing),
                 if (history.status.toLowerCase() == 'y')
                   const Icon(

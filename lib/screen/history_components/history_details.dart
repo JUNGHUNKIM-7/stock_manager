@@ -77,19 +77,34 @@ class StreamByStatusWrapper extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
-                'in'.toUpperCase(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline2
-                    ?.copyWith(fontSize: 16),
+              Row(
+                children: [
+                  const Icon(Icons.add_business, color: Colors.cyanAccent),
+                  const SizedBox(width: innerSpacing),
+                  Text(
+                    'in'.toUpperCase(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2
+                        ?.copyWith(fontSize: 16, color: Colors.cyanAccent),
+                  ),
+                ],
               ),
-              Text(
-                'out'.toUpperCase(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline2
-                    ?.copyWith(fontSize: 16),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.local_shipping_outlined,
+                    color: Colors.limeAccent,
+                  ),
+                  const SizedBox(width: innerSpacing),
+                  Text(
+                    'out'.toUpperCase(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2
+                        ?.copyWith(fontSize: 16, color: Colors.limeAccent),
+                  ),
+                ],
               )
             ],
           ),
@@ -176,13 +191,16 @@ class OutWidget extends StatelessWidget {
           final item = outHistory[idx];
           return ListTile(
             title: Text(
-              item.date.toString().substring(0, 19),
+              '${item.date.toString().substring(0, 16)} ${item.jm}',
               style:
-                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                  Theme.of(context).textTheme.headline2?.copyWith(fontSize: 14),
             ),
             trailing: Text(
               item.val.toString(),
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1
+                  ?.copyWith(color: Colors.limeAccent),
             ),
           );
         },
@@ -217,13 +235,16 @@ class InWidget extends StatelessWidget {
           final item = inHistory[idx];
           return ListTile(
             title: Text(
-              item.date.toString().substring(0, 19),
+              '${item.date.toString().substring(0, 16)} ${item.jm}',
               style:
-                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                  Theme.of(context).textTheme.headline2?.copyWith(fontSize: 14),
             ),
             trailing: Text(
               item.val.toString(),
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1
+                  ?.copyWith(color: Colors.cyanAccent),
             ),
           );
         },

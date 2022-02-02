@@ -45,18 +45,20 @@ class BlocsCombiner extends Blocs
 
   @override
   Stream<List<History>> get filterStreamByYear => CombineLatestStream.combine2(
-      historyBloc.stream,
-      yearSelection.yearStream,
-      (List<History> historyData, int year) => historyData
-          .where((element) => element.date!.substring(0, 4) == year.toString())
-          .toList());
+        historyBloc.stream,
+        yearSelection.yearStream,
+        (List<History> historyData, int year) => historyData.reversed
+            .where(
+                (element) => element.date!.substring(0, 4) == year.toString())
+            .toList(),
+      );
 
   @override
   Stream<List<History>> get filteredHistoryStream =>
       CombineLatestStream.combine3(
           filterStreamByYear, chipBloc.stream, historySearchBloc.stream,
           (List<History> historyData, int chipIdx, String searchParams) {
-        final filteredByMonth = historyData.where(
+        final filteredByMonth = historyData.reversed.where(
           (element) => element.date!
               .split(' ')[0]
               .split('-')[1]
@@ -75,34 +77,50 @@ class BlocsCombiner extends Blocs
 
   @override
   Stream<List<History>> get filteredHistoryStreamWithStatus =>
-      CombineLatestStream.combine3(
-          filteredHistoryStream, inStatus.stream, outStatus.stream,
-          (List<History> historyData, bool inStatus, bool outStatus) {
+      CombineLatestStream.combine4(filteredHistoryStream, inStatus.stream,
+          outStatus.stream, descendingStatus.stream, (List<History> historyData,
+              bool inStatus, bool outStatus, bool descendingStatus) {
         if (inStatus && outStatus) {
-          return historyData;
+          if (descendingStatus == true) {
+            return historyData.reversed.toList();
+          } else {
+            return historyData;
+          }
         } else if (inStatus == true) {
-          return historyData
-              .where((element) => element.status.toLowerCase() == 'n')
-              .toList();
+          if (descendingStatus == true) {
+            return historyData.reversed
+                .where((element) => element.status.toLowerCase() == 'n')
+                .toList();
+          } else {
+            return historyData
+                .where((element) => element.status.toLowerCase() == 'n')
+                .toList();
+          }
         } else if (outStatus == true) {
-          return historyData
-              .where((element) => element.status.toLowerCase() == 'y')
-              .toList();
+          if (descendingStatus == true) {
+            return historyData.reversed
+                .where((element) => element.status.toLowerCase() == 'y')
+                .toList();
+          } else {
+            return historyData
+                .where((element) => element.status.toLowerCase() == 'y')
+                .toList();
+          }
         } else {
-          return historyData;
+          throw Exception('There is No Filters');
         }
       }).transform(historyNotEmpty);
 
   @override
   Stream<List<Inventory>> get filterInventoryStream =>
       CombineLatestStream.combine2(
-          inventoryBloc.stream,
-          inventorySearchBloc.stream,
-          (List<Inventory> inventoryData, String searchParams) => inventoryData
-              .where(
-                (element) => element.title.toLowerCase().contains(searchParams),
-              )
-              .toList()).transform(inventoryNotEmpty);
+        inventoryBloc.stream,
+        inventorySearchBloc.stream,
+        (List<Inventory> inventoryData, String searchParams) => inventoryData
+            .where(
+                (element) => element.title.toLowerCase().contains(searchParams))
+            .toList(),
+      ).transform(inventoryNotEmpty);
 
   @override
   Stream<Map<String, dynamic>> get inventoryAddFormStream =>
