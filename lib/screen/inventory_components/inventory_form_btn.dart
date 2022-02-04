@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
 import 'package:router_go/bloc/global/form_bloc.dart';
+import 'package:router_go/database/hive_storage/hive_handler.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
@@ -52,14 +54,16 @@ class InventorySubmit extends StatelessWidget {
                     combiner.qtyFieldBloc.clearInventoryForm(FormFields.qty);
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Product Added to your Inventory'),
+                      SnackBar(
+                        backgroundColor: Colors.green[600],
+                        content: const Text('Success: Added To Inventory'),
                       ),
                     );
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('Failed : ${e.toString()}'),
+                        backgroundColor: Colors.red[600],
+                        content: Text('Failed: ${e.toString()}'),
                       ),
                     );
                   }

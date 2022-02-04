@@ -1,5 +1,6 @@
-import 'package:router_go/bloc/bookmark/bookmark_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:router_go/bloc/global/form_bloc.dart';
+import 'package:router_go/bloc/global/settings_bloc.dart';
 import '../../bloc/global/history_view.dart';
 import '../../bloc/global/page_bloc.dart';
 import '../../bloc/global/theme_bloc.dart';
@@ -17,23 +18,38 @@ import '../../database/repository/gsheet_handler.dart';
 class Blocs {
   late List<History> historyData;
   late List<Inventory> inventoryData;
-  late List<Inventory> bookMarkData;
+  late Box settingBox;
 
-  Blocs.initializer(
-      {required this.historyData,
-      required this.inventoryData,
-      required this.bookMarkData}) {
+  Blocs._();
+
+  Blocs.initializer({
+    required this.historyData,
+    required this.inventoryData,
+    required this.settingBox,
+  }) {
+    settingBox = settingBox;
     historyData = historyData;
     inventoryData = inventoryData;
-    bookMarkData = bookMarkData;
   }
 
-  final themeBloc = ThemeBloc(state: false);
+  late final themeBloc = ThemeBloc(
+      state: settingBox.get('darkMode') ?? false, settingBox: settingBox);
   late final pageBloc = PageBloc(
-      state: 0,
-      historySearch: historySearchBloc,
-      inventorySearch: inventorySearchBloc);
+    state: 0,
+    historySearch: historySearchBloc,
+    inventorySearch: inventorySearchBloc,
+  );
 
+  late final settings = SettingsBloc(
+    state: {
+      'secret': settingBox.get('secret') ?? '',
+      'sheetId': settingBox.get('sheetId') ?? '',
+      'tz': settingBox.get('tz') ?? '',
+    },
+    settingBox: settingBox,
+  );
+
+  //todo hive box
   final historyView =
       HistoryViewBloc(state: [], type: HistoryViewBlocEnum.history);
   final inventoryView =
@@ -43,8 +59,6 @@ class Blocs {
       HistoryBloc(state: historyData, handler: GSheetHandler());
   late final inventoryBloc =
       InventoryBloc(state: inventoryData, handler: GSheetHandler());
-  late final bookMarks =
-      BookMarkBloc(state: bookMarkData, handler: GSheetHandler());
 
   final historySearchBloc = HistorySearchBloc(state: '');
   final inventorySearchBloc = InventorySearchBloc(state: '');

@@ -56,8 +56,8 @@ class InventoryDetails extends StatelessWidget {
                               .bodyText1
                               ?.copyWith(fontSize: 20),
                         ),
-                        const Divider(
-                          color: Colors.black,
+                        Divider(
+                          color: Colors.grey[700],
                           thickness: 2.0,
                         ),
                         Align(
@@ -81,8 +81,8 @@ class InventoryDetails extends StatelessWidget {
                               .bodyText1
                               ?.copyWith(fontSize: 20),
                         ),
-                        const Divider(
-                          color: Colors.black,
+                        Divider(
+                          color: Colors.grey[700],
                           thickness: 2.0,
                         ),
                         Align(
@@ -106,8 +106,8 @@ class InventoryDetails extends StatelessWidget {
                               .bodyText1
                               ?.copyWith(fontSize: 20),
                         ),
-                        const Divider(
-                          color: Colors.black,
+                        Divider(
+                          color: Colors.grey[700],
                           thickness: 2.0,
                         ),
                         Align(
@@ -129,8 +129,8 @@ class InventoryDetails extends StatelessWidget {
                               .bodyText1
                               ?.copyWith(fontSize: 20),
                         ),
-                        const Divider(
-                          color: Colors.black,
+                        Divider(
+                          color: Colors.grey[700],
                           thickness: 2.0,
                         ),
                         Align(

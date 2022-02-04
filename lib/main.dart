@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:router_go/database/hive_storage/hive_handler.dart';
 
 import '../../navigation.dart';
 import '../../styles.dart';
 import 'bloc/constant/blocs_combiner.dart';
 import 'bloc/constant/provider.dart';
+import 'database/hive_storage/histories.dart';
+import 'database/hive_storage/settings.dart';
 import 'database/repository/gsheet_handler.dart';
 import 'database/repository/gsheet_repo.dart';
 
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
-  await GSheetHandler.init();
+  tz.initializeTimeZones();
+  await Future.wait([
+    Hive.initFlutter(),
+    HiveHandler.init(['settings']),
+    GSheetHandler.init(),
+  ]);
+  HiveHandler.registerAdapter([SettingsAdapter(), HistoriesAdapter()]);
 
   runApp(
     BlocProvider<BlocsCombiner>(

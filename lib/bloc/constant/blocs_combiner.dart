@@ -1,3 +1,4 @@
+import 'package:hive/hive.dart';
 import 'package:rxdart/rxdart.dart';
 import 'dart:async';
 
@@ -8,20 +9,16 @@ import 'blocs_container.dart';
 class BlocsCombiner extends Blocs
     with BlocsCombinerMixins
     implements BlocsCombinerInterface {
-  BlocsCombiner({this.fetchedData})
+  BlocsCombiner({Map<String, List>? fetchedData, Box? settingsBox})
       : super.initializer(
+          settingBox: settingsBox ?? Hive.box('settings'),
           historyData: fetchedData != null
               ? fetchedData['history'] as List<History>
               : [],
           inventoryData: fetchedData != null
               ? fetchedData['inventory'] as List<Inventory>
               : [],
-          bookMarkData: fetchedData != null
-              ? fetchedData['bookmark'] as List<Inventory>
-              : [],
         );
-
-  final Map<String, List>? fetchedData;
 
   @override
   void disposeFirstPage() {

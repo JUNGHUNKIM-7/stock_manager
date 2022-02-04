@@ -14,6 +14,13 @@ AppBar showAppBar(
   switch (pageIdx) {
     case 0:
       return AppBar(
+        automaticallyImplyLeading: false,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
         actions: const [
           HistoryPanel(
             historyViewBlocEnum: HistoryViewBlocEnum.history,
@@ -30,6 +37,13 @@ AppBar showAppBar(
       );
     case 1:
       return AppBar(
+        automaticallyImplyLeading: false,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
         actions: const [
           HistoryPanel(
             historyViewBlocEnum: HistoryViewBlocEnum.inventory,
@@ -46,6 +60,13 @@ AppBar showAppBar(
       );
     default:
       return AppBar(
+        automaticallyImplyLeading: false,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
         actions: const [
           DarkModeToggle(iconSize: 30.0),
           SizedBox(

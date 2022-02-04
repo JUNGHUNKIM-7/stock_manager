@@ -44,7 +44,7 @@ class _SearchFieldState extends State<SearchField> {
                       .textTheme
                       .headline2
                       ?.copyWith(fontSize: 16),
-                  hintText: '"Product Name?"',
+                  hintText: 'Product Name?',
                   hintStyle: const TextStyle(fontSize: 14.0),
                   suffixIcon: snapshot.data!.isNotEmpty
                       ? IconButton(

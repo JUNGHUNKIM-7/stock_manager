@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
 import 'package:router_go/bloc/constant/blocs_combiner.dart';
 import 'package:router_go/bloc/constant/provider.dart';
 import 'package:router_go/bloc/global/form_bloc.dart';
+import 'package:router_go/database/hive_storage/hive_handler.dart';
 import 'package:router_go/database/model/history_model.dart';
 import 'package:router_go/database/model/inventory_model.dart';
 import 'package:router_go/database/repository/gsheet_handler.dart';
@@ -27,70 +29,72 @@ class SubmitHistory extends StatelessWidget {
         return ElevatedButton(
           onPressed: (snapshot.hasData && snapshot.data!.isNotEmpty)
               ? () async {
-            try {
-              await handler
-                  .insertOne(
-                history: History.toMap(
-                  History(
-                    status: snapshot.data?['status'],
-                    val: snapshot.data?['val'] ?? 0,
-                    id: inventory.id,
-                    title: inventory.title,
-                    memo: inventory.memo,
-                    //'y' => out
-                    qty: snapshot.data?['status'] == 'y'
-                        ? (inventory.qty != 0 &&
-                        snapshot.data?['val'] <=
-                            inventory.qty)
-                        ? (inventory.qty +
-                        (-snapshot.data?['val'] as int))
-                        : throw Exception(
-                        'Value MUST Less or Equal than Item Quantity')
-                        : (snapshot.data?['val'] + inventory.qty),
-                  ),
-                ),
-                type: SheetType.history,
-              )
-                  .whenComplete(
-                    () => handler.updateOne(
-                  inventory.id,
-                  'qty',
-                  snapshot.data?['status'] == 'y'
-                      ? (inventory.qty != 0 &&
-                      snapshot.data?['val'] <= inventory.qty)
-                      ? (inventory.qty +
-                      (-snapshot.data?['val'] as int))
-                      : throw Exception(
-                      'Value MUST Less or Equal than Item Quantity')
-                      : (snapshot.data?['val'] + inventory.qty),
-                  SheetType.inventory,
-                ),
-              )
-                  .whenComplete(() => Future.wait([
-                combiner.historyBloc.reload(),
-                combiner.inventoryBloc.reload(),
-              ]))
-                  .whenComplete(
-                    () => context.goNamed('home'),
-              );
+                  try {
+                    await handler
+                        .insertOne(
+                          history: History.toMap(
+                            History(
+                              status: snapshot.data?['status'],
+                              val: snapshot.data?['val'] ?? 0,
+                              id: inventory.id,
+                              title: inventory.title,
+                              memo: inventory.memo,
+                              //'y' => out
+                              qty: snapshot.data?['status'] == 'y'
+                                  ? (inventory.qty != 0 &&
+                                          snapshot.data?['val'] <=
+                                              inventory.qty)
+                                      ? (inventory.qty +
+                                          (-snapshot.data?['val'] as int))
+                                      : throw Exception(
+                                          'Value MUST Less or Equal than Item Quantity')
+                                  : (snapshot.data?['val'] + inventory.qty),
+                            ),
+                          ),
+                          type: SheetType.history,
+                        )
+                        .whenComplete(
+                          () => handler.updateOne(
+                            inventory.id,
+                            'qty',
+                            snapshot.data?['status'] == 'y'
+                                ? (inventory.qty != 0 &&
+                                        snapshot.data?['val'] <= inventory.qty)
+                                    ? (inventory.qty +
+                                        (-snapshot.data?['val'] as int))
+                                    : throw Exception(
+                                        'Value MUST Less or Equal than Item Quantity')
+                                : (snapshot.data?['val'] + inventory.qty),
+                            SheetType.inventory,
+                          ),
+                        )
+                        .whenComplete(() => Future.wait([
+                              combiner.historyBloc.reload(),
+                              combiner.inventoryBloc.reload(),
+                            ]))
+                        .whenComplete(
+                          () => context.goNamed('home'),
+                        );
 
-              combiner.statusFieldBloc
-                  .clearHistoryForm(FormFields.status);
-              combiner.valFieldBloc.clearHistoryForm(FormFields.val);
+                    combiner.statusFieldBloc
+                        .clearHistoryForm(FormFields.status);
+                    combiner.valFieldBloc.clearHistoryForm(FormFields.val);
 
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Success, Check Your History'),
-                ),
-              );
-            } catch (e) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(e.toString()),
-                ),
-              );
-            }
-          }
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.green[600],
+                        content: const Text('Success: Added To History'),
+                      ),
+                    );
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.red[600],
+                        content: Text('Failed: ${e.toString()}'),
+                      ),
+                    );
+                  }
+                }
               : null,
           child: const Text('Save to History'),
         );

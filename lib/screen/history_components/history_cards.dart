@@ -22,24 +22,18 @@ class CardListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       padding: const EdgeInsets.symmetric(
-        horizontal: innerSpacing,
-      ),
+          horizontal: innerSpacing, vertical: innerSpacing),
       itemCount: snapshot.data!.length,
       itemBuilder: (context, idx) {
         final history = snapshot.data?[idx];
 
-        return Padding(
-          padding: const EdgeInsets.only(top: innerSpacing),
-          child: Cards(
-            history: history,
-            theme: theme,
-          ),
+        return Cards(
+          history: history,
+          theme: theme,
         );
       },
       separatorBuilder: (BuildContext context, int index) {
-        return const SizedBox(
-          height: innerSpacing / 4,
-        );
+        return const SizedBox(height: innerSpacing);
       },
     );
   }
@@ -78,7 +72,6 @@ class Cards extends StatelessWidget {
               vertical: innerSpacing,
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Column(

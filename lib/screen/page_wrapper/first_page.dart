@@ -17,7 +17,6 @@ class FirstPage extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-
       body: Column(
         children: [
           SizedBox(

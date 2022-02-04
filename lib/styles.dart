@@ -144,7 +144,7 @@ class Styles {
         ),
         bodyText2: GoogleFonts.poppins().copyWith(
           fontSize: 16.0,
-          color: Colors.black,
+          color: Colors.grey[700],
           fontWeight: FontWeight.normal,
           letterSpacing: 0.4,
         ),

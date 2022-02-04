@@ -215,8 +215,9 @@ class DeleteDialog extends StatelessWidget {
           onPressed: () async {
             await combiner.inventoryBloc.delete(id).whenComplete(
                   () => ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Item Deleted'),
+                    SnackBar(
+                      backgroundColor: Colors.green[600],
+                      content: const Text('Success: Item Deleted'),
                     ),
                   ),
                 );

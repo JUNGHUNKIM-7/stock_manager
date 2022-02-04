@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:router_go/bloc/global/page_bloc.dart';
-import 'package:router_go/styles.dart';
+import '../global_components/floating_btns.dart';
+import '../global_components/settings_drawer.dart';
 import 'bottom_nav_bar.dart';
 
-import '../page_wrapper/fourth_page.dart';
 import '../page_wrapper/first_page.dart';
 
 import '../page_wrapper/second_page.dart';
-import '../page_wrapper/third_page.dart';
 import '../global_components/appbar_icons.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
@@ -20,7 +18,7 @@ class TabNavHome extends StatelessWidget {
     const FirstPage(),
     const SecondPage(),
     // const ThirdPage(),
-    const FourthPage(),
+    // const FourthPage(),
   ];
 
   @override
@@ -35,32 +33,16 @@ class TabNavHome extends StatelessWidget {
           if (snapshot.hasData) {
             return Scaffold(
               floatingActionButtonLocation:
-                  FloatingActionButtonLocation.endFloat,
-              floatingActionButton: snapshot.data == 1
-                  ? StreamBuilder(
-                      stream: theme.stream,
-                      builder: (context, AsyncSnapshot<bool> snapshot) {
-                        if (snapshot.hasData) {
-                          return FloatingActionButton.extended(
-                            tooltip: 'Make a Deal with QR',
-                            foregroundColor: snapshot.data!
-                                ? Styles.darkColor
-                                : Styles.lightColor,
-                            backgroundColor: snapshot.data!
-                                ? Styles.lightColor
-                                : Styles.darkColor,
-                            elevation: 10.0,
-                            icon: const Icon(Icons.qr_code_scanner_sharp),
-                            onPressed: () => context.goNamed('qrCamera'),
-                            label: Text('Qr Scan'.toUpperCase()),
-                          );
-                        }
-                        return Container();
-                      })
-                  : null,
+                  FloatingActionButtonLocation.centerDocked,
+              floatingActionButton: snapshot.data == 0
+                  ? ExportToExcelBtn(theme: theme)
+                  : snapshot.data == 1
+                      ? QrFloatingBtn(theme: theme)
+                      : null,
               appBar: showAppBar(context, snapshot.data!),
               bottomNavigationBar: const BottomNavBar(),
-              body: BodyStream(pageIdx: pageIdx, pages: pages),
+              body: BodyPages(pageIdx: pageIdx, pages: pages),
+              drawer: SettingsDrawer(theme: theme),
             );
           }
           return Container();
@@ -70,8 +52,9 @@ class TabNavHome extends StatelessWidget {
   }
 }
 
-class BodyStream extends StatelessWidget {
-  const BodyStream({
+
+class BodyPages extends StatelessWidget {
+  const BodyPages({
     Key? key,
     required this.pageIdx,
     required this.pages,

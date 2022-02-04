@@ -9,7 +9,6 @@ class BaseStreamController<T> {
   }
 
   T get state => _state;
-
   set state(T value) {
     _state = value;
     _subject.add(_state);

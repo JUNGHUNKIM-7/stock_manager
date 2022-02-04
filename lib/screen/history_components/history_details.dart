@@ -109,11 +109,11 @@ class StreamByStatusWrapper extends StatelessWidget {
             ],
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(
+        Padding(
+          padding: const EdgeInsets.symmetric(
               horizontal: innerSpacing / 2, vertical: innerSpacing / 4),
           child: Divider(
-            color: Colors.black,
+            color: Colors.grey[700],
             thickness: 2,
             height: 2,
           ),
@@ -205,8 +205,8 @@ class OutWidget extends StatelessWidget {
           );
         },
         separatorBuilder: (context, idx) {
-          return const Divider(
-            color: Colors.black,
+          return Divider(
+            color: Colors.grey[700],
             thickness: 1,
             height: 1,
           );
@@ -249,8 +249,8 @@ class InWidget extends StatelessWidget {
           );
         },
         separatorBuilder: (context, idx) {
-          return const Divider(
-            color: Colors.black,
+          return Divider(
+            color: Colors.grey[700],
             thickness: 1,
             height: 1,
           );

@@ -1,3 +1,4 @@
+import 'package:hive/hive.dart';
 import 'package:router_go/bloc/constant/base_controller.dart';
 
 abstract class ThemeBlocInterface {
@@ -6,11 +7,15 @@ abstract class ThemeBlocInterface {
 
 class ThemeBloc extends BaseStreamController<bool>
     implements BaseInterface<bool>, ThemeBlocInterface {
-  ThemeBloc({required state}) : super(state: state);
+  ThemeBloc({required state, required this.settingBox}) : super(state: state);
+
+  final Box settingBox;
 
   @override
   void darkMode() {
-    subject.add(!subject.value);
+    final currentMode = settingBox.get('darkMode') as bool;
+    settingBox.put('darkMode', !currentMode);
+    state = settingBox.get('darkMode');
   }
 
   @override

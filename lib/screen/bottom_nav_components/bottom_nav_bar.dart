@@ -33,10 +33,10 @@ class BottomNavBar extends StatelessWidget {
             //   icon: Icon(Icons.bookmarks_outlined),
             //   label: 'Bookmarks',
             // ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.settings),
+            //   label: 'Settings',
+            // ),
           ],
         );
       },
