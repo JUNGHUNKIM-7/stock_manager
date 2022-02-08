@@ -55,7 +55,7 @@ class ExportToExcelBtn extends StatelessWidget {
         builder: (context, AsyncSnapshot<bool> themeSnapShot) {
           if (themeSnapShot.hasData) {
             return StreamBuilder<List<History>>(
-                stream: combiner.filteredHistoryStreamWithStatus,
+                stream: combiner.filterHisByStatus,
                 builder: (context, historySnapShot) {
                   if (historySnapShot.hasData) {
                     return StreamBuilder<int>(
@@ -65,7 +65,7 @@ class ExportToExcelBtn extends StatelessWidget {
                               stream: combiner.yearSelection.yearStream,
                               builder: (context, yearSnapShot) {
                                 return FloatingActionButton(
-                                  tooltip: 'Export Current History to Excel',
+                                  tooltip: 'Save Filtered Data',
                                   foregroundColor: themeSnapShot.data!
                                       ? Styles.darkColor
                                       : Styles.lightColor,

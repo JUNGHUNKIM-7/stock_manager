@@ -28,8 +28,8 @@ class InventoryBloc extends BaseStreamController<List<Inventory>>
   @override
   Future<void> reload() async {
     final newState =
-        await handler.fetchData(SheetType.inventory) as List<Inventory>;
-    state = newState;
+        await handler.fetchData(SheetType.inventory);
+    state = newState.cast<Inventory>();
   }
 
   @override

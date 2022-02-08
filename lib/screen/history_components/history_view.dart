@@ -3,9 +3,9 @@ import 'package:router_go/bloc/global/theme_bloc.dart';
 import 'package:router_go/database/model/history_model.dart';
 import 'package:router_go/screen/global_components/filter_section.dart';
 
+import 'history_cards.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
-import 'history_cards.dart';
 import '../../utils/string_handler.dart';
 
 class HistoryView extends StatelessWidget {
@@ -20,7 +20,7 @@ class HistoryView extends StatelessWidget {
     final combiner = BlocProvider.of<BlocsCombiner>(context);
 
     return StreamBuilder(
-      stream: combiner.filteredHistoryStreamWithStatus,
+      stream: combiner.filterHisByStatus,
       builder: (context, AsyncSnapshot<List<History>> snapshot) {
         if (!snapshot.hasData) {
           return Column(

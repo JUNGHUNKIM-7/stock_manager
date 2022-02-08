@@ -9,16 +9,14 @@ import 'blocs_container.dart';
 class BlocsCombiner extends Blocs
     with BlocsCombinerMixins
     implements BlocsCombinerInterface {
-  BlocsCombiner({required Map<String, List> fetchedData, Box? settingsBox})
+  BlocsCombiner(
+      {required List<History> historyData,
+      required List<Inventory> inventoryData,
+      Box? settingsBox})
       : super.initializer(
-          settingBox: settingsBox ?? Hive.box('settings'),
-          historyData: (fetchedData['history']?.isEmpty != true)
-              ? fetchedData['history'] as List<History>
-              : [],
-          inventoryData: (fetchedData['inventory']?.isEmpty != true)
-              ? fetchedData['inventory'] as List<Inventory>
-              : [],
-        );
+            settingBox: settingsBox ?? Hive.box('settings'),
+            historyData: historyData,
+            inventoryData: inventoryData);
 
   @override
   void disposeFirstPage() {
@@ -41,71 +39,104 @@ class BlocsCombiner extends Blocs
   }
 
   @override
-  Stream<List<History>> get filterStreamByYear => CombineLatestStream.combine2(
+  Stream<List<History>> get filterHisByYear => CombineLatestStream.combine2(
         historyBloc.stream,
         yearSelection.yearStream,
-        (List<History> historyData, int year) => historyData.reversed
-            .where(
-                (element) => element.date!.substring(0, 4) == year.toString())
+        (List<History> historyData, int year) => historyData
+            .where((element) =>
+                int.tryParse(element.date!.substring(0, 4)) == year)
             .toList(),
       );
 
   @override
-  Stream<List<History>> get filteredHistoryStream =>
-      CombineLatestStream.combine3(
-          filterStreamByYear, chipBloc.stream, historySearchBloc.stream,
-          (List<History> historyData, int chipIdx, String searchParams) {
-        final filteredByMonth = historyData.reversed.where(
-          (element) => element.date!
-              .split(' ')[0]
-              .split('-')[1]
-              .contains((chipIdx + 1).toString()),
-        );
-
+  Stream<List<History>> get filterHisByParams =>
+      CombineLatestStream.combine2(filterHisByYear, historySearchBloc.stream,
+          (List<History> historyData, String searchParams) {
         if (searchParams.isNotEmpty) {
-          return filteredByMonth
+          return historyData
               .where(
-                (element) => element.title.toLowerCase().contains(searchParams),
+                (element) => element.title
+                    .toLowerCase()
+                    .contains(searchParams.toLowerCase()),
               )
               .toList();
         }
-        return filteredByMonth.toList();
+        return historyData.toList();
       }).transform(historyNotEmpty);
 
   @override
-  Stream<List<History>> get filteredHistoryStreamWithStatus =>
-      CombineLatestStream.combine4(filteredHistoryStream, inStatus.stream,
-          outStatus.stream, descendingStatus.stream, (List<History> historyData,
+  Stream<List<History>> get filterHisByStatus => CombineLatestStream.combine5(
+          filterHisByParams,
+          chipBloc.stream,
+          inStatus.stream,
+          outStatus.stream,
+          descendingStatus.stream, (List<History> historyData, int chipIdx,
               bool inStatus, bool outStatus, bool descendingStatus) {
-        if (inStatus && outStatus) {
-          if (descendingStatus == true) {
-            return historyData.reversed.toList();
-          } else {
-            return historyData;
+        bool matchChipIdx(element) {
+          return int.tryParse(element.date!.split('T')[0].split('-')[1]) ==
+              (chipIdx + 1);
+        }
+
+        bool matchChipAndOutStatus(element) {
+          return element.status.toLowerCase() == 'y' && matchChipIdx(element);
+        }
+
+        bool matchChipAndInStatus(element) {
+          return element.status.toLowerCase() == 'n' && matchChipIdx(element);
+        }
+
+        List<History> getDataByChipIdx([bool? reverse]) {
+          switch (reverse) {
+            case true:
+              return historyData.reversed.where(matchChipIdx).toList();
+            case false:
+              return historyData.where(matchChipIdx).toList();
+            default:
+              throw Exception('Invalid chipIdx');
           }
-        } else if (inStatus == true) {
-          if (descendingStatus == true) {
-            return historyData.reversed
-                .where((element) => element.status.toLowerCase() == 'n')
-                .toList();
-          } else {
-            return historyData
-                .where((element) => element.status.toLowerCase() == 'n')
-                .toList();
+        }
+
+        List<History> getDataByStatus([String? status, bool? reverse]) {
+          switch (status) {
+            case 'n':
+              if (reverse == true) {
+                return historyData.reversed
+                    .where(matchChipAndInStatus)
+                    .toList();
+              } else {
+                return historyData.where(matchChipAndInStatus).toList();
+              }
+            case 'y':
+              if (reverse == true) {
+                return historyData.reversed
+                    .where(matchChipAndOutStatus)
+                    .toList();
+              } else {
+                return historyData.where(matchChipAndOutStatus).toList();
+              }
+            default:
+              throw Exception('Invalid chipIdx');
           }
-        } else if (outStatus == true) {
-          if (descendingStatus == true) {
-            return historyData.reversed
-                .where((element) => element.status.toLowerCase() == 'y')
-                .toList();
-          } else {
-            return historyData
-                .where((element) => element.status.toLowerCase() == 'y')
-                .toList();
+        }
+
+        if (descendingStatus == true) {
+          if (inStatus == true && outStatus == true) {
+            return getDataByChipIdx(true);
+          } else if (inStatus == true && outStatus == false) {
+            return getDataByStatus('n', true);
+          } else if (outStatus == true && inStatus == false) {
+            return getDataByStatus('y', true);
           }
         } else {
-          throw Exception('There is No Filters');
+          if (inStatus == true && outStatus == true) {
+            return getDataByChipIdx(false);
+          } else if (inStatus == true && outStatus == false) {
+            return getDataByStatus('n', false);
+          } else if (outStatus == true && inStatus == false) {
+            return getDataByStatus('y', false);
+          }
         }
+        throw Exception('There is No Filters');
       }).transform(historyNotEmpty);
 
   @override
@@ -163,11 +194,11 @@ abstract class BlocsCombinerInterface {
 
   void disposeForm();
 
-  Stream<List<History>> get filterStreamByYear;
+  Stream<List<History>> get filterHisByYear;
 
-  Stream<List<History>> get filteredHistoryStream;
+  Stream<List<History>> get filterHisByParams;
 
-  Stream<List<History>> get filteredHistoryStreamWithStatus;
+  Stream<List<dynamic>> get filterHisByStatus;
 
   Stream<List<Inventory>> get filterInventoryStream;
 

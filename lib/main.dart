@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:router_go/database/model/history_model.dart';
+import 'package:router_go/database/model/inventory_model.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 import '../../navigation.dart';
@@ -20,13 +22,17 @@ void main() async {
     Hive.initFlutter(),
     HiveHandler.init(['settings']),
   ]);
-  await GSheetHandler.init();
   HiveHandler.registerAdapter([SettingsAdapter(), HistoriesAdapter()]);
+  await GSheetHandler.init();
+  final fetchedData = await GSheetRepository.getDataMap();
 
   runApp(
     BlocProvider<BlocsCombiner>(
       child: App(router: PageRouter.router),
-      combiner: BlocsCombiner(fetchedData: await GSheetRepository.getDataMap()),
+      combiner: BlocsCombiner(
+        historyData: fetchedData['history']!.cast<History>(),
+        inventoryData: fetchedData['inventory']!.cast<Inventory>(),
+      ),
     ),
   );
 }

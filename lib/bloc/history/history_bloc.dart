@@ -22,8 +22,7 @@ class HistoryBloc extends BaseStreamController<List<History>>
 
   @override
   Future<void> reload() async {
-    final newState =
-        await handler.fetchData(SheetType.history) as List<History>;
-    state = newState;
+    final newState = await handler.fetchData(SheetType.history);
+    state = newState.cast<History>();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:router_go/database/repository/gsheet_handler.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
@@ -44,12 +45,14 @@ class FilterSectionWithBtns extends StatelessWidget {
   }
 
   List<Widget> returnBtns(BuildContext context, String btnType) {
-    final inStatus = BlocProvider.of<BlocsCombiner>(context).inStatus;
-    final outStatus = BlocProvider.of<BlocsCombiner>(context).outStatus;
-    final descendingStatus =
-        BlocProvider.of<BlocsCombiner>(context).descendingStatus;
+    final combiner = BlocProvider.of<BlocsCombiner>(context);
+    final inStatus = combiner.inStatus;
+    final outStatus = combiner.outStatus;
+    final descendingStatus = combiner.descendingStatus;
+    final inventoryBloc = combiner.inventoryBloc;
     const historyBtnText = ['In', 'Out', 'DESC'];
     const inventoryBtnText = ['Import From Excel', 'Add'];
+    final handler = GSheetHandler();
 
     switch (btnType) {
       case 'history':
@@ -95,8 +98,10 @@ class FilterSectionWithBtns extends StatelessWidget {
             children: [
               FilterBtns(
                   text: inventoryBtnText[idx],
-                  onPressed: () {
+                  onPressed: () async {
                     if (idx == 0) {
+                      await handler.moveToInventoryAndBackUp();
+                      await inventoryBloc.reload();
                     } else {
                       context.goNamed('inventoryForm');
                     }

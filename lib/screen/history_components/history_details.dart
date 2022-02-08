@@ -79,14 +79,14 @@ class StreamByStatusWrapper extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.add_business, color: Colors.cyanAccent),
+                  const Icon(Icons.add_business, color: Colors.limeAccent),
                   const SizedBox(width: innerSpacing),
                   Text(
                     'in'.toUpperCase(),
                     style: Theme.of(context)
                         .textTheme
                         .headline2
-                        ?.copyWith(fontSize: 16, color: Colors.cyanAccent),
+                        ?.copyWith(fontSize: 16, color: Colors.limeAccent),
                   ),
                 ],
               ),
@@ -94,7 +94,7 @@ class StreamByStatusWrapper extends StatelessWidget {
                 children: [
                   const Icon(
                     Icons.local_shipping_outlined,
-                    color: Colors.limeAccent,
+                    color: Colors.cyanAccent,
                   ),
                   const SizedBox(width: innerSpacing),
                   Text(
@@ -102,7 +102,7 @@ class StreamByStatusWrapper extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .headline2
-                        ?.copyWith(fontSize: 16, color: Colors.limeAccent),
+                        ?.copyWith(fontSize: 16, color: Colors.cyanAccent),
                   ),
                 ],
               )
@@ -146,7 +146,7 @@ class StreamByStatus extends StatelessWidget {
     final combiner = BlocProvider.of<BlocsCombiner>(context);
 
     return StreamBuilder<List<History>>(
-      stream: combiner.filterStreamByYear,
+      stream: combiner.filterHisByStatus,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Expanded(
@@ -200,7 +200,7 @@ class OutWidget extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
-                  ?.copyWith(color: Colors.limeAccent),
+                  ?.copyWith(color: Colors.cyanAccent),
             ),
           );
         },
@@ -244,7 +244,7 @@ class InWidget extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
-                  ?.copyWith(color: Colors.cyanAccent),
+                  ?.copyWith(color: Colors.limeAccent),
             ),
           );
         },
