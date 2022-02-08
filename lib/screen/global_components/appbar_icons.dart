@@ -93,6 +93,8 @@ AppBar showAppBarWithBackBtn(BuildContext context, {BlocsCombiner? combiner}) =>
             combiner?.titleFieldBloc.clearInventoryForm(FormFields.title);
             combiner?.memoFieldBloc.clearInventoryForm(FormFields.memo);
             combiner?.qtyFieldBloc.clearInventoryForm(FormFields.qty);
+            combiner?.statusFieldBloc.clearHistoryForm(FormFields.status);
+            combiner?.valFieldBloc.clearHistoryForm(FormFields.val);
             combiner?.historySearchBloc.onChanged('');
             combiner?.inventorySearchBloc.onChanged('');
 

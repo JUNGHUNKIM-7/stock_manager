@@ -55,17 +55,17 @@ class Styles {
   ];
 
   //fontStyle
-  static final highlight = TextStyle(
+  static final logo = TextStyle(
     fontFamily: GoogleFonts.monoton().fontFamily,
     fontWeight: FontWeight.w700,
   );
 
-  static final header = TextStyle(
-    fontFamily: GoogleFonts.righteous().fontFamily,
-    fontWeight: FontWeight.w500,
+  static final headline2 = TextStyle(
+    fontFamily: GoogleFonts.kodchasan().fontFamily,
+    fontWeight: FontWeight.w700,
   );
 
-  static final subHeader = TextStyle(
+  static final subTitle = TextStyle(
     fontFamily: GoogleFonts.mPlus1p().fontFamily,
     fontWeight: FontWeight.normal,
   );
@@ -124,18 +124,18 @@ class Styles {
               suffixIconColor: Colors.orangeAccent),
       bottomNavigationBarTheme: returnBottomTheme(),
       textTheme: TextTheme(
-        headline1: highlight.copyWith(
+        headline1: logo.copyWith(
           fontSize: 32,
           color: darkMode ? Colors.red : const Color(0xff010409),
         ),
-        headline2: header.copyWith(
+        headline2: headline2.copyWith(
           fontSize: 26.0,
         ),
         headline3: GoogleFonts.orbitron().copyWith(
           fontSize: 18.0,
           fontWeight: FontWeight.bold,
         ),
-        subtitle1: subHeader.copyWith(
+        subtitle1: subTitle.copyWith(
           fontSize: 22.0,
         ),
         bodyText1: GoogleFonts.montserrat().copyWith(

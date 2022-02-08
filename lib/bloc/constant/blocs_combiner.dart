@@ -9,13 +9,13 @@ import 'blocs_container.dart';
 class BlocsCombiner extends Blocs
     with BlocsCombinerMixins
     implements BlocsCombinerInterface {
-  BlocsCombiner({Map<String, List>? fetchedData, Box? settingsBox})
+  BlocsCombiner({required Map<String, List> fetchedData, Box? settingsBox})
       : super.initializer(
           settingBox: settingsBox ?? Hive.box('settings'),
-          historyData: fetchedData != null
+          historyData: (fetchedData['history']?.isEmpty != true)
               ? fetchedData['history'] as List<History>
               : [],
-          inventoryData: fetchedData != null
+          inventoryData: (fetchedData['inventory']?.isEmpty != true)
               ? fetchedData['inventory'] as List<Inventory>
               : [],
         );

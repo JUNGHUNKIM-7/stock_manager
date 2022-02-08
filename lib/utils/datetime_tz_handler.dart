@@ -6,8 +6,8 @@ class DateTimeHandler {
   }
 
   static tz.TZDateTime getNow(String loc) {
-    var location = tz.getLocation(loc);
-    var now = tz.TZDateTime.now(location);
+    final location = tz.getLocation(loc);
+    final now = tz.TZDateTime.now(location);
     return now;
   }
 

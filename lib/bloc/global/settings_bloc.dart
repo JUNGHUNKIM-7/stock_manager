@@ -29,14 +29,16 @@ class SettingsBloc extends BaseStreamController<Map<String, dynamic>>
 
   @override
   void catchCredential(String value) {
-    state['secret'] = value;
-    print(state['secret']);
+    settingBox.put('secret', value);
+    state['secret'] = settingBox.get('secret');
+    print(settingBox.get('secret'));
   }
 
   @override
   void catchSheetId(String value) {
-    state['sheetId'] = value;
-    print(state['sheetId']);
+    settingBox.put('sheetId', value);
+    state['sheetId'] = settingBox.get('sheetId');
+    print(settingBox.get('sheetId'));
   }
 
   @override

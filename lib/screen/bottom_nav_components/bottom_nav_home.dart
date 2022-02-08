@@ -5,7 +5,6 @@ import '../global_components/settings_drawer.dart';
 import 'bottom_nav_bar.dart';
 
 import '../page_wrapper/first_page.dart';
-
 import '../page_wrapper/second_page.dart';
 import '../global_components/appbar_icons.dart';
 import '../../bloc/constant/blocs_combiner.dart';

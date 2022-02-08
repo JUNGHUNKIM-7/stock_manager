@@ -10,8 +10,6 @@ enum HistoryViewBlocEnum { history, inventory }
 abstract class HistoryViewBlocInterface {
   void push(dynamic data);
 
-  void delete(int id);
-
   void clear(HistoryViewBlocEnum type);
 }
 
@@ -51,11 +49,6 @@ class HistoryViewBloc extends BaseStreamController<List>
     } else if (data is Inventory) {
       inventory.add({...inventory.value, data}.toList());
     }
-  }
-
-  @override
-  void delete(int id) {
-    state.removeWhere((element) => element.id == id);
   }
 
   @override

@@ -22,19 +22,68 @@ class CredentialsTile extends StatelessWidget {
               title: Text('GoogleSheet Credentials',
                   style: Theme.of(context)
                       .textTheme
-                      .headline2
-                      ?.copyWith(fontSize: 20)),
+                      .headline3
+                      ?.copyWith(fontSize: 18, letterSpacing: 0.6)),
               leading: snapshot.data!['secret'].isNotEmpty
-                  ? Icon(
+                  ? const Icon(
                       Icons.check_circle,
-                      color: Colors.green[300],
+                      color: Colors.greenAccent,
                     )
-                  : Icon(
+                  : const Icon(
                       Icons.check_circle,
-                      color: Colors.red[300],
+                      color: Colors.redAccent,
                     ),
               trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: () {},
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: Text(
+                            'Google Credentials',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3
+                                ?.copyWith(fontSize: 24),
+                          ),
+                          content: Column(
+                            children: [
+                              Text(
+                                'Please provide your GoogleSheet credentials.\n',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline2
+                                    ?.copyWith(fontSize: 20),
+                              ),
+                              Text(
+                                'If you don\'t have a GoogleSheet account,\nyou '
+                                'can create one here: \n\n'
+                                'https://console.developers.google.com',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.copyWith(fontSize: 16),
+                              )
+                            ],
+                          ),
+                          actions: [
+                            TextField(
+                              autofocus: true,
+                              obscureText: true,
+                              autocorrect: false,
+                              onChanged: (String value) {
+                                settings.catchCredential(value);
+                              },
+                            ),
+                            ElevatedButton(
+                              child: const Text('OK'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        ));
+              },
             );
           }
           return Container();
@@ -58,21 +107,67 @@ class SheetIdTile extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListTile(
-              title: Text('SpreadSheet ID',
+              title: Text('GoogleSheet ID',
                   style: Theme.of(context)
                       .textTheme
-                      .headline2
-                      ?.copyWith(fontSize: 20)),
+                      .headline3
+                      ?.copyWith(fontSize: 18, letterSpacing: 0.6)),
               leading: snapshot.data!['sheetId'].isNotEmpty
-                  ? Icon(
+                  ? const Icon(
                       Icons.check_circle,
-                      color: Colors.green[300],
+                      color: Colors.greenAccent,
                     )
-                  : Icon(
+                  : const Icon(
                       Icons.check_circle,
-                      color: Colors.red[300],
+                      color: Colors.redAccent,
                     ),
-              onTap: () {},
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: Text(
+                            'GoogleSheet ID',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3
+                                ?.copyWith(fontSize: 24),
+                          ),
+                          content: Column(
+                            children: [
+                              Text(
+                                'Please provide your GoogleSheet ID.\n',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline2
+                                    ?.copyWith(fontSize: 20),
+                              ),
+                              Text(
+                                'Example: https://docs.google.com/spreadsheets/d/"YOUR SHEET ID"/edit#gid=xxx',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.copyWith(fontSize: 14),
+                              )
+                            ],
+                          ),
+                          actions: [
+                            TextField(
+                              autofocus: true,
+                              autocorrect: false,
+                              onChanged: (String value) {
+                                settings.catchSheetId(value);
+                              },
+                            ),
+                            ElevatedButton(
+                              child: const Text('OK'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        ));
+              },
               trailing: const Icon(Icons.arrow_forward_ios),
             );
           }
@@ -100,17 +195,17 @@ class TimeZoneTile extends StatelessWidget {
               title: Text('Select TimeZone',
                   style: Theme.of(context)
                       .textTheme
-                      .headline2
-                      ?.copyWith(fontSize: 20)),
+                      .headline3
+                      ?.copyWith(fontSize: 18, letterSpacing: 0.6)),
               trailing: const Icon(Icons.arrow_forward_ios),
               leading: snapshot.data!['tz'].isNotEmpty
-                  ? Icon(
+                  ? const Icon(
                       Icons.check_circle,
-                      color: Colors.green[300],
+                      color: Colors.greenAccent,
                     )
-                  : Icon(
+                  : const Icon(
                       Icons.check_circle,
-                      color: Colors.red[300],
+                      color: Colors.redAccent,
                     ),
               onTap: () {
                 showDialog(
@@ -138,6 +233,7 @@ class TimeZoneTile extends StatelessWidget {
                             title: Text(li[idx]),
                             onTap: () {
                               settings.catchTZValue(li[idx]);
+                              Navigator.of(context).pop();
                               Navigator.of(context).pop();
                             },
                           );

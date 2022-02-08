@@ -23,7 +23,7 @@ class SettingsDrawer extends StatelessWidget {
         builder: (context, themeSnapshot) {
           return Drawer(
             child: ListView(
-              children: <Widget>[
+              children: [
                 Header(themeSnapshot: themeSnapshot),
                 CredentialsTile(
                   themeSnapshot: themeSnapshot,
@@ -73,11 +73,11 @@ class Header extends StatelessWidget {
                       ? Theme.of(context)
                           .textTheme
                           .headline3
-                          ?.copyWith(color: Styles.darkColor, fontSize: 22)
+                          ?.copyWith(color: Styles.darkColor, fontSize: 20)
                       : Theme.of(context)
                           .textTheme
                           .headline3
-                          ?.copyWith(color: Styles.lightColor, fontSize: 22),
+                          ?.copyWith(color: Styles.lightColor, fontSize: 20),
                 ),
                 const SizedBox(height: innerSpacing),
                 Align(
@@ -87,12 +87,12 @@ class Header extends StatelessWidget {
                     style: themeSnapshot.data == true
                         ? Theme.of(context)
                             .textTheme
-                            .headline3
-                            ?.copyWith(color: Styles.darkColor, fontSize: 18)
+                            .headline2
+                            ?.copyWith(color: Styles.darkColor, fontSize: 16)
                         : Theme.of(context)
                             .textTheme
-                            .headline3
-                            ?.copyWith(color: Styles.lightColor, fontSize: 18),
+                            .headline2
+                            ?.copyWith(color: Styles.lightColor, fontSize: 16),
                   ),
                 ),
                 const SizedBox(height: innerSpacing * 1.2),
@@ -102,11 +102,11 @@ class Header extends StatelessWidget {
                       ? Theme.of(context)
                           .textTheme
                           .headline3
-                          ?.copyWith(color: Styles.darkColor, fontSize: 22)
+                          ?.copyWith(color: Styles.darkColor, fontSize: 20)
                       : Theme.of(context)
                           .textTheme
                           .headline3
-                          ?.copyWith(color: Styles.lightColor, fontSize: 22),
+                          ?.copyWith(color: Styles.lightColor, fontSize: 20),
                 ),
                 const SizedBox(height: innerSpacing),
                 Align(
@@ -116,12 +116,12 @@ class Header extends StatelessWidget {
                     style: themeSnapshot.data == true
                         ? Theme.of(context)
                             .textTheme
-                            .headline3
-                            ?.copyWith(color: Styles.darkColor, fontSize: 18)
+                            .headline2
+                            ?.copyWith(color: Styles.darkColor, fontSize: 16)
                         : Theme.of(context)
                             .textTheme
-                            .headline3
-                            ?.copyWith(color: Styles.lightColor, fontSize: 18),
+                            .headline2
+                            ?.copyWith(color: Styles.lightColor, fontSize: 16),
                   ),
                 ),
               ],

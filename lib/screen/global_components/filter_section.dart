@@ -49,6 +49,7 @@ class FilterSectionWithBtns extends StatelessWidget {
     final descendingStatus =
         BlocProvider.of<BlocsCombiner>(context).descendingStatus;
     const historyBtnText = ['In', 'Out', 'DESC'];
+    const inventoryBtnText = ['Import From Excel', 'Add'];
 
     switch (btnType) {
       case 'history':
@@ -88,12 +89,25 @@ class FilterSectionWithBtns extends StatelessWidget {
               });
         });
       case 'inventory':
-        return [
-          FilterBtns(
-            text: 'Add Product',
-            onPressed: () => context.goNamed('inventoryForm'),
-          )
-        ];
+        return List.generate(
+          2,
+          (idx) => Row(
+            children: [
+              FilterBtns(
+                  text: inventoryBtnText[idx],
+                  onPressed: () {
+                    if (idx == 0) {
+                    } else {
+                      context.goNamed('inventoryForm');
+                    }
+                  }),
+              if (idx == 0)
+                const SizedBox(
+                  width: 4,
+                )
+            ],
+          ),
+        );
       default:
         throw Exception('Unknown btnType');
     }

@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:router_go/bloc/constant/blocs_combiner.dart';
 import 'package:router_go/bloc/constant/provider.dart';
 import 'package:router_go/bloc/global/history_view.dart';
+import 'package:router_go/database/model/history_model.dart';
+import 'package:router_go/database/model/inventory_model.dart';
 
 class HistoryPanel extends StatelessWidget {
   const HistoryPanel({
@@ -130,9 +132,9 @@ class DialogList extends StatelessWidget {
                 ),
                 actions:
                     List.generate(historySnapshot!.data!.length, (int idx) {
-                  final history = historySnapshot!.data![idx];
+                  final history = historySnapshot!.data![idx] as History;
                   return ListTile(
-                    leading: const Icon(Icons.history),
+                    trailing: Text('${history.val}'),
                     subtitle: Text('${history.date}'.substring(0, 10)),
                     title: history.title.length > 20
                         ? Text('${history.title.substring(0, 20)}...',
@@ -140,12 +142,12 @@ class DialogList extends StatelessWidget {
                                 .textTheme
                                 .bodyText2
                                 ?.copyWith(fontWeight: FontWeight.w600))
-                        : Text('${history.title}',
+                        : Text(history.title,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2
                                 ?.copyWith(fontWeight: FontWeight.w600)),
-                    trailing: history.status == 'y'
+                    leading: history.status == 'y'
                         ? const Icon(Icons.arrow_circle_up_outlined,
                             color: Color(0xffD946EF), size: 30)
                         : const Icon(Icons.arrow_circle_down_outlined,
@@ -178,16 +180,17 @@ class DialogList extends StatelessWidget {
                   //     .getRange(0, 10)
                   //     .toList();
                   // final inventory = inventoryRange?[idx];
-                  final inventory = inventorySnapshot?.data?[idx];
-                  return  ListTile(
+                  final inventory = inventorySnapshot?.data?[idx] as Inventory;
+                  return ListTile(
                     leading: const Icon(Icons.history),
+                    subtitle: Text(inventory.memo),
                     title: inventory.title.length > 20
                         ? Text('${inventory.title.substring(0, 20)}...',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2
                                 ?.copyWith(fontWeight: FontWeight.w600))
-                        : Text('${inventory.title}',
+                        : Text(inventory.title,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2
