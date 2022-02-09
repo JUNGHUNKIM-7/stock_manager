@@ -26,31 +26,31 @@ class SubmitHistory extends StatelessWidget {
       builder:
           (context, AsyncSnapshot<Map<String, dynamic>> historyFormStream) {
         return ElevatedButton(
-          onPressed: (historyFormStream.hasData &&
-                  historyFormStream.data!.isNotEmpty)
-              ? () async {
-                  try {
-                    if (DateTime.now().day != 1) {
-                      await _insertOne(context, combiner, historyFormStream);
-                    } else if (DateTime.now().day == 1) {
-                      await GSheetHandler.newMonthEvent();
-                      await _insertOne(context, combiner, historyFormStream);
-                    } else if (DateTime.now().month == 1) {
-                      await GSheetHandler.newYearEvent();
-                      await _insertOne(context, combiner, historyFormStream);
-                    } else {
-                      throw Exception('Something went wrong : HistoryForm');
+          onPressed:
+              (historyFormStream.hasData && historyFormStream.data!.isNotEmpty)
+                  ? () async {
+                      try {
+                        if (DateTime.now().day != 1) {
+                          await _insertOne(context, combiner, historyFormStream);
+                        } else if (DateTime.now().day == 1) {
+                          await GSheetHandler.newMonthEvent();
+                          await _insertOne(context, combiner, historyFormStream);
+                        } else if (DateTime.now().month == 1) {
+                          await GSheetHandler.newYearEvent();
+                          await _insertOne(context, combiner, historyFormStream);
+                        } else {
+                          throw Exception('Something went wrong : HistoryForm');
+                        }
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.red[600],
+                            content: Text('Failed: ${e.toString()}'),
+                          ),
+                        );
+                      }
                     }
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.red[600],
-                        content: Text('Failed: ${e.toString()}'),
-                      ),
-                    );
-                  }
-                }
-              : null,
+                  : null,
           child: const Text('Save to History'),
         );
       },

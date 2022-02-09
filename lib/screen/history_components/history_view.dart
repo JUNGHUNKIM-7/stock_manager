@@ -26,10 +26,11 @@ class HistoryView extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const FilterSectionWithBtns(
-                title: '0 Histories',
-                btnType: 'history',
-              ),
+              if (snapshot.connectionState == ConnectionState.active)
+                const FilterSectionWithBtns(
+                  title: '0 Histories',
+                  btnType: 'history',
+                ),
               if (snapshot.connectionState == ConnectionState.active)
                 Flexible(
                   child: Center(
