@@ -20,42 +20,44 @@ class HistoryDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
 
-    return Scaffold(
-      appBar: showAppBarWithBackBtn(context),
-      body: StreamBuilder<bool>(
-          stream: theme.stream,
-          builder: (context, snapshot) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: outerSpacing),
-                  Center(
-                    child: Text(
-                      "${history.title.toTitleCase()}'s Details",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline3
-                          ?.copyWith(fontSize: 24),
+    return SafeArea(
+      child: Scaffold(
+        appBar: showAppBarWithBackBtn(context),
+        body: StreamBuilder<bool>(
+            stream: theme.stream,
+            builder: (context, snapshot) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: outerSpacing),
+                    Center(
+                      child: Text(
+                        "${history.title.toTitleCase()}'s Details",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline3
+                            ?.copyWith(fontSize: 24),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: outerSpacing * 2),
-                  DarkModeContainer(
-                    height: 0.18,
-                    child: HistoryInfoCard(history: history),
-                  ),
-                  const SizedBox(height: outerSpacing),
-                  DarkModeContainer(
-                    theme: theme,
-                    height: 0.55,
-                    child: StreamByStatusWrapper(history: history),
-                  ),
-                  const SizedBox(height: outerSpacing / 2),
-                ],
-              ),
-            );
-          }),
+                    const SizedBox(height: outerSpacing * 2),
+                    DarkModeContainer(
+                      height: 0.18,
+                      child: HistoryInfoCard(history: history),
+                    ),
+                    const SizedBox(height: outerSpacing),
+                    DarkModeContainer(
+                      theme: theme,
+                      height: 0.55,
+                      child: StreamByStatusWrapper(history: history),
+                    ),
+                    const SizedBox(height: outerSpacing / 2),
+                  ],
+                ),
+              );
+            }),
+      ),
     );
   }
 }

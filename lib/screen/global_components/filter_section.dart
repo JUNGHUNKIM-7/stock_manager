@@ -49,10 +49,7 @@ class FilterSectionWithBtns extends StatelessWidget {
     final inStatus = combiner.inStatus;
     final outStatus = combiner.outStatus;
     final descendingStatus = combiner.descendingStatus;
-    final inventoryBloc = combiner.inventoryBloc;
     const historyBtnText = ['In', 'Out', 'DESC'];
-    const inventoryBtnText = ['Import', 'Add'];
-    final handler = GSheetHandler();
 
     switch (btnType) {
       case 'history':
@@ -92,50 +89,12 @@ class FilterSectionWithBtns extends StatelessWidget {
               });
         });
       case 'inventory':
-        return List.generate(
-          2,
-          (idx) => Row(
-            children: [
-              FilterBtns(
-                  text: inventoryBtnText[idx],
-                  onPressed: () async {
-                    if (idx == 0) {
-                      try {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Colors.yellow[600],
-                            content:
-                                const Text('Pending: Processing Your Data'),
-                          ),
-                        );
-                        await handler.moveToInventoryAndBackUp();
-                        await inventoryBloc.reload();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Colors.green[600],
-                            content:
-                                const Text('Success: All Items are Imported'),
-                          ),
-                        );
-                      } catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Colors.red[600],
-                            content: Text('Failed: ${e.toString()}'),
-                          ),
-                        );
-                      }
-                    } else {
-                      context.goNamed('inventoryForm');
-                    }
-                  }),
-              if (idx == 0)
-                const SizedBox(
-                  width: 4,
-                )
-            ],
-          ),
-        );
+        return [
+          FilterBtns(
+            text: 'Add',
+            onPressed: () => context.goNamed('inventoryForm'),
+          )
+        ];
       default:
         throw Exception('Unknown btnType');
     }

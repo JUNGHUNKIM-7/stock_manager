@@ -45,7 +45,7 @@ class SubmitHistory extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             backgroundColor: Colors.red[600],
-                            content: Text('Failed: ${e.toString()}'),
+                            content: Text('Failed: ${e.toString().split(':')[1]}'),
                           ),
                         );
                       }
@@ -77,7 +77,7 @@ class SubmitHistory extends StatelessWidget {
                           snapshot.data?['val'] <= inventory.qty)
                       ? (inventory.qty + (-snapshot.data?['val'] as int))
                       : throw Exception(
-                          'Value MUST Less or Equal than Item Quantity')
+                          'Value MUST Less or Equal than Item QTY')
                   : (snapshot.data?['val'] + inventory.qty),
             ),
           ),
@@ -110,7 +110,7 @@ class SubmitHistory extends StatelessWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.green[600],
-        content: const Text('Success: Added To History'),
+        content: const Text('Success: Added to "history" Sheet'),
       ),
     );
   }

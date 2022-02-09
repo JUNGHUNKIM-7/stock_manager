@@ -1,64 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:router_go/bloc/constant/provider.dart';
 import 'package:router_go/bloc/global/form_bloc.dart';
 import 'package:router_go/bloc/global/history_view.dart';
+import 'package:router_go/bloc/global/theme_bloc.dart';
+import 'package:router_go/styles.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
+import '../../database/repository/gsheet_handler.dart';
 import 'history_panel.dart';
 import 'dark_mode_toggle.dart';
 
-AppBar showAppBar(
-  BuildContext context,
-  int pageIdx,
-) {
+AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
   switch (pageIdx) {
     case 0:
       return AppBar(
         automaticallyImplyLeading: false,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(
-              Icons.settings,
-              size: 30,
-            ),
-            onPressed: () => Scaffold.of(context).openDrawer(),
+        leading: Builder(builder: (context) => AppBarSettingsBtn(theme: theme)),
+        actions: [
+          DarkModeToggle(
+            iconSize: 30.0,
+            theme: theme,
           ),
-        ),
-        actions: const [
-          DarkModeToggle(iconSize: 30.0),
-          HistoryPanel(
+          const HistoryPanel(
             historyViewBlocEnum: HistoryViewBlocEnum.history,
           ),
-          SizedBox(
+          const SizedBox(
             width: 4.0,
           )
         ],
-        title: Text(
-          'History',
-          style: Theme.of(context).textTheme.headline1?.copyWith(fontSize: 24),
+        title: MainHeader(
+          title: 'History',
+          theme: theme,
         ),
       );
     case 1:
       return AppBar(
         automaticallyImplyLeading: false,
         leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(
-              Icons.settings,
-              size: 30,
-            ),
-            onPressed: () => Scaffold.of(context).openDrawer(),
-          ),
+          builder: (context) => AppBarSettingsBtn(theme: theme),
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.cloud_download,
-              size: 30,
-            ),
+          UserInventoryBtn(theme: theme),
+          DarkModeToggle(
+            iconSize: 30.0,
+            theme: theme,
           ),
-          const DarkModeToggle(iconSize: 30.0),
           const HistoryPanel(
             historyViewBlocEnum: HistoryViewBlocEnum.inventory,
           ),
@@ -66,44 +53,147 @@ AppBar showAppBar(
             width: 4.0,
           )
         ],
-        title: Text(
-          'Inventory',
-          style: Theme.of(context).textTheme.headline1?.copyWith(fontSize: 24),
+        title: MainHeader(
+          title: 'Inventory',
+          theme: theme,
         ),
       );
     default:
       return AppBar(
-        automaticallyImplyLeading: false,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(
-              Icons.settings,
-              size: 30,
+          automaticallyImplyLeading: false,
+          leading:
+              Builder(builder: (context) => AppBarSettingsBtn(theme: theme)),
+          actions: [
+            DarkModeToggle(
+              iconSize: 30.0,
+              theme: theme,
             ),
-            onPressed: () => Scaffold.of(context).openDrawer(),
-          ),
-        ),
-        actions: const [
-          DarkModeToggle(iconSize: 30.0),
-          SizedBox(
-            width: 4.0,
-          )
-        ],
-        title: Text(
-          'STOCKS',
-          style: Theme.of(context).textTheme.headline1,
-        ),
-      );
+            const SizedBox(
+              width: 4.0,
+            )
+          ],
+          title: MainHeader(title: 'Stocks', theme: theme));
+  }
+}
+
+class UserInventoryBtn extends StatelessWidget {
+  const UserInventoryBtn({
+    Key? key,
+    required this.theme,
+  }) : super(key: key);
+  final ThemeBloc theme;
+
+  @override
+  Widget build(BuildContext context) {
+    final inventoryBloc = BlocProvider.of<BlocsCombiner>(context).inventoryBloc;
+    final handler = GSheetHandler();
+    return IconButton(
+      onPressed: () async {
+        try {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.yellow[600],
+              content: const Text('Pending: Processing Your Data'),
+            ),
+          );
+          await handler.moveToInventoryAndBackUp();
+          await inventoryBloc.reload();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.green[600],
+              content: const Text(
+                  'Success: All Items are Added to "inventory" Sheet'),
+            ),
+          );
+        } catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red[600],
+              content: Text('Failed: ${e.toString().split(':')[1]}'),
+            ),
+          );
+        }
+      },
+      icon: StreamBuilder<bool>(
+          stream: theme.stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                return Icon(
+                  Icons.cloud_download,
+                  size: 30,
+                  color: snapshot.data! == true
+                      ? Styles.lightColor
+                      : Styles.darkColor,
+                );
+              }
+            }
+            return Container();
+          }),
+    );
+  }
+}
+
+class MainHeader extends StatelessWidget {
+  const MainHeader({Key? key, required this.title, required this.theme})
+      : super(key: key);
+  final String title;
+  final ThemeBloc theme;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<bool>(
+        stream: theme.stream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              return Text(
+                title,
+                style: Theme.of(context).textTheme.headline1?.copyWith(
+                      fontSize: 24,
+                      color: snapshot.data! == true
+                          ? Styles.lightColor
+                          : Styles.darkColor,
+                    ),
+              );
+            }
+          }
+          return Container();
+        });
+  }
+}
+
+class AppBarSettingsBtn extends StatelessWidget {
+  const AppBarSettingsBtn({Key? key, required this.theme}) : super(key: key);
+  final ThemeBloc theme;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: StreamBuilder<bool>(
+          stream: theme.stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                return Icon(
+                  Icons.settings,
+                  size: 30,
+                  color: snapshot.data! == true
+                      ? Styles.lightColor
+                      : Styles.darkColor,
+                );
+              }
+            }
+            return Container();
+          }),
+      onPressed: () => Scaffold.of(context).openDrawer(),
+    );
   }
 }
 
 AppBar showAppBarWithBackBtn(BuildContext context, {BlocsCombiner? combiner}) =>
     AppBar(
       actions: [
-        const DarkModeToggle(iconSize: 30.0),
-        const SizedBox(
-          width: 4.0,
-        ),
         IconButton(
           onPressed: () {
             combiner?.titleFieldBloc.clearInventoryForm(FormFields.title);
@@ -117,10 +207,13 @@ AppBar showAppBarWithBackBtn(BuildContext context, {BlocsCombiner? combiner}) =>
             context.goNamed('home');
           },
           icon: const Icon(Icons.arrow_back),
-        )
+        ),
+        const SizedBox(
+          width: 4.0,
+        ),
       ],
       title: Text(
-        'STOCKS',
-        style: Theme.of(context).textTheme.headline1,
+        'Details'.toUpperCase(),
+        style: Theme.of(context).textTheme.headline1?.copyWith(fontSize: 24),
       ),
     );

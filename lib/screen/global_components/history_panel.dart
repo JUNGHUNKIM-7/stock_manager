@@ -3,8 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:router_go/bloc/constant/blocs_combiner.dart';
 import 'package:router_go/bloc/constant/provider.dart';
 import 'package:router_go/bloc/global/history_view.dart';
+import 'package:router_go/bloc/global/theme_bloc.dart';
 import 'package:router_go/database/model/history_model.dart';
 import 'package:router_go/database/model/inventory_model.dart';
+import 'package:router_go/styles.dart';
 
 class HistoryPanel extends StatelessWidget {
   const HistoryPanel({
@@ -53,6 +55,7 @@ class HistoryDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
     if (historySnapshot != null) {
       if (historySnapshot!.data != null && historySnapshot!.data!.isNotEmpty) {
         return IconButton(
@@ -66,10 +69,7 @@ class HistoryDialog extends StatelessWidget {
               },
             );
           },
-          icon: const Icon(
-            Icons.history,
-            size: 30,
-          ),
+          icon: HistoryIcon(theme: theme),
         );
       }
     } else if (inventorySnapshot != null) {
@@ -87,14 +87,40 @@ class HistoryDialog extends StatelessWidget {
               },
             );
           },
-          icon: const Icon(
-            Icons.history,
-            size: 30,
-          ),
+          icon: HistoryIcon(theme: theme),
         );
       }
     }
     return Container();
+  }
+}
+
+class HistoryIcon extends StatelessWidget {
+  const HistoryIcon({
+    Key? key,
+    required this.theme,
+  }) : super(key: key);
+
+  final ThemeBloc theme;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<bool>(
+        stream: theme.stream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              return Icon(
+                Icons.history,
+                size: 30,
+                color: snapshot.data! == true
+                    ? Styles.lightColor
+                    : Styles.darkColor,
+              );
+            }
+          }
+          return Container();
+        });
   }
 }
 

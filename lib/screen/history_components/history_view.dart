@@ -35,7 +35,12 @@ class HistoryView extends StatelessWidget {
                 Flexible(
                   child: Center(
                     child: Text(
-                      snapshot.error.toString().toTitleCase(),
+                      snapshot.error.toString().toTitleCase().contains(':')
+                          ? snapshot.error
+                              .toString()
+                              .toTitleCase()
+                              .split(':')[1]
+                          : snapshot.error.toString().toTitleCase(),
                       style: Theme.of(context)
                           .textTheme
                           .headline3

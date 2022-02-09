@@ -60,111 +60,122 @@ class Cards extends StatelessWidget {
       },
       child: StreamBuilder(
         stream: theme.stream,
-        builder: (context, snapshot) => Container(
-          decoration: BoxDecoration(
-            color: snapshot.data == true ? Styles.darkColor : Styles.lightColor,
-            boxShadow: Styles.innerShadow,
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: innerSpacing,
-              vertical: innerSpacing,
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Container(
+              decoration: BoxDecoration(
+                color: snapshot.data == true
+                    ? Styles.darkColor
+                    : Styles.lightColor,
+                boxShadow: Styles.innerShadow,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: innerSpacing,
+                  vertical: innerSpacing,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      history.date!.split(' ')[0],
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2
-                          ?.copyWith(fontSize: 14),
-                    ),
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          history.date!.split(' ')[1].substring(0, 5),
+                          history.date!.split(' ')[0],
                           style: Theme.of(context)
                               .textTheme
                               .headline2
                               ?.copyWith(fontSize: 14),
                         ),
-                        const SizedBox(width: innerSpacing / 2),
-                        Text(
-                          history.jm!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline2
-                              ?.copyWith(fontSize: 14),
+                        Row(
+                          children: [
+                            Text(
+                              history.date!.split(' ')[1].substring(0, 5),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2
+                                  ?.copyWith(fontSize: 14),
+                            ),
+                            const SizedBox(width: innerSpacing / 2),
+                            Text(
+                              history.jm!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2
+                                  ?.copyWith(fontSize: 14),
+                            ),
+                          ],
                         ),
                       ],
                     ),
+                    const SizedBox(
+                      width: innerSpacing * 1.5,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          history.title.length > 10
+                              ? Text(
+                                  '${history.title.substring(0, 10)}...'
+                                      .toTitleCase(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1
+                                      ?.copyWith(fontSize: 16),
+                                )
+                              : Text(
+                                  history.title.toTitleCase(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1
+                                      ?.copyWith(fontSize: 16),
+                                ),
+                          Text(
+                            (history.memo ?? '').length > 32
+                                ? '${history.memo?.substring(0, 32)}...'
+                                    .toTitleCase()
+                                : history.memo?.toTitleCase() ?? '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      history.val.toString(),
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: history.status == 'y'
+                              ? Colors.cyanAccent
+                              : Colors.limeAccent),
+                    ),
+                    const SizedBox(width: innerSpacing),
+                    if (history.status.toLowerCase() == 'y')
+                      const Icon(
+                        Icons.local_shipping_outlined,
+                        color: Colors.cyanAccent,
+                        size: 26,
+                      )
+                    else
+                      const Icon(
+                        Icons.add_business,
+                        color: Colors.limeAccent,
+                        size: 26,
+                      ),
                   ],
                 ),
-                const SizedBox(
-                  width: innerSpacing * 1.5,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      history.title.length > 10
-                          ? Text(
-                              '${history.title.substring(0, 10)}...'
-                                  .toTitleCase(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  ?.copyWith(fontSize: 16),
-                            )
-                          : Text(
-                              history.title.toTitleCase(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  ?.copyWith(fontSize: 16),
-                            ),
-                      Text(
-                        (history.memo ?? '').length > 32
-                            ? '${history.memo?.substring(0, 32)}...'
-                                .toTitleCase()
-                            : history.memo?.toTitleCase() ?? '',
-                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                            fontSize: 14, fontWeight: FontWeight.normal),
-                      ),
-                    ],
-                  ),
-                ),
-                Text(
-                  history.val.toString(),
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: history.status == 'y'
-                          ? Colors.cyanAccent
-                          : Colors.limeAccent),
-                ),
-                const SizedBox(width: innerSpacing),
-                if (history.status.toLowerCase() == 'y')
-                  const Icon(
-                    Icons.local_shipping_outlined,
-                    color: Colors.cyanAccent,
-                    size: 26,
-                  )
-                else
-                  const Icon(
-                    Icons.add_business,
-                    color: Colors.limeAccent,
-                    size: 26,
-                  ),
-              ],
-            ),
-          ),
-        ),
+              ),
+            );
+          }
+          return Container();
+        },
       ),
     );
   }

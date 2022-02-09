@@ -32,6 +32,7 @@ class Chips extends StatelessWidget {
       stream: chip.stream,
       builder: (context, AsyncSnapshot<int> snapshot) {
         if (snapshot.hasData) {
+          if (snapshot.connectionState == ConnectionState.active) {}
           return ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -86,41 +87,47 @@ class ChipOfList extends StatelessWidget {
       child: StreamBuilder(
           stream: theme.stream,
           builder: (context, AsyncSnapshot<bool> snapshot) {
-            return FilterChip(
-              selectedColor:
-                  snapshot.data == true ? Styles.darkColor : Styles.lightColor,
-              checkmarkColor:
-                  snapshot.data == true ? Styles.lightColor : Styles.darkColor,
-              showCheckmark: true,
-              labelStyle: snapshot.data == true
-                  ? Theme.of(context)
-                      .textTheme
-                      .headline3
-                      ?.copyWith(color: Styles.lightColor)
-                  : Theme.of(context)
-                      .textTheme
-                      .headline3
-                      ?.copyWith(color: Styles.darkColor),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: BorderSide(
-                  width: 2,
-                  style: BorderStyle.solid,
-                  color: snapshot.data == true
-                      ? Styles.lightColor
-                      : Styles.darkColor,
+            if (snapshot.hasData) {
+              return FilterChip(
+                selectedColor: snapshot.data == true
+                    ? Styles.darkColor
+                    : Styles.lightColor,
+                checkmarkColor: snapshot.data == true
+                    ? Styles.lightColor
+                    : Styles.darkColor,
+                showCheckmark: true,
+                labelStyle: snapshot.data == true
+                    ? Theme.of(context)
+                        .textTheme
+                        .headline3
+                        ?.copyWith(color: Styles.lightColor)
+                    : Theme.of(context)
+                        .textTheme
+                        .headline3
+                        ?.copyWith(color: Styles.darkColor),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: BorderSide(
+                    width: 2,
+                    style: BorderStyle.solid,
+                    color: snapshot.data == true
+                        ? Styles.lightColor
+                        : Styles.darkColor,
+                  ),
                 ),
-              ),
-              backgroundColor:
-                  snapshot.data == true ? Styles.darkColor : Styles.lightColor,
-              label: Text(Chips.months[idx].toUpperCase()),
-              selected: idxSnapShot.data == idx,
-              onSelected: (bool selected) {
-                if (selected) {
-                  chip.setIdx(idx);
-                }
-              },
-            );
+                backgroundColor: snapshot.data == true
+                    ? Styles.darkColor
+                    : Styles.lightColor,
+                label: Text(Chips.months[idx].toUpperCase()),
+                selected: idxSnapShot.data == idx,
+                onSelected: (bool selected) {
+                  if (selected) {
+                    chip.setIdx(idx);
+                  }
+                },
+              );
+            }
+            return Container();
           }),
     );
   }

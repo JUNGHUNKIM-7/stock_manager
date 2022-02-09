@@ -52,7 +52,7 @@ class _TabNavHomeState extends State<TabNavHome> {
                   : snapshot.data == 1
                       ? const QrFloatingBtn()
                       : null,
-              appBar: showAppBar(context, snapshot.data!),
+              appBar: showAppBar(context, snapshot.data!, theme),
               bottomNavigationBar: const BottomNavBar(),
               body: BodyPages(pageIdx: pageIdx, pages: TabNavHome.pages),
               drawer: SettingsDrawer(theme: theme),

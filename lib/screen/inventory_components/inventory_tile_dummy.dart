@@ -217,7 +217,7 @@ class DeleteDialog extends StatelessWidget {
                   () => ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Colors.green[600],
-                      content: const Text('Success: Item Deleted'),
+                      content: const Text('Success: Deleted Permanently'),
                     ),
                   ),
                 );

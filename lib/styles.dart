@@ -86,18 +86,16 @@ class Styles {
   );
 
   static const bottomNavLight = BottomNavigationBarThemeData(
-    backgroundColor: darkColor,
-    selectedItemColor: Colors.redAccent,
-    unselectedItemColor: lightColor,
-    elevation: 0
-  );
+      backgroundColor: Colors.black26,
+      selectedItemColor: Colors.redAccent,
+      unselectedItemColor: lightColor,
+      elevation: 0);
 
   static const bottomNavDark = BottomNavigationBarThemeData(
-    backgroundColor: lightColor,
-    selectedItemColor: Colors.orangeAccent,
-    unselectedItemColor: darkColor,
-    elevation: 0
-  );
+      backgroundColor: Colors.black26,
+      selectedItemColor: Colors.orangeAccent,
+      unselectedItemColor: darkColor,
+      elevation: 0);
 
   BottomNavigationBarThemeData returnBottomTheme() {
     return darkMode ? bottomNavLight : bottomNavDark;
@@ -107,9 +105,9 @@ class Styles {
   ThemeData themeMain() {
     return ThemeData(
       errorColor: darkMode ? Colors.orangeAccent : Colors.redAccent,
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: darkMode ? Styles.darkColor : Styles.lightColor,
-        foregroundColor: darkMode ? Styles.lightColor : Styles.darkColor,
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: Colors.black26,
+        foregroundColor: Colors.white,
       ),
       appBarTheme: darkMode ? appbarDark : appbarLight,
       drawerTheme: darkMode
@@ -128,10 +126,10 @@ class Styles {
       textTheme: TextTheme(
         headline1: header.copyWith(
           fontSize: 32,
-          color: darkMode ? Colors.red : const Color(0xff010409),
         ),
         headline2: subHeader.copyWith(
           fontSize: 26.0,
+          color: darkMode ? Styles.lightColor : Styles.darkColor,
         ),
         headline3: GoogleFonts.orbitron().copyWith(
           fontSize: 18.0,
@@ -139,11 +137,11 @@ class Styles {
         ),
         bodyText1: GoogleFonts.montserrat().copyWith(
           fontSize: 18.0,
+          color: darkMode ? Styles.lightColor : Styles.darkColor,
           fontWeight: FontWeight.w600,
         ),
         bodyText2: GoogleFonts.poppins().copyWith(
           fontSize: 16.0,
-          color: Colors.grey[700],
           fontWeight: FontWeight.normal,
           letterSpacing: 0.4,
         ),

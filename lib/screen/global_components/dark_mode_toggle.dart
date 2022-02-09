@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:router_go/bloc/constant/blocs_combiner.dart';
 import 'package:router_go/bloc/constant/provider.dart';
+import 'package:router_go/bloc/global/theme_bloc.dart';
+import 'package:router_go/styles.dart';
 
 class DarkModeToggle extends StatelessWidget {
-  const DarkModeToggle({Key? key, required this.iconSize}) : super(key: key);
+  const DarkModeToggle({Key? key, required this.theme, required this.iconSize})
+      : super(key: key);
   final double iconSize;
+  final ThemeBloc theme;
 
   @override
   Widget build(BuildContext context) {
-    final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
-
     return StreamBuilder(
       stream: theme.stream,
       builder: (_, AsyncSnapshot<bool> snapshot) {
@@ -20,10 +22,12 @@ class DarkModeToggle extends StatelessWidget {
                 ? Icon(
                     Icons.wb_incandescent_outlined,
                     size: iconSize,
+                    color: Styles.lightColor,
                   )
                 : Icon(
                     Icons.wb_incandescent_rounded,
                     size: iconSize,
+                    color: Styles.darkColor,
                   ),
           );
         } else if (snapshot.error != null) {
