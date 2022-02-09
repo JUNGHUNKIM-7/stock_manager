@@ -109,6 +109,9 @@ class Styles {
   //return ThemeSet
   ThemeData themeMain() {
     return ThemeData(
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: darkMode ? Colors.redAccent : Colors.orangeAccent,
+      ),
       appBarTheme: darkMode ? appbarDark : appbarLight,
       drawerTheme: darkMode
           ? roundedDrawerBorder.copyWith(backgroundColor: darkColor)

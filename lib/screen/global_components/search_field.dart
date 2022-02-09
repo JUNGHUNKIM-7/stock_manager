@@ -74,7 +74,7 @@ class _SearchFieldState extends State<SearchField> {
       case 'inventory':
         return BlocProvider.of<BlocsCombiner>(context).inventorySearchBloc;
       default:
-        throw Exception('Err: SearchField');
+        throw Exception('SearchField');
     }
   }
 

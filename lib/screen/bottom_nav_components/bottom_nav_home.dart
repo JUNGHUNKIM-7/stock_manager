@@ -10,7 +10,7 @@ import '../global_components/appbar_icons.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
 
-class TabNavHome extends StatelessWidget {
+class TabNavHome extends StatefulWidget {
   const TabNavHome({Key? key}) : super(key: key);
 
   static final pages = [
@@ -19,6 +19,19 @@ class TabNavHome extends StatelessWidget {
     // const ThirdPage(),
     // const FourthPage(),
   ];
+
+  @override
+  State<TabNavHome> createState() => _TabNavHomeState();
+}
+
+class _TabNavHomeState extends State<TabNavHome> {
+  late final GlobalKey<ScaffoldState> _scaffoldKey;
+
+  @override
+  void initState() {
+    super.initState();
+    _scaffoldKey = GlobalKey<ScaffoldState>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +44,17 @@ class TabNavHome extends StatelessWidget {
         builder: (context, AsyncSnapshot<int> snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
+              key: _scaffoldKey,
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,
               floatingActionButton: snapshot.data == 0
-                  ? ExportToExcelBtn(theme: theme)
+                  ? const ExportToExcelBtn()
                   : snapshot.data == 1
-                      ? QrFloatingBtn(theme: theme)
+                      ? const QrFloatingBtn()
                       : null,
               appBar: showAppBar(context, snapshot.data!),
               bottomNavigationBar: const BottomNavBar(),
-              body: BodyPages(pageIdx: pageIdx, pages: pages),
+              body: BodyPages(pageIdx: pageIdx, pages: TabNavHome.pages),
               drawer: SettingsDrawer(theme: theme),
             );
           }
@@ -49,8 +63,13 @@ class TabNavHome extends StatelessWidget {
       ),
     );
   }
-}
 
+  @override
+  void dispose() {
+    _scaffoldKey.currentState?.dispose();
+    super.dispose();
+  }
+}
 
 class BodyPages extends StatelessWidget {
   const BodyPages({
@@ -60,7 +79,7 @@ class BodyPages extends StatelessWidget {
   }) : super(key: key);
 
   final PageBloc pageIdx;
-  final List<StatelessWidget> pages;
+  final List<Widget> pages;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +90,7 @@ class BodyPages extends StatelessWidget {
           return pages[snapshot.data ?? pageIdx.state];
         } else if (snapshot.error != null) {
           pageIdx.dispose();
-          throw Exception('ERR: Page Transition');
+          throw Exception('Page Transition');
         }
         return Container();
       },

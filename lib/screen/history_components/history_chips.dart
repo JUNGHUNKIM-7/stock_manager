@@ -52,7 +52,7 @@ class Chips extends StatelessWidget {
           );
         } else if (snapshot.error != null) {
           chip.dispose();
-          throw Exception('ERR: FilterChip');
+          throw Exception('FilterChip');
         }
         return Container();
       },

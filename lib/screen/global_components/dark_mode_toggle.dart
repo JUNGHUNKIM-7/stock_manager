@@ -28,7 +28,7 @@ class DarkModeToggle extends StatelessWidget {
           );
         } else if (snapshot.error != null) {
           theme.dispose();
-          throw Exception('ERR: Dark Mode');
+          throw Exception('Dark Mode');
         }
         return Container();
       },

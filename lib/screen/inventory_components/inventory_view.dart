@@ -5,6 +5,7 @@ import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
 import '../../database/model/inventory_model.dart';
 import '../../screen/global_components/filter_section.dart';
+import '../../utils/string_handler.dart';
 import 'inventory_tile_dummy.dart';
 
 class InventoryView extends StatelessWidget {
@@ -30,12 +31,15 @@ class InventoryView extends StatelessWidget {
                 title: '0 Items',
                 btnType: 'inventory',
               ),
-              Flexible(
+              if (snapshot.connectionState == ConnectionState.active)
+                Flexible(
                   child: Center(
-                      child: Text(
-                snapshot.error.toString(),
-                style: Theme.of(context).textTheme.headline3,
-              ))),
+                    child: Text(
+                      snapshot.error.toString().toTitleCase(),
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                  ),
+                ),
             ],
           );
         } else if (snapshot.hasError) {

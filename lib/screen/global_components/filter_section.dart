@@ -51,7 +51,7 @@ class FilterSectionWithBtns extends StatelessWidget {
     final descendingStatus = combiner.descendingStatus;
     final inventoryBloc = combiner.inventoryBloc;
     const historyBtnText = ['In', 'Out', 'DESC'];
-    const inventoryBtnText = ['Import From Excel', 'Add'];
+    const inventoryBtnText = ['Import', 'Add'];
     final handler = GSheetHandler();
 
     switch (btnType) {
@@ -100,8 +100,31 @@ class FilterSectionWithBtns extends StatelessWidget {
                   text: inventoryBtnText[idx],
                   onPressed: () async {
                     if (idx == 0) {
-                      await handler.moveToInventoryAndBackUp();
-                      await inventoryBloc.reload();
+                      try {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.yellow[600],
+                            content:
+                                const Text('Pending: Processing Your Data'),
+                          ),
+                        );
+                        await handler.moveToInventoryAndBackUp();
+                        await inventoryBloc.reload();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.green[600],
+                            content:
+                                const Text('Success: All Items are Imported'),
+                          ),
+                        );
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.red[600],
+                            content: Text('Failed: ${e.toString()}'),
+                          ),
+                        );
+                      }
                     } else {
                       context.goNamed('inventoryForm');
                     }

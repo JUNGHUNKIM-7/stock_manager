@@ -30,17 +30,18 @@ class HistoryView extends StatelessWidget {
                 title: '0 Histories',
                 btnType: 'history',
               ),
-              Flexible(
-                child: Center(
-                  child: Text(
-                    snapshot.error.toString().toTitleCase(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3
-                        ?.copyWith(fontWeight: FontWeight.w600),
+              if (snapshot.connectionState == ConnectionState.active)
+                Flexible(
+                  child: Center(
+                    child: Text(
+                      snapshot.error.toString().toTitleCase(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline3
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ),
-              ),
             ],
           );
         } else if (snapshot.hasData) {
@@ -67,7 +68,7 @@ class HistoryView extends StatelessWidget {
             child: Text(snapshot.error.toString()),
           );
         }
-        throw Exception('Err: History View ');
+        throw Exception('History View ');
       },
     );
   }
