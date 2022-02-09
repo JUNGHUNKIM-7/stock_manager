@@ -1,8 +1,8 @@
 import 'package:timezone/standalone.dart' as tz;
 
 class DateTimeHandler {
-  static Map<String, tz.Location> getTzList() {
-    return tz.timeZoneDatabase.locations;
+  static List<String> getTzList() {
+    return tz.timeZoneDatabase.locations.keys.toList();
   }
 
   static tz.TZDateTime getNow(String loc) {
@@ -14,27 +14,4 @@ class DateTimeHandler {
   static String userAt(String tz) {
     return getNow(tz).toIso8601String();
   }
-}
-
-class TzHandler {
-  static List<String> data = DateTimeHandler.getTzList().keys.toList();
-
-  static List<dynamic> returnLoc(List<String> locations) {
-    final countryLi = [];
-    for (var i = 0; i < locations.length; i++) {
-      countryLi.add(data
-              .toList()
-              .map((e) => e.toLowerCase().split('/')[1])
-              .contains(locations[i].toLowerCase())
-          ? data
-              .toList()
-              .firstWhere((e) => e.toLowerCase().split('/')[1] == locations[i])
-          : 'No TimeZone');
-    }
-    return countryLi;
-  }
-
-  static final countries = [
-    ...(TzHandler.returnLoc(['tokyo', 'london'])),
-  ];
 }

@@ -2,8 +2,6 @@ import 'package:router_go/bloc/constant/base_controller.dart';
 
 abstract class FilterButtonStatusInterface {
   void switchVal();
-
-  void printStatus(int where);
 }
 
 class FilterButtonStatusBloc extends BaseStreamController<bool>
@@ -18,11 +16,6 @@ class FilterButtonStatusBloc extends BaseStreamController<bool>
   @override
   void switchVal() {
     state = !state;
-  }
-
-  @override
-  void printStatus(int where) {
-    print('$where $state');
   }
 
   @override

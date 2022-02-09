@@ -145,6 +145,7 @@ class BlocsCombiner extends Blocs
         inventoryBloc.stream,
         inventorySearchBloc.stream,
         (List<Inventory> inventoryData, String searchParams) => inventoryData
+            .reversed
             .where(
                 (element) => element.title.toLowerCase().contains(searchParams))
             .toList(),

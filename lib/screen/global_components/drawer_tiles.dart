@@ -212,33 +212,36 @@ class TimeZoneTile extends StatelessWidget {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        backgroundColor: themeSnapshot.data == true
-                            ? Colors.grey
-                            : Colors.white.withOpacity(0.9),
-                        title: Text('Set TimeZone',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline3
-                                ?.copyWith(fontSize: 24)),
-                        content: Text(
-                          'Please select your timezone',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        scrollable: true,
-                        actions:
-                            List.generate(TzHandler.countries.length, (idx) {
-                          final li = TzHandler.countries;
-
-                          return ListTile(
-                            title: Text(li[idx]),
-                            onTap: () {
-                              settings.catchTZValue(li[idx]);
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pop();
-                            },
-                          );
-                        }),
-                      );
+                          backgroundColor: themeSnapshot.data == true
+                              ? Colors.grey
+                              : Colors.white.withOpacity(0.9),
+                          title: Text('Set TimeZone',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline3
+                                  ?.copyWith(fontSize: 24)),
+                          content: SingleChildScrollView(
+                            child: Column(
+                              children: List.generate(
+                                  DateTimeHandler.getTzList().length, (idx) {
+                                final li = DateTimeHandler.getTzList();
+                                return ListTile(
+                                  title: Text(li[idx]),
+                                  onTap: () {
+                                    settings.catchTZValue(li[idx]);
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                  },
+                                );
+                              }),
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: const Text('Close'),
+                            )
+                          ]);
                     });
               },
             );

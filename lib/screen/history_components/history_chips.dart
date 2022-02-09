@@ -37,12 +37,15 @@ class Chips extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             itemCount: Chips.months.length,
             itemBuilder: (context, idx) {
-              return ChipOfList(
-                idx: idx,
-                idxSnapShot: snapshot,
-                months: months,
-                chip: chip,
-              );
+              if (snapshot.connectionState == ConnectionState.active) {
+                return ChipOfList(
+                  idx: idx,
+                  idxSnapShot: snapshot,
+                  months: months,
+                  chip: chip,
+                );
+              }
+              return Container();
             },
             separatorBuilder: (BuildContext context, int index) {
               return const SizedBox(
@@ -93,7 +96,7 @@ class ChipOfList extends StatelessWidget {
                   ? Theme.of(context)
                       .textTheme
                       .headline3
-                      ?.copyWith(color: Styles.lightColor )
+                      ?.copyWith(color: Styles.lightColor)
                   : Theme.of(context)
                       .textTheme
                       .headline3

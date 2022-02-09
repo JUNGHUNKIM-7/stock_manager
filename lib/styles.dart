@@ -55,19 +55,14 @@ class Styles {
   ];
 
   //fontStyle
-  static final logo = TextStyle(
+  static final header = TextStyle(
     fontFamily: GoogleFonts.monoton().fontFamily,
     fontWeight: FontWeight.w700,
   );
 
-  static final headline2 = TextStyle(
-    fontFamily: GoogleFonts.kodchasan().fontFamily,
+  static final subHeader = TextStyle(
+    fontFamily: GoogleFonts.montserrat().fontFamily,
     fontWeight: FontWeight.w700,
-  );
-
-  static final subTitle = TextStyle(
-    fontFamily: GoogleFonts.mPlus1p().fontFamily,
-    fontWeight: FontWeight.normal,
   );
 
   //AppBar
@@ -92,25 +87,29 @@ class Styles {
 
   static const bottomNavLight = BottomNavigationBarThemeData(
     backgroundColor: darkColor,
-    selectedItemColor: Colors.orange,
+    selectedItemColor: Colors.redAccent,
     unselectedItemColor: lightColor,
+    elevation: 0
   );
 
   static const bottomNavDark = BottomNavigationBarThemeData(
     backgroundColor: lightColor,
-    selectedItemColor: Colors.redAccent,
+    selectedItemColor: Colors.orangeAccent,
     unselectedItemColor: darkColor,
+    elevation: 0
   );
 
   BottomNavigationBarThemeData returnBottomTheme() {
-    return darkMode ? bottomNavDark : bottomNavLight;
+    return darkMode ? bottomNavLight : bottomNavDark;
   }
 
   //return ThemeSet
   ThemeData themeMain() {
     return ThemeData(
+      errorColor: darkMode ? Colors.orangeAccent : Colors.redAccent,
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: darkMode ? Colors.redAccent : Colors.orangeAccent,
+        backgroundColor: darkMode ? Styles.darkColor : Styles.lightColor,
+        foregroundColor: darkMode ? Styles.lightColor : Styles.darkColor,
       ),
       appBarTheme: darkMode ? appbarDark : appbarLight,
       drawerTheme: darkMode
@@ -127,19 +126,16 @@ class Styles {
               suffixIconColor: Colors.orangeAccent),
       bottomNavigationBarTheme: returnBottomTheme(),
       textTheme: TextTheme(
-        headline1: logo.copyWith(
+        headline1: header.copyWith(
           fontSize: 32,
           color: darkMode ? Colors.red : const Color(0xff010409),
         ),
-        headline2: headline2.copyWith(
+        headline2: subHeader.copyWith(
           fontSize: 26.0,
         ),
         headline3: GoogleFonts.orbitron().copyWith(
           fontSize: 18.0,
           fontWeight: FontWeight.bold,
-        ),
-        subtitle1: subTitle.copyWith(
-          fontSize: 22.0,
         ),
         bodyText1: GoogleFonts.montserrat().copyWith(
           fontSize: 18.0,

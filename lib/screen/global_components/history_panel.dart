@@ -68,7 +68,7 @@ class HistoryDialog extends StatelessWidget {
           },
           icon: const Icon(
             Icons.history,
-            size: 30.0,
+            size: 30,
           ),
         );
       }
@@ -89,7 +89,7 @@ class HistoryDialog extends StatelessWidget {
           },
           icon: const Icon(
             Icons.history,
-            size: 30.0,
+            size: 30,
           ),
         );
       }
@@ -130,32 +130,43 @@ class DialogList extends StatelessWidget {
                       .headline3
                       ?.copyWith(fontSize: 24),
                 ),
-                actions:
-                    List.generate(historySnapshot!.data!.length, (int idx) {
-                  final history = historySnapshot!.data![idx] as History;
-                  return ListTile(
-                    trailing: Text('${history.val}'),
-                    subtitle: Text('${history.date}'.substring(0, 10)),
-                    title: history.title.length > 20
-                        ? Text('${history.title.substring(0, 20)}...',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2
-                                ?.copyWith(fontWeight: FontWeight.w600))
-                        : Text(history.title,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2
-                                ?.copyWith(fontWeight: FontWeight.w600)),
-                    leading: history.status == 'y'
-                        ? const Icon(Icons.arrow_circle_up_outlined,
-                            color: Color(0xffD946EF), size: 30)
-                        : const Icon(Icons.arrow_circle_down_outlined,
-                            color: Color(0xff4ADE80), size: 30),
-                    onTap: () =>
-                        context.goNamed('historyDetails', extra: history),
-                  );
-                }),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('Close'),
+                  )
+                ],
+                content: SingleChildScrollView(
+                  child: Column(
+                    children:
+                        List.generate(historySnapshot!.data!.length, (int idx) {
+                      final history = historySnapshot!.data![idx] as History;
+                      return ListTile(
+                        trailing: Text('${history.val}'),
+                        subtitle: Text('${history.date}'.substring(0, 10)),
+                        title: history.title.length > 20
+                            ? Text('${history.title.substring(0, 20)}...',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    ?.copyWith(fontWeight: FontWeight.w600))
+                            : Text(history.title,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    ?.copyWith(fontWeight: FontWeight.w600)),
+                        leading: history.status == 'y'
+                            ? const Icon(Icons.arrow_circle_up_outlined,
+                                color: Color(0xffD946EF), size: 30)
+                            : const Icon(Icons.arrow_circle_down_outlined,
+                                color: Color(0xff4ADE80), size: 30),
+                        onTap: () =>
+                            context.goNamed('historyDetails', extra: history),
+                      );
+                    }),
+                  ),
+                ),
+                // actions:
               );
             });
       case HistoryViewBlocEnum.inventory:
@@ -163,44 +174,49 @@ class DialogList extends StatelessWidget {
             stream: theme.stream,
             builder: (context, AsyncSnapshot<bool> snapshot) {
               return AlertDialog(
-                backgroundColor: snapshot.data == true
-                    ? Colors.grey
-                    : Colors.white.withOpacity(0.9),
-                title: Text(
-                  'Inventory\'s History',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3
-                      ?.copyWith(fontSize: 24),
-                ),
-                actions:
-                    List.generate(inventorySnapshot!.data!.length, (int idx) {
-                  // final inventoryRange = inventorySnapshot?.data!.reversed
-                  //     .toList()
-                  //     .getRange(0, 10)
-                  //     .toList();
-                  // final inventory = inventoryRange?[idx];
-                  final inventory = inventorySnapshot?.data?[idx] as Inventory;
-                  return ListTile(
-                    leading: const Icon(Icons.history),
-                    subtitle: Text(inventory.memo),
-                    title: inventory.title.length > 20
-                        ? Text('${inventory.title.substring(0, 20)}...',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2
-                                ?.copyWith(fontWeight: FontWeight.w600))
-                        : Text(inventory.title,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2
-                                ?.copyWith(fontWeight: FontWeight.w600)),
-                    trailing: Text('${inventory.qty}'),
-                    onTap: () =>
-                        context.goNamed('inventoryDetails', extra: inventory),
-                  );
-                }),
-              );
+                  backgroundColor: snapshot.data == true
+                      ? Colors.grey
+                      : Colors.white.withOpacity(0.9),
+                  title: Text(
+                    'Inventory\'s History',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3
+                        ?.copyWith(fontSize: 24),
+                  ),
+                  content: SingleChildScrollView(
+                    child: Column(
+                      children: List.generate(inventorySnapshot!.data!.length,
+                          (int idx) {
+                        final inventory =
+                            inventorySnapshot?.data?[idx] as Inventory;
+                        return ListTile(
+                          leading: const Icon(Icons.history),
+                          subtitle: Text(inventory.memo),
+                          title: inventory.title.length > 20
+                              ? Text('${inventory.title.substring(0, 20)}...',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      ?.copyWith(fontWeight: FontWeight.w600))
+                              : Text(inventory.title,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      ?.copyWith(fontWeight: FontWeight.w600)),
+                          trailing: Text('${inventory.qty}'),
+                          onTap: () => context.goNamed('inventoryDetails',
+                              extra: inventory),
+                        );
+                      }),
+                    ),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('Close'),
+                    )
+                  ]);
             });
       default:
         throw Exception('Unknown HistoryViewBlocEnum');

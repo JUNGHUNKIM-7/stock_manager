@@ -17,22 +17,25 @@ AppBar showAppBar(
         automaticallyImplyLeading: false,
         leading: Builder(
           builder: (context) => IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(
+              Icons.settings,
+              size: 30,
+            ),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
         actions: const [
+          DarkModeToggle(iconSize: 30.0),
           HistoryPanel(
             historyViewBlocEnum: HistoryViewBlocEnum.history,
           ),
-          DarkModeToggle(iconSize: 30.0),
           SizedBox(
             width: 4.0,
           )
         ],
         title: Text(
-          'STOCKS',
-          style: Theme.of(context).textTheme.headline1,
+          'History',
+          style: Theme.of(context).textTheme.headline1?.copyWith(fontSize: 24),
         ),
       );
     case 1:
@@ -40,22 +43,32 @@ AppBar showAppBar(
         automaticallyImplyLeading: false,
         leading: Builder(
           builder: (context) => IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(
+              Icons.settings,
+              size: 30,
+            ),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
-        actions: const [
-          HistoryPanel(
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.cloud_download,
+              size: 30,
+            ),
+          ),
+          const DarkModeToggle(iconSize: 30.0),
+          const HistoryPanel(
             historyViewBlocEnum: HistoryViewBlocEnum.inventory,
           ),
-          DarkModeToggle(iconSize: 30.0),
-          SizedBox(
+          const SizedBox(
             width: 4.0,
           )
         ],
         title: Text(
-          'STOCKS',
-          style: Theme.of(context).textTheme.headline1,
+          'Inventory',
+          style: Theme.of(context).textTheme.headline1?.copyWith(fontSize: 24),
         ),
       );
     default:
@@ -63,7 +76,10 @@ AppBar showAppBar(
         automaticallyImplyLeading: false,
         leading: Builder(
           builder: (context) => IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(
+              Icons.settings,
+              size: 30,
+            ),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),

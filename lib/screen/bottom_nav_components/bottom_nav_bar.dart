@@ -15,14 +15,13 @@ class BottomNavBar extends StatelessWidget {
       builder: (context, snapshot) {
         return BottomNavigationBar(
           showUnselectedLabels: false,
-          iconSize: 20.0,
-          elevation: 5.0,
+          iconSize: 25,
           onTap: pageIdx.switchPage,
           type: BottomNavigationBarType.fixed,
           currentIndex: pageIdx.state,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.history_rounded),
+              icon: Icon(Icons.transform),
               label: 'History',
             ),
             BottomNavigationBarItem(
