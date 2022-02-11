@@ -6,9 +6,10 @@ import 'package:router_go/bloc/constant/blocs_combiner.dart';
 import 'package:router_go/bloc/constant/provider.dart';
 import 'package:router_go/bloc/global/theme_bloc.dart';
 import 'package:router_go/database/model/inventory_model.dart';
+
 import '../../styles.dart';
-import '../global_components/dark_mode_container.dart';
 import '../../utils/string_handler.dart';
+import '../global_components/dark_mode_container.dart';
 
 class InventoryList extends StatelessWidget {
   const InventoryList({

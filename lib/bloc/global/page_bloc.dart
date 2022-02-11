@@ -8,9 +8,10 @@ abstract class PageBlocInterface {
 
 class PageBloc extends BaseStreamController<int>
     implements BaseInterface<int>, PageBlocInterface {
-  PageBloc({required state,
-    required this.inventorySearch,
-    required this.historySearch})
+  PageBloc(
+      {required state,
+      required this.inventorySearch,
+      required this.historySearch})
       : super(state: state);
 
   final InventorySearchBloc inventorySearch;
@@ -29,8 +30,7 @@ class PageBloc extends BaseStreamController<int>
     state = onTapVal;
     if (onTapVal == 0) {
       inventorySearch.onChanged('');
-    }
-    else if (onTapVal == 1) {
+    } else if (onTapVal == 1) {
       historySearch.onChanged('');
     }
   }

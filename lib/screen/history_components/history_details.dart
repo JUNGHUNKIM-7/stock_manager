@@ -6,6 +6,7 @@ import 'package:router_go/screen/global_components/appbar_icons.dart';
 import 'package:router_go/screen/global_components/dark_mode_container.dart';
 import 'package:router_go/screen/history_components/history_form_header.dart';
 import 'package:router_go/styles.dart';
+
 import '../../utils/string_handler.dart';
 
 class HistoryDetails extends StatelessWidget {
@@ -19,10 +20,12 @@ class HistoryDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
+    final combiner = BlocProvider.of<BlocsCombiner>(context);
 
     return SafeArea(
       child: Scaffold(
-        appBar: showAppBarWithBackBtn(context),
+        appBar: showAppBarWithBackBtn(
+            context: context, combiner: combiner, typeOfForm: 'history'),
         body: StreamBuilder<bool>(
             stream: theme.stream,
             builder: (context, snapshot) {
@@ -52,7 +55,6 @@ class HistoryDetails extends StatelessWidget {
                       height: 0.55,
                       child: StreamByStatusWrapper(history: history),
                     ),
-                    const SizedBox(height: outerSpacing / 2),
                   ],
                 ),
               );

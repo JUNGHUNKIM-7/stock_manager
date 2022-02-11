@@ -4,9 +4,9 @@ import 'package:router_go/bloc/constant/blocs_combiner.dart';
 import 'package:router_go/bloc/constant/provider.dart';
 import 'package:router_go/bloc/global/theme_bloc.dart';
 import 'package:router_go/database/model/history_model.dart';
-import '../../utils/string_handler.dart';
 
 import '../../styles.dart';
+import '../../utils/string_handler.dart';
 
 class CardListView extends StatelessWidget {
   const CardListView({

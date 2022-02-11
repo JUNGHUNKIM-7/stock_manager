@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
+import 'package:router_go/database/secret/secret.dart';
 
 import '../constant/base_controller.dart';
 
@@ -15,9 +19,11 @@ mixin SettingsMixin<T extends Map<String, dynamic>> {}
 class SettingsBloc extends BaseStreamController<Map<String, dynamic>>
     with SettingsMixin
     implements BaseInterface<Map<String, dynamic>>, SettingsBlocInterface {
-  SettingsBloc({required state, required this.settingBox})
+  SettingsBloc(
+      {required state, required this.settingBox, required this.handlerMap})
       : super(state: state);
   final Box settingBox;
+  final Map<String, dynamic> handlerMap;
 
   @override
   void dispose() {
@@ -28,9 +34,19 @@ class SettingsBloc extends BaseStreamController<Map<String, dynamic>>
   Stream<Map<String, dynamic>> get stream => subject.stream;
 
   @override
-  void catchCredential(String value) {
-    settingBox.put('secret', value);
-    state['secret'] = settingBox.get('secret');
+  void catchCredential(String value) async {
+    final List<int> secretKey = handlerMap['key'];
+    final Future<Box> Function(List<int>) futureSecretBox = handlerMap['box'];
+    final Box secretBox = await futureSecretBox(secretKey);
+
+    final Map<String, dynamic> userCredentials = jsonDecode(value);
+
+    await Future.wait([
+      settingBox.put('secret', secretKey),
+      settingBox
+          .put('secretWithoutKey', {...userCredentials, 'private_key': ''}),
+      secretBox.put('secret', userCredentials['private_key'])
+    ]);
   }
 
   @override

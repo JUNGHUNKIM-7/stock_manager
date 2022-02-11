@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:router_go/styles.dart';
 
 import '../../bloc/global/settings_bloc.dart';
 import '../../utils/datetime_tz_handler.dart';
@@ -213,20 +214,36 @@ class TimeZoneTile extends StatelessWidget {
                     builder: (context) {
                       return AlertDialog(
                           backgroundColor: themeSnapshot.data == true
-                              ? Colors.grey
-                              : Colors.white.withOpacity(0.9),
-                          title: Text('Set TimeZone',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3
-                                  ?.copyWith(fontSize: 24)),
+                              ? Styles.darkColor
+                              : Styles.lightColor,
+                          title: Text(
+                            'Set TimeZone',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3
+                                ?.copyWith(
+                                    fontSize: 24,
+                                    color: themeSnapshot.data == true
+                                        ? Styles.lightColor
+                                        : Styles.darkColor),
+                          ),
                           content: SingleChildScrollView(
                             child: Column(
                               children: List.generate(
                                   DateTimeHandler.getTzList().length, (idx) {
                                 final li = DateTimeHandler.getTzList();
                                 return ListTile(
-                                  title: Text(li[idx]),
+                                  title: Text(
+                                    li[idx],
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline2
+                                        ?.copyWith(
+                                            fontSize: 20,
+                                            color: themeSnapshot.data == true
+                                                ? Styles.lightColor
+                                                : Styles.darkColor),
+                                  ),
                                   onTap: () {
                                     settings.catchTZValue(li[idx]);
                                     Navigator.of(context).pop();

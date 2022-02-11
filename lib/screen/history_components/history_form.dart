@@ -24,7 +24,8 @@ class HistoryForm extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: showAppBarWithBackBtn(context, combiner: combiner),
+        appBar: showAppBarWithBackBtn(
+            context: context, combiner: combiner, typeOfForm: 'history'),
         body: ListView(
           children: [
             const SizedBox(

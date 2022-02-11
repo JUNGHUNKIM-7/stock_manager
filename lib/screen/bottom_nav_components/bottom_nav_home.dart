@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:router_go/bloc/global/page_bloc.dart';
-import '../global_components/floating_btns.dart';
-import '../global_components/settings_drawer.dart';
-import 'bottom_nav_bar.dart';
 
-import '../page_wrapper/first_page.dart';
-import '../page_wrapper/second_page.dart';
-import '../global_components/appbar_icons.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
+import '../global_components/appbar_icons.dart';
+import '../global_components/floating_btns.dart';
+import '../global_components/settings_drawer.dart';
+import '../page_wrapper/first_page.dart';
+import '../page_wrapper/second_page.dart';
+import 'bottom_nav_bar.dart';
 
 class TabNavHome extends StatefulWidget {
   const TabNavHome({Key? key}) : super(key: key);

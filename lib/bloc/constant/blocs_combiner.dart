@@ -1,6 +1,8 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:rxdart/rxdart.dart';
-import 'dart:async';
 
 import '../../database/model/history_model.dart';
 import '../../database/model/inventory_model.dart';
@@ -9,14 +11,17 @@ import 'blocs_container.dart';
 class BlocsCombiner extends Blocs
     with BlocsCombinerMixins
     implements BlocsCombinerInterface {
-  BlocsCombiner(
-      {required List<History> historyData,
-      required List<Inventory> inventoryData,
-      Box? settingsBox})
-      : super.initializer(
-            settingBox: settingsBox ?? Hive.box('settings'),
-            historyData: historyData,
-            inventoryData: inventoryData);
+  BlocsCombiner({
+    required Map<String,dynamic> handlerMap,
+    List<History>? historyData,
+    List<Inventory>? inventoryData,
+    Box? settingsBox,
+  }) : super.initializer(
+          settingBox: settingsBox ?? Hive.box('settings'),
+          handlerMap: handlerMap,
+          historyData: historyData ?? [],
+          inventoryData: inventoryData ?? [],
+        );
 
   @override
   void disposeFirstPage() {

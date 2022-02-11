@@ -8,8 +8,8 @@ import 'package:router_go/styles.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../database/repository/gsheet_handler.dart';
-import 'history_panel.dart';
 import 'dark_mode_toggle.dart';
+import 'history_panel.dart';
 
 AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
   switch (pageIdx) {
@@ -87,6 +87,7 @@ class UserInventoryBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     final inventoryBloc = BlocProvider.of<BlocsCombiner>(context).inventoryBloc;
     final handler = GSheetHandler();
+
     return IconButton(
       onPressed: () async {
         try {
@@ -177,7 +178,7 @@ class AppBarSettingsBtn extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.active) {
                 return Icon(
                   Icons.settings,
-                  size: 30,
+                  size: 25,
                   color: snapshot.data! == true
                       ? Styles.lightColor
                       : Styles.darkColor,
@@ -191,19 +192,28 @@ class AppBarSettingsBtn extends StatelessWidget {
   }
 }
 
-AppBar showAppBarWithBackBtn(BuildContext context, {BlocsCombiner? combiner}) =>
+AppBar showAppBarWithBackBtn({
+  required BuildContext context,
+  String? typeOfForm,
+  BlocsCombiner? combiner,
+}) =>
     AppBar(
       actions: [
         IconButton(
           onPressed: () {
-            combiner?.titleFieldBloc.clearInventoryForm(FormFields.title);
-            combiner?.memoFieldBloc.clearInventoryForm(FormFields.memo);
-            combiner?.qtyFieldBloc.clearInventoryForm(FormFields.qty);
-            combiner?.statusFieldBloc.clearHistoryForm(FormFields.status);
-            combiner?.valFieldBloc.clearHistoryForm(FormFields.val);
+            if (typeOfForm != null) {
+              if (typeOfForm == 'history') {
+                combiner?.statusFieldBloc.clearHistoryForm(FormFields.status);
+                combiner?.valFieldBloc.clearHistoryForm(FormFields.val);
+              }
+              if (typeOfForm == 'inventory') {
+                combiner?.titleFieldBloc.clearInventoryForm(FormFields.title);
+                combiner?.memoFieldBloc.clearInventoryForm(FormFields.memo);
+                combiner?.qtyFieldBloc.clearInventoryForm(FormFields.qty);
+              }
+            }
             combiner?.historySearchBloc.onChanged('');
             combiner?.inventorySearchBloc.onChanged('');
-
             context.goNamed('home');
           },
           icon: const Icon(Icons.arrow_back),

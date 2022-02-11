@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:router_go/bloc/global/form_bloc.dart';
 import 'package:router_go/bloc/global/settings_bloc.dart';
+
 import '../../bloc/global/history_view.dart';
 import '../../bloc/global/page_bloc.dart';
 import '../../bloc/global/theme_bloc.dart';
@@ -19,6 +20,8 @@ class Blocs {
   late List<History> historyData;
   late List<Inventory> inventoryData;
   late Box settingBox;
+  late Map<String, dynamic> handlerMap;
+
 
   Blocs._();
 
@@ -26,8 +29,10 @@ class Blocs {
     required this.historyData,
     required this.inventoryData,
     required this.settingBox,
+    required this.handlerMap,
   }) {
     settingBox = settingBox;
+    handlerMap = handlerMap;
     historyData = historyData;
     inventoryData = inventoryData;
   }
@@ -46,7 +51,7 @@ class Blocs {
       'sheetId': settingBox.get('sheetId') ?? '',
       'tz': settingBox.get('tz') ?? '',
     },
-    settingBox: settingBox,
+    settingBox: settingBox, handlerMap: handlerMap,
   );
 
   //todo hive box

@@ -147,14 +147,15 @@ class DialogList extends StatelessWidget {
             builder: (context, AsyncSnapshot<bool> snapshot) {
               return AlertDialog(
                 backgroundColor: snapshot.data == true
-                    ? Colors.grey
-                    : Colors.white.withOpacity(0.9),
+                    ? Styles.lightColor
+                    : Styles.darkColor,
                 title: Text(
                   'Trade History',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3
-                      ?.copyWith(fontSize: 24),
+                  style: Theme.of(context).textTheme.headline3?.copyWith(
+                      fontSize: 24,
+                      color: snapshot.data == true
+                          ? Styles.darkColor
+                          : Styles.lightColor),
                 ),
                 actions: [
                   TextButton(
@@ -167,20 +168,45 @@ class DialogList extends StatelessWidget {
                     children:
                         List.generate(historySnapshot!.data!.length, (int idx) {
                       final history = historySnapshot!.data![idx] as History;
+
                       return ListTile(
-                        trailing: Text('${history.val}'),
-                        subtitle: Text('${history.date}'.substring(0, 10)),
+                        trailing: Text(
+                          '${history.val}',
+                          style:
+                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    color: snapshot.data == true
+                                        ? Styles.darkColor
+                                        : Styles.lightColor,
+                                  ),
+                        ),
+                        subtitle: Text(
+                          '${history.date}'.substring(0, 10),
+                          style:
+                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    color: snapshot.data == true
+                                        ? Styles.darkColor
+                                        : Styles.lightColor,
+                                  ),
+                        ),
                         title: history.title.length > 20
                             ? Text('${history.title.substring(0, 20)}...',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText2
-                                    ?.copyWith(fontWeight: FontWeight.w600))
+                                    ?.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: snapshot.data == true
+                                            ? Styles.darkColor
+                                            : Styles.lightColor))
                             : Text(history.title,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText2
-                                    ?.copyWith(fontWeight: FontWeight.w600)),
+                                    ?.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: snapshot.data == true
+                                            ? Styles.darkColor
+                                            : Styles.lightColor)),
                         leading: history.status == 'y'
                             ? const Icon(Icons.arrow_circle_up_outlined,
                                 color: Color(0xffD946EF), size: 30)
@@ -201,14 +227,15 @@ class DialogList extends StatelessWidget {
             builder: (context, AsyncSnapshot<bool> snapshot) {
               return AlertDialog(
                   backgroundColor: snapshot.data == true
-                      ? Colors.grey
-                      : Colors.white.withOpacity(0.9),
+                      ? Styles.lightColor
+                      : Styles.darkColor,
                   title: Text(
                     'Inventory\'s History',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3
-                        ?.copyWith(fontSize: 24),
+                    style: Theme.of(context).textTheme.headline3?.copyWith(
+                        fontSize: 24,
+                        color: snapshot.data == true
+                            ? Styles.darkColor
+                            : Styles.lightColor),
                   ),
                   content: SingleChildScrollView(
                     child: Column(
@@ -216,21 +243,51 @@ class DialogList extends StatelessWidget {
                           (int idx) {
                         final inventory =
                             inventorySnapshot?.data?[idx] as Inventory;
+
                         return ListTile(
-                          leading: const Icon(Icons.history),
-                          subtitle: Text(inventory.memo),
+                          leading: Icon(
+                            Icons.history,
+                            color: snapshot.data == true
+                                ? Styles.darkColor
+                                : Styles.lightColor,
+                          ),
+                          subtitle: Text(
+                            inventory.memo,
+                            style:
+                                Theme.of(context).textTheme.bodyText2?.copyWith(
+                                      color: snapshot.data == true
+                                          ? Styles.darkColor
+                                          : Styles.lightColor,
+                                    ),
+                          ),
                           title: inventory.title.length > 20
                               ? Text('${inventory.title.substring(0, 20)}...',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2
-                                      ?.copyWith(fontWeight: FontWeight.w600))
+                                      ?.copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color: snapshot.data == true
+                                              ? Styles.darkColor
+                                              : Styles.lightColor))
                               : Text(inventory.title,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2
-                                      ?.copyWith(fontWeight: FontWeight.w600)),
-                          trailing: Text('${inventory.qty}'),
+                                      ?.copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color: snapshot.data == true
+                                              ? Styles.darkColor
+                                              : Styles.lightColor)),
+                          trailing: Text(
+                            '${inventory.qty}',
+                            style:
+                                Theme.of(context).textTheme.bodyText2?.copyWith(
+                                      color: snapshot.data == true
+                                          ? Styles.darkColor
+                                          : Styles.lightColor,
+                                    ),
+                          ),
                           onTap: () => context.goNamed('inventoryDetails',
                               extra: inventory),
                         );

@@ -13,7 +13,7 @@ class ThemeBloc extends BaseStreamController<bool>
 
   @override
   void darkMode() {
-    final currentMode = settingBox.get('darkMode') as bool;
+    final currentMode = (settingBox.get('darkMode') ?? false) as bool;
     settingBox.put('darkMode', !currentMode);
     state = settingBox.get('darkMode');
   }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
-import '../inventory_components/inventory_view.dart';
 import '../../screen/global_components/dark_mode_container.dart';
 import '../../screen/global_components/search_field.dart';
 import '../../styles.dart';
+import '../inventory_components/inventory_view.dart';
 
 class SecondPage extends StatelessWidget {
   const SecondPage({Key? key}) : super(key: key);

@@ -3,11 +3,11 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:router_go/bloc/constant/blocs_combiner.dart';
 import 'package:router_go/bloc/constant/provider.dart';
 import 'package:router_go/screen/global_components/dark_mode_container.dart';
-import '../../utils/string_handler.dart';
 
 import '../../database/model/inventory_model.dart';
 import '../../screen/global_components/appbar_icons.dart';
 import '../../styles.dart';
+import '../../utils/string_handler.dart';
 
 class InventoryDetails extends StatelessWidget {
   const InventoryDetails({Key? key, required this.inventory}) : super(key: key);
@@ -19,7 +19,8 @@ class InventoryDetails extends StatelessWidget {
     final combiner = BlocProvider.of<BlocsCombiner>(context);
 
     return Scaffold(
-      appBar: showAppBarWithBackBtn(context, combiner: combiner),
+      appBar: showAppBarWithBackBtn(
+          context: context, combiner: combiner, typeOfForm: 'inventory'),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-import 'inventory_form_btn.dart';
-import 'inventory_form_field.dart';
 
-import '../../bloc/constant/provider.dart';
 import '../../bloc/constant/blocs_combiner.dart';
+import '../../bloc/constant/provider.dart';
 import '../../database/repository/gsheet_handler.dart';
 import '../../screen/global_components/appbar_icons.dart';
 import '../../styles.dart';
+import 'inventory_form_btn.dart';
+import 'inventory_form_field.dart';
 
 class InventoryForm extends StatelessWidget {
   InventoryForm({Key? key}) : super(key: key);
@@ -20,7 +20,8 @@ class InventoryForm extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: showAppBarWithBackBtn(context, combiner: combiner),
+        appBar: showAppBarWithBackBtn(
+            context: context, combiner: combiner, typeOfForm: 'inventory'),
         body: ListView(
           children: [
             const SizedBox(

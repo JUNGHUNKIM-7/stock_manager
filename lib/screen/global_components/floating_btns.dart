@@ -5,9 +5,6 @@ import 'package:router_go/bloc/constant/provider.dart';
 import 'package:router_go/database/model/history_model.dart';
 import 'package:router_go/database/repository/gsheet_handler.dart';
 
-import '../../bloc/global/theme_bloc.dart';
-import '../../styles.dart';
-
 class QrFloatingBtn extends StatelessWidget {
   const QrFloatingBtn({
     Key? key,

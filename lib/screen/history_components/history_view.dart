@@ -3,10 +3,10 @@ import 'package:router_go/bloc/global/theme_bloc.dart';
 import 'package:router_go/database/model/history_model.dart';
 import 'package:router_go/screen/global_components/filter_section.dart';
 
-import 'history_cards.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
 import '../../utils/string_handler.dart';
+import 'history_cards.dart';
 
 class HistoryView extends StatelessWidget {
   const HistoryView({

@@ -45,7 +45,7 @@ class _QrCameraState extends State<QrCamera> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: showAppBarWithBackBtn(context),
+        appBar: showAppBarWithBackBtn(context: context),
         body: Padding(
           padding: const EdgeInsets.symmetric(
               horizontal: outerSpacing, vertical: outerSpacing),
