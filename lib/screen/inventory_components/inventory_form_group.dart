@@ -33,7 +33,7 @@ class InventoryForm extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headline3
-                    ?.copyWith(fontSize: 26),
+                    ?.copyWith(fontSize: 22),
               ),
             ),
             const SizedBox(

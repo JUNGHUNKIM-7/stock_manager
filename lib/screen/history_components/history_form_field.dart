@@ -55,7 +55,7 @@ class HistoryFormFields extends StatelessWidget {
       },
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
-        hintStyle: Theme.of(context).textTheme.bodyText2,
+        hintStyle: Theme.of(context).textTheme.bodyText1,
         labelStyle: Theme.of(context).textTheme.bodyText1,
         focusedBorder: InputBorder.none,
         enabledBorder: InputBorder.none,

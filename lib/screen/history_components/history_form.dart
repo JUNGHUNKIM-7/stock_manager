@@ -37,7 +37,7 @@ class HistoryForm extends StatelessWidget {
                 child: Text(
                   'Make Order'.toUpperCase(),
                   style: Theme.of(context).textTheme.headline3?.copyWith(
-                        fontSize: 26,
+                        fontSize: 22,
                       ),
                 ),
               ),

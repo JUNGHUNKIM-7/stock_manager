@@ -25,7 +25,7 @@ class SubmitHistory extends StatelessWidget {
       stream: combiner.historyAddFormStream,
       builder:
           (context, AsyncSnapshot<Map<String, dynamic>> historyFormStream) {
-        return ElevatedButton(
+        return OutlinedButton(
           onPressed: (historyFormStream.hasData &&
                   historyFormStream.data!.isNotEmpty)
               ? () async {
@@ -51,7 +51,8 @@ class SubmitHistory extends StatelessWidget {
                   }
                 }
               : null,
-          child: const Text('Save to History'),
+          child: Text('Save to History',
+              style: Theme.of(context).textTheme.headline3?.copyWith(fontSize: 16)),
         );
       },
     );

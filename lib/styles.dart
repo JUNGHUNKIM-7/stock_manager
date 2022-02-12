@@ -135,15 +135,10 @@ class Styles {
           fontSize: 18.0,
           fontWeight: FontWeight.bold,
         ),
-        bodyText1: GoogleFonts.montserrat().copyWith(
-          fontSize: 18.0,
+        bodyText1: GoogleFonts.inter().copyWith(
+          fontSize: 16.0,
           color: darkMode ? Styles.lightColor : Styles.darkColor,
           fontWeight: FontWeight.w600,
-        ),
-        bodyText2: GoogleFonts.poppins().copyWith(
-          fontSize: 16.0,
-          fontWeight: FontWeight.normal,
-          letterSpacing: 0.4,
         ),
       ),
       textSelectionTheme: TextSelectionThemeData(

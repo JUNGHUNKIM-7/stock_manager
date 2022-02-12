@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:router_go/bloc/constant/blocs_combiner.dart';
@@ -17,15 +18,22 @@ class HistoryPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
     if (historyViewBlocEnum == HistoryViewBlocEnum.history) {
       final historyHistory =
           BlocProvider.of<BlocsCombiner>(context).historyView;
       return StreamBuilder(
           stream: historyHistory.historyStream,
           builder: (context, AsyncSnapshot<List> snapshot) {
-            return HistoryDialog(
-              historySnapshot: snapshot,
-            );
+            if (snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                return HistoryDialog(
+                  theme: theme,
+                  historySnapshot: snapshot,
+                );
+              }
+            }
+            return Container();
           });
     } else if (historyViewBlocEnum == HistoryViewBlocEnum.inventory) {
       final inventoryHistory =
@@ -33,9 +41,15 @@ class HistoryPanel extends StatelessWidget {
       return StreamBuilder(
           stream: inventoryHistory.inventoryStream,
           builder: (context, AsyncSnapshot<List> snapshot) {
-            return HistoryDialog(
-              inventorySnapshot: snapshot,
-            );
+            if (snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                return HistoryDialog(
+                  theme: theme,
+                  inventorySnapshot: snapshot,
+                );
+              }
+            }
+            return Container();
           });
     } else {
       return Container();
@@ -44,51 +58,94 @@ class HistoryPanel extends StatelessWidget {
 }
 
 class HistoryDialog extends StatelessWidget {
-  const HistoryDialog({
-    Key? key,
-    this.historySnapshot,
-    this.inventorySnapshot,
-  }) : super(key: key);
+  const HistoryDialog(
+      {Key? key,
+      this.historySnapshot,
+      this.inventorySnapshot,
+      required this.theme})
+      : super(key: key);
 
   final AsyncSnapshot<List>? historySnapshot;
   final AsyncSnapshot<List>? inventorySnapshot;
+  final ThemeBloc theme;
 
   @override
   Widget build(BuildContext context) {
-    final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
     if (historySnapshot != null) {
       if (historySnapshot!.data != null && historySnapshot!.data!.isNotEmpty) {
-        return IconButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return DialogList(
-                    historySnapshot: historySnapshot,
-                    type: HistoryViewBlocEnum.history);
-              },
-            );
-          },
-          icon: HistoryIcon(theme: theme),
-        );
+        return StreamBuilder<bool>(
+            stream: theme.stream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Badge(
+                  animationType: BadgeAnimationType.fade,
+                  animationDuration: const Duration(milliseconds: 400),
+                  position: BadgePosition.topEnd(top: 2, end: 4),
+                  badgeColor:
+                      snapshot.data! ? Colors.redAccent : Colors.orangeAccent,
+                  badgeContent: Text(
+                    historySnapshot!.data!.length.toString(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2
+                        ?.copyWith(fontSize: 12, color: Colors.black),
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return DialogList(
+                              historySnapshot: historySnapshot,
+                              type: HistoryViewBlocEnum.history);
+                        },
+                      );
+                    },
+                    icon: HistoryIcon(theme: theme),
+                  ),
+                );
+              }
+              return Container();
+            });
       }
     } else if (inventorySnapshot != null) {
-      if (inventorySnapshot?.data != null &&
+      if (inventorySnapshot!.data != null &&
           inventorySnapshot!.data!.isNotEmpty) {
-        return IconButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return DialogList(
-                  inventorySnapshot: inventorySnapshot,
-                  type: HistoryViewBlocEnum.inventory,
+        return StreamBuilder<bool>(
+            stream: theme.stream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Badge(
+                  animationType: BadgeAnimationType.fade,
+                  animationDuration: const Duration(milliseconds: 400),
+                  position: BadgePosition.topEnd(top: 2, end: 4),
+                  badgeColor:
+                      snapshot.data! ? Colors.redAccent : Colors.orangeAccent,
+                  badgeContent: Text(
+                    inventorySnapshot!.data!.length.toString(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2
+                        ?.copyWith(fontSize: 12, color: Colors.black),
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return DialogList(
+                            inventorySnapshot: inventorySnapshot,
+                            type: HistoryViewBlocEnum.inventory,
+                          );
+                        },
+                      );
+                    },
+                    icon: HistoryIcon(theme: theme),
+                  ),
                 );
-              },
-            );
-          },
-          icon: HistoryIcon(theme: theme),
-        );
+              }
+              return Container();
+            });
       }
     }
     return Container();
@@ -153,14 +210,21 @@ class DialogList extends StatelessWidget {
                   'Trade History',
                   style: Theme.of(context).textTheme.headline3?.copyWith(
                       fontSize: 24,
-                      color: snapshot.data == true
+                      color: snapshot.data ?? false
                           ? Styles.darkColor
                           : Styles.lightColor),
                 ),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Close'),
+                    child: Text(
+                      'Close',
+                      style: Theme.of(context).textTheme.headline2?.copyWith(
+                          fontSize: 16,
+                          color: snapshot.data ?? false
+                              ? Styles.darkColor
+                              : Styles.lightColor),
+                    ),
                   )
                 ],
                 content: SingleChildScrollView(
@@ -173,7 +237,7 @@ class DialogList extends StatelessWidget {
                         trailing: Text(
                           '${history.val}',
                           style:
-                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
                                     color: snapshot.data == true
                                         ? Styles.darkColor
                                         : Styles.lightColor,
@@ -182,7 +246,7 @@ class DialogList extends StatelessWidget {
                         subtitle: Text(
                           '${history.date}'.substring(0, 10),
                           style:
-                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
                                     color: snapshot.data == true
                                         ? Styles.darkColor
                                         : Styles.lightColor,
@@ -192,7 +256,7 @@ class DialogList extends StatelessWidget {
                             ? Text('${history.title.substring(0, 20)}...',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2
+                                    .bodyText1
                                     ?.copyWith(
                                         fontWeight: FontWeight.w600,
                                         color: snapshot.data == true
@@ -201,7 +265,7 @@ class DialogList extends StatelessWidget {
                             : Text(history.title,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2
+                                    .bodyText1
                                     ?.copyWith(
                                         fontWeight: FontWeight.w600,
                                         color: snapshot.data == true
@@ -254,7 +318,7 @@ class DialogList extends StatelessWidget {
                           subtitle: Text(
                             inventory.memo,
                             style:
-                                Theme.of(context).textTheme.bodyText2?.copyWith(
+                                Theme.of(context).textTheme.bodyText1?.copyWith(
                                       color: snapshot.data == true
                                           ? Styles.darkColor
                                           : Styles.lightColor,
@@ -264,7 +328,7 @@ class DialogList extends StatelessWidget {
                               ? Text('${inventory.title.substring(0, 20)}...',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText2
+                                      .bodyText1
                                       ?.copyWith(
                                           fontWeight: FontWeight.w600,
                                           color: snapshot.data == true
@@ -273,7 +337,7 @@ class DialogList extends StatelessWidget {
                               : Text(inventory.title,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText2
+                                      .bodyText1
                                       ?.copyWith(
                                           fontWeight: FontWeight.w600,
                                           color: snapshot.data == true
@@ -282,7 +346,7 @@ class DialogList extends StatelessWidget {
                           trailing: Text(
                             '${inventory.qty}',
                             style:
-                                Theme.of(context).textTheme.bodyText2?.copyWith(
+                                Theme.of(context).textTheme.bodyText1?.copyWith(
                                       color: snapshot.data == true
                                           ? Styles.darkColor
                                           : Styles.lightColor,
@@ -297,7 +361,14 @@ class DialogList extends StatelessWidget {
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Close'),
+                      child: Text(
+                        'Close',
+                        style: Theme.of(context).textTheme.headline2?.copyWith(
+                            fontSize: 16,
+                            color: snapshot.data ?? false
+                                ? Styles.darkColor
+                                : Styles.lightColor),
+                      ),
                     )
                   ]);
             });

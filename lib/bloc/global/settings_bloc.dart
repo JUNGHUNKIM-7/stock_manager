@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
-import 'package:router_go/database/secret/secret.dart';
 
 import '../constant/base_controller.dart';
 
@@ -47,6 +45,7 @@ class SettingsBloc extends BaseStreamController<Map<String, dynamic>>
           .put('secretWithoutKey', {...userCredentials, 'private_key': ''}),
       secretBox.put('secret', userCredentials['private_key'])
     ]);
+    state['secret'] = settingBox.get('secret');
   }
 
   @override

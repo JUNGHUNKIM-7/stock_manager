@@ -18,142 +18,152 @@ class InventoryDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final combiner = BlocProvider.of<BlocsCombiner>(context);
 
-    return Scaffold(
-      appBar: showAppBarWithBackBtn(
-          context: context, combiner: combiner, typeOfForm: 'inventory'),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          QrImage(
-            data: inventory.id,
-            version: QrVersions.auto,
-            size: 250,
-          ),
-          const SizedBox(
-            height: outerSpacing,
-          ),
-          const InventoryDetailsBtn(),
-          const SizedBox(
-            height: outerSpacing,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
-            child: DarkModeContainer(
-              height: 0.4,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: innerSpacing * 2, vertical: innerSpacing),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Item Title'.toUpperCase(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(fontSize: 20),
-                        ),
-                        Divider(
-                          color: Colors.grey[700],
-                          thickness: 2.0,
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            inventory.title.length > 32
-                                ? '${inventory.title.substring(0, 32)}...'
-                                    .toTitleCase()
-                                : inventory.title.toTitleCase(),
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: showAppBarWithBackBtn(
+            context: context, combiner: combiner, typeOfForm: 'inventoryDetails'),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            StreamBuilder<bool>(
+                stream: combiner.themeBloc.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return QrImage(
+                      data: inventory.id,
+                      version: QrVersions.auto,
+                      size: 250,
+                      backgroundColor: Colors.transparent,
+                      foregroundColor:
+                          snapshot.data! ? Styles.lightColor : Styles.darkColor,
+                    );
+                  }
+                  return Container();
+                }),
+            const SizedBox(
+              height: outerSpacing * 2,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
+              child: DarkModeContainer(
+                height: 0.4,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: innerSpacing * 2, vertical: innerSpacing),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Item Title'.toUpperCase(),
                             style: Theme.of(context)
                                 .textTheme
                                 .headline2
-                                ?.copyWith(fontSize: 18),
+                                ?.copyWith(fontSize: 20),
                           ),
-                        ),
-                        const SizedBox(height: innerSpacing),
-                        Text(
-                          'Item Memo'.toUpperCase(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(fontSize: 20),
-                        ),
-                        Divider(
-                          color: Colors.grey[700],
-                          thickness: 2.0,
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            inventory.memo.length > 32
-                                ? '${inventory.memo.substring(0, 32)}...'
-                                    .toTitleCase()
-                                : inventory.memo.toTitleCase(),
+                          Divider(
+                            color: Colors.grey[700],
+                            thickness: 2.0,
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              inventory.title.length > 32
+                                  ? '${inventory.title.substring(0, 32)}...'
+                                      .toTitleCase()
+                                  : inventory.title.toTitleCase(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  ?.copyWith(fontSize: 18),
+                            ),
+                          ),
+                          const SizedBox(height: innerSpacing),
+                          Text(
+                            'Item Memo'.toUpperCase(),
                             style: Theme.of(context)
                                 .textTheme
                                 .headline2
-                                ?.copyWith(fontSize: 18),
+                                ?.copyWith(fontSize: 20),
                           ),
-                        ),
-                        const SizedBox(height: innerSpacing),
-                        Text(
-                          'current qty'.toUpperCase(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(fontSize: 20),
-                        ),
-                        Divider(
-                          color: Colors.grey[700],
-                          thickness: 2.0,
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            inventory.qty.toString().length > 35
-                                ? '${inventory.qty.toString().substring(0, 35)}...'
-                                : inventory.qty.toString(),
+                          Divider(
+                            color: Colors.grey[700],
+                            thickness: 2.0,
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              inventory.memo.length > 32
+                                  ? '${inventory.memo.substring(0, 32)}...'
+                                      .toTitleCase()
+                                  : inventory.memo.toTitleCase(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  ?.copyWith(fontSize: 18),
+                            ),
+                          ),
+                          const SizedBox(height: innerSpacing),
+                          Text(
+                            'current qty'.toUpperCase(),
                             style: Theme.of(context)
                                 .textTheme
                                 .headline2
-                                ?.copyWith(fontSize: 18),
+                                ?.copyWith(fontSize: 20),
                           ),
-                        ),
-                        Text(
-                          'Created Date'.toUpperCase(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(fontSize: 20),
-                        ),
-                        Divider(
-                          color: Colors.grey[700],
-                          thickness: 2.0,
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            inventory.createAt.toString().substring(0, 10),
+                          Divider(
+                            color: Colors.grey[700],
+                            thickness: 2.0,
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              inventory.qty.toString().length > 35
+                                  ? '${inventory.qty.toString().substring(0, 35)}...'
+                                  : inventory.qty.toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  ?.copyWith(fontSize: 18),
+                            ),
+                          ),
+                          const SizedBox(height: innerSpacing),
+                          Text(
+                            'Created Date'.toUpperCase(),
                             style: Theme.of(context)
                                 .textTheme
                                 .headline2
-                                ?.copyWith(fontSize: 18),
+                                ?.copyWith(fontSize: 20),
                           ),
-                        ),
-                      ],
+                          Divider(
+                            color: Colors.grey[700],
+                            thickness: 2.0,
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              inventory.createAt.toString().substring(0, 10),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  ?.copyWith(fontSize: 18),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  // const InventoryDetailsBtns(),
-                ],
+                    // const InventoryDetailsBtns(),
+                  ],
+                ),
               ),
             ),
-          ),
-          //when press, navigate to e
-        ],
+            //when press, navigate to e
+          ],
+        ),
       ),
     );
   }

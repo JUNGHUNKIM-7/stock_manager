@@ -24,8 +24,9 @@ class HistoryDetails extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: showAppBarWithBackBtn(
-            context: context, combiner: combiner, typeOfForm: 'history'),
+            context: context, combiner: combiner, typeOfForm: 'historyDetails'),
         body: StreamBuilder<bool>(
             stream: theme.stream,
             builder: (context, snapshot) {
@@ -197,7 +198,7 @@ class OutWidget extends StatelessWidget {
             title: Text(
               '${item.date.toString().substring(0, 16)} ${item.jm}',
               style:
-                  Theme.of(context).textTheme.headline2?.copyWith(fontSize: 14),
+                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
             ),
             trailing: Text(
               item.val.toString(),
@@ -241,7 +242,7 @@ class InWidget extends StatelessWidget {
             title: Text(
               '${item.date.toString().substring(0, 16)} ${item.jm}',
               style:
-                  Theme.of(context).textTheme.headline2?.copyWith(fontSize: 14),
+                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
             ),
             trailing: Text(
               item.val.toString(),

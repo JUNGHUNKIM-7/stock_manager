@@ -23,7 +23,7 @@ class InventorySubmit extends StatelessWidget {
     return StreamBuilder(
       stream: combiner.inventoryAddFormStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-        return ElevatedButton(
+        return OutlinedButton(
           onPressed: (snapshot.hasData && snapshot.data!.isNotEmpty)
               ? () async {
                   try {
@@ -68,7 +68,11 @@ class InventorySubmit extends StatelessWidget {
                   }
                 }
               : null,
-          child: const Text('Save to Inventory'),
+          child: Text(
+            'Save to Inventory',
+            style:
+                Theme.of(context).textTheme.headline3?.copyWith(fontSize: 16),
+          ),
         );
       },
     );

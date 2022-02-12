@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -32,9 +31,10 @@ class InventoryList extends StatelessWidget {
       itemBuilder: (context, idx) {
         return DarkModeContainer(
           theme: theme,
-          height: 0.09,
+          height: 0.08,
           reverse: true,
           child: DismissibleWrapper(
+            theme: theme,
             snapshot: snapshot,
             idx: idx,
             combiner: combiner,
@@ -58,17 +58,18 @@ class DismissibleWrapper extends StatelessWidget {
     required this.idx,
     required this.combiner,
     required this.inventory,
+    this.theme,
   }) : super(key: key);
 
   final BlocsCombiner combiner;
   final AsyncSnapshot<List<Inventory>> snapshot;
   final int idx;
   final Inventory inventory;
+  final ThemeBloc? theme;
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      dragStartBehavior: DragStartBehavior.down,
       secondaryBackground: const SecondBackGround(),
       background: const PrimaryBackGround(),
       confirmDismiss: (direction) {
@@ -80,12 +81,12 @@ class DismissibleWrapper extends StatelessWidget {
         return Future.value(false);
       },
       key: ValueKey(inventory.id),
-      child: Tiles(idx: idx, data: snapshot.data!),
+      child: Tiles(idx: idx, data: snapshot.data!, theme: theme),
     );
   }
 
-  Future<bool?> checkDeleteDialog(BuildContext context) {
-    return showDialog(
+  Future<bool?> checkDeleteDialog(BuildContext context) async {
+    return await showDialog(
       context: context,
       builder: (context) {
         final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
@@ -93,6 +94,7 @@ class DismissibleWrapper extends StatelessWidget {
             stream: theme.stream,
             builder: (context, AsyncSnapshot<bool> snapshot) {
               return DeleteDialog(
+                inventory: inventory,
                 themeSnapShot: snapshot,
                 combiner: combiner,
                 id: inventory.id,
@@ -121,13 +123,17 @@ class PrimaryBackGround extends StatelessWidget {
           const Icon(
             Icons.playlist_add,
             size: 30,
+            color: Colors.redAccent,
           ),
           const SizedBox(
             width: 10,
           ),
           Text(
-            'Make a Deal',
-            style: Theme.of(context).textTheme.bodyText1,
+            'Deal',
+            style: Theme.of(context)
+                .textTheme
+                .headline3
+                ?.copyWith(color: Colors.redAccent),
           ),
           const SizedBox(
             width: 20,
@@ -154,8 +160,11 @@ class SecondBackGround extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            'Delete Item',
-            style: Theme.of(context).textTheme.bodyText1,
+            'Delete',
+            style: Theme.of(context)
+                .textTheme
+                .headline3
+                ?.copyWith(color: Colors.green),
           ),
           const SizedBox(
             width: 10,
@@ -163,6 +172,7 @@ class SecondBackGround extends StatelessWidget {
           const Icon(
             Icons.delete,
             size: 30,
+            color: Colors.green,
           ),
           const SizedBox(
             width: 20,
@@ -179,31 +189,44 @@ class DeleteDialog extends StatelessWidget {
     required this.combiner,
     required this.id,
     required this.themeSnapShot,
+    required this.inventory,
   }) : super(key: key);
 
   final AsyncSnapshot<bool> themeSnapShot;
   final BlocsCombiner combiner;
   final String id;
+  final Inventory inventory;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: themeSnapShot.data == true
-          ? Colors.grey
-          : Colors.white.withOpacity(0.9),
+      backgroundColor:
+          themeSnapShot.data == true ? Styles.darkColor : Styles.lightColor,
       title: Text(
-        'Delete Item?',
+        'Delete?',
         style: Theme.of(context).textTheme.headline2,
       ),
-      content: Text(
-        'Are you sure you want to delete this item?',
-        style: Theme.of(context).textTheme.bodyText1,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Name: ${inventory.title}(${inventory.memo})',
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          const SizedBox(height: innerSpacing),
+          Text(
+            'Qty: ${inventory.qty}',
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
       ),
       actions: [
         OutlinedButton(
           child: Text(
             'Cancel',
-            style: Theme.of(context).textTheme.bodyText1,
+            style:
+                Theme.of(context).textTheme.headline3?.copyWith(fontSize: 14),
           ),
           //FIX goRouter
           onPressed: () => Navigator.of(context).pop(),
@@ -211,9 +234,16 @@ class DeleteDialog extends StatelessWidget {
         OutlinedButton(
           child: Text(
             'Delete',
-            style: Theme.of(context).textTheme.bodyText1,
+            style:
+                Theme.of(context).textTheme.headline3?.copyWith(fontSize: 14),
           ),
           onPressed: () async {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.yellow[600],
+                content: const Text('Pending: Processing Your Data'),
+              ),
+            );
             await combiner.inventoryBloc.delete(id).whenComplete(
                   () => ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -236,10 +266,12 @@ class Tiles extends StatelessWidget {
     Key? key,
     required this.idx,
     required this.data,
+    this.theme,
   }) : super(key: key);
 
   final int idx;
   final List<Inventory> data;
+  final ThemeBloc? theme;
 
   @override
   Widget build(BuildContext context) {
@@ -248,16 +280,27 @@ class Tiles extends StatelessWidget {
         BlocProvider.of<BlocsCombiner>(context).inventoryView;
 
     return ListTile(
+      dense: true,
       trailing: Text(
         inventory.qty.toString(),
         style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
       ),
-      dense: true,
-      leading: QrImage(
-        data: inventory.id,
-        version: QrVersions.auto,
-        size: 60,
-      ),
+      // dense: true,
+      leading: StreamBuilder<bool>(
+          stream: theme?.stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return QrImage(
+                data: inventory.id,
+                version: QrVersions.auto,
+                backgroundColor: Colors.transparent,
+                foregroundColor: snapshot.data == true
+                    ? Styles.lightColor
+                    : Styles.darkColor,
+              );
+            }
+            return const SizedBox(height: 60);
+          }),
       onTap: () {
         inventoryHistory.push(inventory);
         context.goNamed('inventoryDetails', extra: inventory);

@@ -211,9 +211,13 @@ AppBar showAppBarWithBackBtn({
                 combiner?.memoFieldBloc.clearInventoryForm(FormFields.memo);
                 combiner?.qtyFieldBloc.clearInventoryForm(FormFields.qty);
               }
+              if (typeOfForm == 'historyDetails') {
+                combiner?.historySearchBloc.onChanged('');
+              }
+              if (typeOfForm == 'inventoryDetails') {
+                combiner?.inventorySearchBloc.onChanged('');
+              }
             }
-            combiner?.historySearchBloc.onChanged('');
-            combiner?.inventorySearchBloc.onChanged('');
             context.goNamed('home');
           },
           icon: const Icon(Icons.arrow_back),
@@ -222,8 +226,33 @@ AppBar showAppBarWithBackBtn({
           width: 4.0,
         ),
       ],
-      title: Text(
-        'Details'.toUpperCase(),
-        style: Theme.of(context).textTheme.headline1?.copyWith(fontSize: 24),
-      ),
+      title: typeOfForm == 'history'
+          ? Text(
+              'History Form'.toUpperCase(),
+              style:
+                  Theme.of(context).textTheme.headline1?.copyWith(fontSize: 24),
+            )
+          : typeOfForm == 'inventory'
+              ? Text(
+                  'Inventory Form'.toUpperCase(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1
+                      ?.copyWith(fontSize: 24),
+                )
+              : typeOfForm == 'historyDetails'
+                  ? Text(
+                      'History Details'.toUpperCase(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1
+                          ?.copyWith(fontSize: 24),
+                    )
+                  : Text(
+                      'Inventory Details'.toUpperCase(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1
+                          ?.copyWith(fontSize: 24),
+                    ),
     );

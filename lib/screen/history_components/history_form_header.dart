@@ -30,7 +30,7 @@ class HistoryInfoCard extends StatelessWidget {
         children: [
           if (out != null) StatusSwitch(out: out!),
           if (inventory != null)
-            InventoryDetails(inventory: inventory!)
+            ItemDetails(inventory: inventory!)
           else if (history != null)
             HistoryDetails(history: history!),
           if (val != null) HistoryFormField(val: val!)
@@ -61,16 +61,16 @@ class StatusSwitch extends StatelessWidget {
                 'out'.toUpperCase(),
                 style: Theme.of(context)
                     .textTheme
-                    .headline2
-                    ?.copyWith(fontSize: 24),
+                    .headline3
+                    ?.copyWith(fontSize: 20),
               )
             else
               Text(
                 'in'.toUpperCase(),
                 style: Theme.of(context)
                     .textTheme
-                    .headline2
-                    ?.copyWith(fontSize: 24),
+                    .headline3
+                    ?.copyWith(fontSize: 20),
               ),
             Switch(
               inactiveTrackColor: Colors.limeAccent,
@@ -91,8 +91,8 @@ class StatusSwitch extends StatelessWidget {
   }
 }
 
-class InventoryDetails extends StatelessWidget {
-  const InventoryDetails({
+class ItemDetails extends StatelessWidget {
+  const ItemDetails({
     Key? key,
     required this.inventory,
   }) : super(key: key);
@@ -109,27 +109,27 @@ class InventoryDetails extends StatelessWidget {
           Text(
             'Item Title'.toUpperCase(),
             style:
-                Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 20),
+                Theme.of(context).textTheme.headline2?.copyWith(fontSize: 20),
           ),
           Divider(
             color: Colors.grey[700],
             thickness: 2.0,
           ),
           Align(
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.center,
             child: Text(
               inventory.title.length > 32
                   ? '${inventory.title.substring(0, 32)}...'.toTitleCase()
                   : inventory.title.toTitleCase(),
               style:
-                  Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
             ),
           ),
           const SizedBox(height: innerSpacing),
           Text(
             'Item Memo'.toUpperCase(),
             style:
-                Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 20),
+                Theme.of(context).textTheme.headline2?.copyWith(fontSize: 20),
           ),
           Divider(
             color: Colors.grey[700],
@@ -142,27 +142,27 @@ class InventoryDetails extends StatelessWidget {
                   ? '${inventory.memo.substring(0, 32)}...'.toTitleCase()
                   : inventory.memo.toTitleCase(),
               style:
-                  Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
             ),
           ),
           const SizedBox(height: innerSpacing),
           Text(
             'Current Qty'.toUpperCase(),
             style:
-                Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 20),
+                Theme.of(context).textTheme.headline2?.copyWith(fontSize: 20),
           ),
           Divider(
             color: Colors.grey[700],
             thickness: 2.0,
           ),
           Align(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.center,
             child: Text(
               inventory.qty.toString().length > 35
                   ? '${inventory.qty.toString().substring(0, 35)}...'
                   : inventory.qty.toString(),
               style:
-                  Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
             ),
           ),
         ],
@@ -185,7 +185,7 @@ class HistoryDetails extends StatelessWidget {
           Text(
             'Item Memo'.toUpperCase(),
             style:
-                Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
+                Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
           ),
           Divider(
             color: Colors.grey[700],
@@ -198,7 +198,7 @@ class HistoryDetails extends StatelessWidget {
                   ? '${history.memo?.substring(0, 32)}...'.toTitleCase()
                   : history.memo?.toTitleCase() ?? '',
               style:
-                  Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
             ),
           ),
           Column(
@@ -208,14 +208,14 @@ class HistoryDetails extends StatelessWidget {
                 'Current Qty'.toUpperCase(),
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText1
+                    .headline2
                     ?.copyWith(fontSize: 18),
               ),
               Text(
                 '- applied qty from latest transaction'.toTitleCase(),
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText1
+                    .headline2
                     ?.copyWith(fontSize: 14),
               ),
             ],
@@ -225,13 +225,13 @@ class HistoryDetails extends StatelessWidget {
             thickness: 2.0,
           ),
           Align(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.center,
             child: Text(
               history.qty.toString().length > 35
                   ? '${history.qty.toString().substring(0, 35)}...'
                   : history.qty.toString(),
               style:
-                  Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
             ),
           ),
         ],
