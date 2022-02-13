@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:router_go/bloc/global/form_bloc.dart';
-import 'package:router_go/bloc/global/settings_bloc.dart';
+import 'package:stock_manager/bloc/global/form_bloc.dart';
+import 'package:stock_manager/bloc/global/settings_bloc.dart';
 
 import '../../bloc/global/history_view.dart';
 import '../../bloc/global/page_bloc.dart';

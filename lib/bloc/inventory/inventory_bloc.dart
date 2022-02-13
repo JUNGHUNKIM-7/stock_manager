@@ -1,7 +1,7 @@
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:router_go/bloc/constant/base_controller.dart';
-import 'package:router_go/database/model/inventory_model.dart';
-import 'package:router_go/database/repository/gsheet_handler.dart';
+import 'package:stock_manager/bloc/constant/base_controller.dart';
+import 'package:stock_manager/database/model/inventory_model.dart';
+import 'package:stock_manager/database/repository/gsheet_handler.dart';
 
 abstract class InventoryBlocInterface {
   void reload();

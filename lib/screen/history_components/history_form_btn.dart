@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:router_go/bloc/constant/blocs_combiner.dart';
-import 'package:router_go/bloc/constant/provider.dart';
-import 'package:router_go/bloc/global/form_bloc.dart';
-import 'package:router_go/database/model/history_model.dart';
-import 'package:router_go/database/model/inventory_model.dart';
-import 'package:router_go/database/repository/gsheet_handler.dart';
+import 'package:stock_manager/bloc/constant/blocs_combiner.dart';
+import 'package:stock_manager/bloc/constant/provider.dart';
+import 'package:stock_manager/bloc/global/form_bloc.dart';
+import 'package:stock_manager/database/model/history_model.dart';
+import 'package:stock_manager/database/model/inventory_model.dart';
+import 'package:stock_manager/database/repository/gsheet_handler.dart';
 
 class SubmitHistory extends StatelessWidget {
   const SubmitHistory({
@@ -21,39 +21,57 @@ class SubmitHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     final combiner = BlocProvider.of<BlocsCombiner>(context);
 
-    return StreamBuilder(
-      stream: combiner.historyAddFormStream,
-      builder:
-          (context, AsyncSnapshot<Map<String, dynamic>> historyFormStream) {
-        return OutlinedButton(
-          onPressed: (historyFormStream.hasData &&
-                  historyFormStream.data!.isNotEmpty)
-              ? () async {
-                  try {
-                    if (DateTime.now().day != 1) {
-                      await _insertOne(context, combiner, historyFormStream);
-                    } else if (DateTime.now().day == 1) {
-                      await GSheetHandler.newMonthEvent();
-                      await _insertOne(context, combiner, historyFormStream);
-                    } else if (DateTime.now().month == 1) {
-                      await GSheetHandler.newYearEvent();
-                      await _insertOne(context, combiner, historyFormStream);
-                    } else {
-                      throw Exception('Something went wrong : HistoryForm');
-                    }
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.red[600],
-                        content: Text('Failed: ${e.toString().split(':')[1]}'),
-                      ),
-                    );
-                  }
+    return StreamBuilder<Map<String, dynamic>>(
+      stream: combiner.settings.stream,
+      builder: (context, AsyncSnapshot settingSnapShot) {
+        if (settingSnapShot.hasData) {
+          return StreamBuilder<Map<String, dynamic>>(
+              stream: combiner.historyAddFormStream,
+              builder: (context, historyFormStream) {
+                if (settingSnapShot.data!['tz'] != null ||
+                    settingSnapShot.data!['tz'].isNotEmpty) {
+                  return OutlinedButton(
+                    onPressed: (historyFormStream.hasData &&
+                            historyFormStream.data!.isNotEmpty)
+                        ? () async {
+                            try {
+                              if (DateTime.now().day != 1) {
+                                await _insertOne(
+                                    context, combiner, historyFormStream);
+                              } else if (DateTime.now().day == 1) {
+                                await GSheetHandler.newMonthEvent();
+                                await _insertOne(
+                                    context, combiner, historyFormStream);
+                              } else if (DateTime.now().month == 1) {
+                                await GSheetHandler.newYearEvent();
+                                await _insertOne(
+                                    context, combiner, historyFormStream);
+                              } else {
+                                throw Exception(
+                                    'Something went wrong : HistoryForm');
+                              }
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor: Colors.red[600],
+                                  content: Text(
+                                      'Failed: ${e.toString().split(':')[1]}'),
+                                ),
+                              );
+                            }
+                          }
+                        : null,
+                    child: Text('Save to History',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline3
+                            ?.copyWith(fontSize: 16)),
+                  );
                 }
-              : null,
-          child: Text('Save to History',
-              style: Theme.of(context).textTheme.headline3?.copyWith(fontSize: 16)),
-        );
+                throw Exception('Timezone is Missing');
+              });
+        }
+        return Container();
       },
     );
   }

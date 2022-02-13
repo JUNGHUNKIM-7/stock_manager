@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:router_go/bloc/global/form_bloc.dart';
-import 'package:router_go/screen/global_components/dark_mode_container.dart';
+import 'package:stock_manager/bloc/global/form_bloc.dart';
+import 'package:stock_manager/screen/global_components/dark_mode_container.dart';
 
 import '../../styles.dart';
 

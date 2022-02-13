@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:router_go/bloc/constant/blocs_combiner.dart';
-import 'package:router_go/bloc/constant/provider.dart';
-import 'package:router_go/bloc/global/theme_bloc.dart';
-import 'package:router_go/styles.dart';
+import 'package:stock_manager/bloc/constant/blocs_combiner.dart';
+import 'package:stock_manager/bloc/constant/provider.dart';
+import 'package:stock_manager/bloc/global/theme_bloc.dart';
+import 'package:stock_manager/styles.dart';
 
 class Years extends StatelessWidget {
   const Years({Key? key, required this.theme}) : super(key: key);

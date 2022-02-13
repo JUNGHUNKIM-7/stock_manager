@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:router_go/database/hive_storage/box_handler.dart';
-import 'package:router_go/database/model/history_model.dart';
-import 'package:router_go/database/model/inventory_model.dart';
-import 'package:router_go/database/secret/secret.dart';
+import 'package:stock_manager/database/hive_storage/box_handler.dart';
+import 'package:stock_manager/database/model/history_model.dart';
+import 'package:stock_manager/database/model/inventory_model.dart';
+import 'package:stock_manager/database/secret/secret.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 import '../../navigation.dart';

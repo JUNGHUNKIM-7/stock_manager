@@ -5,10 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:router_go/bloc/constant/blocs_combiner.dart';
-import 'package:router_go/bloc/constant/provider.dart';
-import 'package:router_go/screen/global_components/appbar_icons.dart';
-import 'package:router_go/styles.dart';
+import 'package:stock_manager/bloc/constant/blocs_combiner.dart';
+import 'package:stock_manager/bloc/constant/provider.dart';
+import 'package:stock_manager/screen/global_components/appbar_icons.dart';
+import 'package:stock_manager/styles.dart';
 
 class QrCamera extends StatefulWidget {
   const QrCamera({Key? key}) : super(key: key);

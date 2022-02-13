@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:router_go/bloc/constant/blocs_combiner.dart';
-import 'package:router_go/bloc/constant/provider.dart';
+import 'package:stock_manager/bloc/constant/blocs_combiner.dart';
+import 'package:stock_manager/bloc/constant/provider.dart';
 
 import '../../bloc/global/theme_bloc.dart';
 import '../../styles.dart';

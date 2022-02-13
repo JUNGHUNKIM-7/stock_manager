@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:router_go/bloc/global/theme_bloc.dart';
-import 'package:router_go/database/model/history_model.dart';
-import 'package:router_go/screen/global_components/filter_section.dart';
+import 'package:stock_manager/bloc/global/theme_bloc.dart';
+import 'package:stock_manager/database/model/history_model.dart';
+import 'package:stock_manager/screen/global_components/filter_section.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';

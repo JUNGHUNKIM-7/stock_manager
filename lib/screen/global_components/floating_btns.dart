@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:router_go/bloc/constant/blocs_combiner.dart';
-import 'package:router_go/bloc/constant/provider.dart';
-import 'package:router_go/database/model/history_model.dart';
-import 'package:router_go/database/repository/gsheet_handler.dart';
+import 'package:stock_manager/bloc/constant/blocs_combiner.dart';
+import 'package:stock_manager/bloc/constant/provider.dart';
+import 'package:stock_manager/database/model/history_model.dart';
+import 'package:stock_manager/database/repository/gsheet_handler.dart';
 
 class QrFloatingBtn extends StatelessWidget {
   const QrFloatingBtn({

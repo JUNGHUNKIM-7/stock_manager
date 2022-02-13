@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:router_go/styles.dart';
+import 'package:stock_manager/styles.dart';
 
 import '../../bloc/global/settings_bloc.dart';
 import '../../utils/datetime_tz_handler.dart';

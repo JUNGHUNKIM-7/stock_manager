@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:router_go/bloc/global/theme_bloc.dart';
-import 'package:router_go/styles.dart';
+import 'package:stock_manager/bloc/global/theme_bloc.dart';
+import 'package:stock_manager/styles.dart';
 
 class DarkModeToggle extends StatelessWidget {
   const DarkModeToggle({Key? key, required this.theme, required this.iconSize})

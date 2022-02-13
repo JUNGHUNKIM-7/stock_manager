@@ -1,13 +1,13 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:router_go/bloc/constant/blocs_combiner.dart';
-import 'package:router_go/bloc/constant/provider.dart';
-import 'package:router_go/bloc/global/history_view.dart';
-import 'package:router_go/bloc/global/theme_bloc.dart';
-import 'package:router_go/database/model/history_model.dart';
-import 'package:router_go/database/model/inventory_model.dart';
-import 'package:router_go/styles.dart';
+import 'package:stock_manager/bloc/constant/blocs_combiner.dart';
+import 'package:stock_manager/bloc/constant/provider.dart';
+import 'package:stock_manager/bloc/global/history_view.dart';
+import 'package:stock_manager/bloc/global/theme_bloc.dart';
+import 'package:stock_manager/database/model/history_model.dart';
+import 'package:stock_manager/database/model/inventory_model.dart';
+import 'package:stock_manager/styles.dart';
 
 class HistoryPanel extends StatelessWidget {
   const HistoryPanel({

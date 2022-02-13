@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:router_go/bloc/constant/blocs_combiner.dart';
-import 'package:router_go/bloc/constant/provider.dart';
-import 'package:router_go/database/model/inventory_model.dart';
-import 'package:router_go/database/repository/gsheet_handler.dart';
-import 'package:router_go/screen/global_components/appbar_icons.dart';
-import 'package:router_go/screen/global_components/dark_mode_container.dart';
+import 'package:stock_manager/bloc/constant/blocs_combiner.dart';
+import 'package:stock_manager/bloc/constant/provider.dart';
+import 'package:stock_manager/database/model/inventory_model.dart';
+import 'package:stock_manager/database/repository/gsheet_handler.dart';
+import 'package:stock_manager/screen/global_components/appbar_icons.dart';
+import 'package:stock_manager/screen/global_components/dark_mode_container.dart';
 
 import '../../styles.dart';
 import 'history_form_btn.dart';

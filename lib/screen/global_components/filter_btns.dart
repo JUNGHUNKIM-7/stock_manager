@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:router_go/bloc/global/theme_bloc.dart';
+import 'package:stock_manager/bloc/global/theme_bloc.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';

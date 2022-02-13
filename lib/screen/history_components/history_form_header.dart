@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:router_go/bloc/global/form_bloc.dart';
-import 'package:router_go/database/model/history_model.dart';
-import 'package:router_go/database/model/inventory_model.dart';
-import 'package:router_go/screen/history_components/history_form_field.dart';
+import 'package:stock_manager/bloc/global/form_bloc.dart';
+import 'package:stock_manager/database/model/history_model.dart';
+import 'package:stock_manager/database/model/inventory_model.dart';
+import 'package:stock_manager/screen/history_components/history_form_field.dart';
 
 import '../../styles.dart';
 import '../../utils/string_handler.dart';
