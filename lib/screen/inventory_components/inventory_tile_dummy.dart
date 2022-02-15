@@ -31,7 +31,7 @@ class InventoryList extends StatelessWidget {
       itemBuilder: (context, idx) {
         return DarkModeContainer(
           theme: theme,
-          height: 0.08,
+          height: MediaQuery.of(context).size.height * 0.00013,
           reverse: true,
           child: DismissibleWrapper(
             theme: theme,
@@ -299,7 +299,7 @@ class Tiles extends StatelessWidget {
                     : Styles.darkColor,
               );
             }
-            return const SizedBox(height: 60);
+            return const SizedBox(height: 20);
           }),
       onTap: () {
         inventoryHistory.push(inventory);

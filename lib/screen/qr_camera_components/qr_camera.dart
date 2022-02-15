@@ -63,11 +63,8 @@ class _QrCameraState extends State<QrCamera> {
                       height: innerSpacing * 2,
                     ),
                     if (result != null)
-                      Text(
-                        prod != null
-                            ? 'QR Type: ${describeEnum(result!.format)}  Data: $prod'
-                            : 'Not Found',
-                      )
+                      // 'QR Type: ${describeEnum(result!.format)}
+                      Text('Data: ${prod ?? ''}')
                     else
                       Text(
                         'No QR Detected',
@@ -200,13 +197,15 @@ class _QrCameraState extends State<QrCamera> {
     setState(() {
       this.controller = controller;
     });
+
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
       });
+
       final inventory = BlocProvider.of<BlocsCombiner>(context)
           .inventoryBloc
-          .filterByIdWithQr(scanData);
+          .filterByIdWithQr(result!.code ?? '');
 
       setState(() {
         prod = inventory.title;

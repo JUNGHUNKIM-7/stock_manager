@@ -19,7 +19,7 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
         leading: Builder(builder: (context) => AppBarSettingsBtn(theme: theme)),
         actions: [
           DarkModeToggle(
-            iconSize: 30.0,
+            iconSize: 25.0,
             theme: theme,
           ),
           const HistoryPanel(
@@ -43,7 +43,7 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
         actions: [
           UserInventoryBtn(theme: theme),
           DarkModeToggle(
-            iconSize: 30.0,
+            iconSize: 25.0,
             theme: theme,
           ),
           const HistoryPanel(
@@ -65,7 +65,7 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
               Builder(builder: (context) => AppBarSettingsBtn(theme: theme)),
           actions: [
             DarkModeToggle(
-              iconSize: 30.0,
+              iconSize: 25.0,
               theme: theme,
             ),
             const SizedBox(
@@ -122,7 +122,7 @@ class UserInventoryBtn extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.active) {
                 return Icon(
                   Icons.cloud_download,
-                  size: 30,
+                  size: 25,
                   color: snapshot.data! == true
                       ? Styles.lightColor
                       : Styles.darkColor,

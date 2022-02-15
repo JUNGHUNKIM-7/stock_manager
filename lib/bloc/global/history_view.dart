@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:rxdart/rxdart.dart';
 import 'package:stock_manager/bloc/constant/base_controller.dart';
 import 'package:stock_manager/database/model/history_model.dart';
 import 'package:stock_manager/database/model/inventory_model.dart';
-import 'package:rxdart/rxdart.dart';
 
 enum HistoryViewBlocEnum { history, inventory }
 

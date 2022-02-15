@@ -11,7 +11,7 @@ class BlocsCombiner extends Blocs
     with BlocsCombinerMixins
     implements BlocsCombinerInterface {
   BlocsCombiner({
-    required Map<String,dynamic> handlerMap,
+    required Map<String, dynamic> handlerMap,
     List<History>? historyData,
     List<Inventory>? inventoryData,
     Box? settingsBox,

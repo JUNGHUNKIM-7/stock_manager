@@ -44,9 +44,6 @@ void main() async {
       );
     }
   } else {
-    //서비스 등록 페이지
-    //todo secret 잘못 입력했을때 탈출?
-    //todo 서비스 등록페이지?
     runApp(
       BlocProvider<BlocsCombiner>(
         child: App(router: PageRouter.router),

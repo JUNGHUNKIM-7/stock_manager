@@ -8,7 +8,7 @@ abstract class InventoryBlocInterface {
 
   void delete(String id);
 
-  Inventory filterByIdWithQr(Barcode id);
+  Inventory filterByIdWithQr(String scanData);
 }
 
 class InventoryBloc extends BaseStreamController<List<Inventory>>
@@ -40,7 +40,7 @@ class InventoryBloc extends BaseStreamController<List<Inventory>>
 
   // for Qr Scan
   @override
-  Inventory filterByIdWithQr(Barcode id) {
-    return state.firstWhere((element) => element.id == id.toString());
+  Inventory filterByIdWithQr(String? scanData) {
+    return state.firstWhere((element) => element.id == scanData);
   }
 }

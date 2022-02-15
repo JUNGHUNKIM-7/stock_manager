@@ -22,7 +22,9 @@ class InventoryDetails extends StatelessWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: showAppBarWithBackBtn(
-            context: context, combiner: combiner, typeOfForm: 'inventoryDetails'),
+            context: context,
+            combiner: combiner,
+            typeOfForm: 'inventoryDetails'),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

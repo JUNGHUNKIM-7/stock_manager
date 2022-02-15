@@ -22,7 +22,6 @@ class Blocs {
   late Box settingBox;
   late Map<String, dynamic> handlerMap;
 
-
   Blocs._();
 
   Blocs.initializer({
@@ -51,10 +50,10 @@ class Blocs {
       'sheetId': settingBox.get('sheetId') ?? '',
       'tz': settingBox.get('tz') ?? '',
     },
-    settingBox: settingBox, handlerMap: handlerMap,
+    settingBox: settingBox,
+    handlerMap: handlerMap,
   );
 
-  //todo hive box
   final historyView =
       HistoryViewBloc(state: [], type: HistoryViewBlocEnum.history);
   final inventoryView =
