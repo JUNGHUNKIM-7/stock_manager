@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stock_manager/bloc/constant/blocs_combiner.dart';
 import 'package:stock_manager/bloc/constant/provider.dart';
+import 'package:stock_manager/screen/global_components/dark_mode_toggle.dart';
 
 import '../../bloc/global/theme_bloc.dart';
 import '../../styles.dart';
@@ -22,34 +23,79 @@ class SettingsDrawer extends StatelessWidget {
         stream: theme.stream,
         builder: (context, themeSnapshot) {
           return Drawer(
-            child: ListView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
               children: [
                 Header(themeSnapshot: themeSnapshot),
-                CredentialsTile(
-                  themeSnapshot: themeSnapshot,
-                  settings: settings,
+                Column(
+                  children: [
+                    TimeZoneTile(
+                        themeSnapshot: themeSnapshot, settings: settings),
+                    Divider(
+                      color: Colors.grey[700],
+                      thickness: 1.0,
+                    ),
+                    CredentialsTile(
+                      themeSnapshot: themeSnapshot,
+                      settings: settings,
+                    ),
+                    Divider(
+                      color: Colors.grey[700],
+                      thickness: 1.0,
+                    ),
+                    SheetIdTile(
+                      themeSnapshot: themeSnapshot,
+                      settings: settings,
+                    ),
+                    Divider(
+                      color: Colors.grey[700],
+                      thickness: 1.0,
+                    ),
+                  ],
                 ),
-                Divider(
-                  color: Colors.grey[700],
-                  thickness: 1.0,
-                ),
-                SheetIdTile(
-                  themeSnapshot: themeSnapshot,
-                  settings: settings,
-                ),
-                Divider(
-                  color: Colors.grey[700],
-                  thickness: 1.0,
-                ),
-                TimeZoneTile(themeSnapshot: themeSnapshot, settings: settings),
-                Divider(
-                  color: Colors.grey[700],
-                  thickness: 1.0,
-                ),
+                Expanded(child: Container()),
+                DarkModeStatus(theme: theme),
+                SizedBox(height: innerSpacing),
               ],
             ),
           );
         });
+  }
+}
+
+class DarkModeStatus extends StatelessWidget {
+  const DarkModeStatus({
+    Key? key,
+    required this.theme,
+  }) : super(key: key);
+
+  final ThemeBloc theme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Row(
+          children: [
+            StreamBuilder<bool>(
+                stream: theme.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(
+                      snapshot.data ?? false ? 'Dark Mode' : 'Light Mode',
+                      style: Theme.of(context).textTheme.headline3,
+                    );
+                  }
+
+                  return Container();
+                }),
+            DarkModeToggle(theme: theme, iconSize: 30),
+          ],
+        ),
+      ],
+    );
   }
 }
 

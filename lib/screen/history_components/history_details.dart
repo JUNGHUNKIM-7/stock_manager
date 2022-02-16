@@ -35,7 +35,6 @@ class HistoryDetails extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: outerSpacing),
                     Center(
                       child: Text(
                         "${history.title.toTitleCase()}'s Details",
@@ -45,9 +44,9 @@ class HistoryDetails extends StatelessWidget {
                             ?.copyWith(fontSize: 24),
                       ),
                     ),
-                    const SizedBox(height: outerSpacing * 2),
+                    const SizedBox(height: outerSpacing * 1.5),
                     DarkModeContainer(
-                      height: 0.18,
+                      height: 0.20,
                       child: HistoryInfoCard(history: history),
                     ),
                     const SizedBox(height: outerSpacing),

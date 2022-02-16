@@ -19,7 +19,7 @@ class SecondPage extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(
-            height: height * 0.04,
+            height: outerSpacing,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: outerSpacing),

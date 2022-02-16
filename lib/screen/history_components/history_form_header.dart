@@ -24,7 +24,8 @@ class HistoryInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: innerSpacing),
+      padding: const EdgeInsets.symmetric(
+          horizontal: innerSpacing, vertical: innerSpacing),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

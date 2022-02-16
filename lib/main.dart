@@ -5,6 +5,7 @@ import 'package:stock_manager/database/hive_storage/box_handler.dart';
 import 'package:stock_manager/database/model/history_model.dart';
 import 'package:stock_manager/database/model/inventory_model.dart';
 import 'package:stock_manager/database/secret/secret.dart';
+import 'package:stock_manager/screen/fall_back.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 import '../../navigation.dart';
@@ -16,6 +17,7 @@ import 'database/hive_storage/hive_handler.dart';
 import 'database/hive_storage/settings.dart';
 import 'database/repository/gsheet_handler.dart';
 import 'database/repository/gsheet_repository.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,32 +27,42 @@ void main() async {
       [Hive.initFlutter(), HiveHandler.init(), SecretHandler.initialize()]);
   HiveHandler.registerAdapter([SettingsAdapter(), HistoriesAdapter()]);
   await HiveHandler.openRegisteredBox(['settings', 'histories']);
+
+  await runApplication();
+}
+
+Future<void> runApplication() async {
   final handler = await BoxHandler.returnBox();
+  var connectivityResult = await (Connectivity().checkConnectivity());
 
-  if (handler['secret'] != null && handler['sheetId'] != null) {
-    if (handler['secret'].isNotEmpty && handler['sheetId'].isNotEmpty) {
-      await GSheetHandler.init(sheetId: handler['sheetId']);
-      final fetchedData = await GSheetRepository.getDataMap();
-
-      runApp(
-        BlocProvider<BlocsCombiner>(
-          child: App(router: PageRouter.router),
-          combiner: BlocsCombiner(
-            handlerMap: handler['handler'],
-            historyData: fetchedData['history']!.cast<History>(),
-            inventoryData: fetchedData['inventory']!.cast<Inventory>(),
-          ),
-        ),
-      );
+  if (connectivityResult == ConnectivityResult.mobile ||
+      connectivityResult == ConnectivityResult.wifi) {
+    if (handler['secret'] != null && handler['sheetId'] != null) {
+      if (handler['secret'].isNotEmpty && handler['sheetId'].isNotEmpty) {
+        await runAppWithNetwork(handler);
+      }
+    } else {
+      runFallback(handler, App(router: PageRouter.router));
     }
   } else {
-    runApp(
-      BlocProvider<BlocsCombiner>(
-        child: App(router: PageRouter.router),
-        combiner: BlocsCombiner(handlerMap: handler['handler'] ?? {}),
-      ),
-    );
+    runFallback(handler, NoConnectionApp());
   }
+}
+
+Future<void> runAppWithNetwork(Map<String, dynamic> handler) async {
+  await GSheetHandler.init(sheetId: handler['sheetId']);
+  final fetchedData = await GSheetRepository.getDataMap();
+
+  runApp(
+    BlocProvider<BlocsCombiner>(
+      child: App(router: PageRouter.router),
+      combiner: BlocsCombiner(
+        handlerMap: handler['handler'],
+        historyData: fetchedData['history']!.cast<History>(),
+        inventoryData: fetchedData['inventory']!.cast<Inventory>(),
+      ),
+    ),
+  );
 }
 
 class App extends StatelessWidget {

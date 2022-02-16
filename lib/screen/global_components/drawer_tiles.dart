@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:stock_manager/styles.dart';
 
 import '../../bloc/global/settings_bloc.dart';
+import '../../database/hive_storage/box_handler.dart';
+import '../../main.dart';
 import '../../utils/datetime_tz_handler.dart';
+import '../../utils/restart_widget.dart';
 
 class CredentialsTile extends StatelessWidget {
   const CredentialsTile({
@@ -78,7 +81,7 @@ class CredentialsTile extends StatelessWidget {
                             ElevatedButton(
                               child: const Text('OK'),
                               onPressed: () {
-                                Navigator.of(context).pop();
+                                RestartWidget.restartApp(context);
                                 Navigator.of(context).pop();
                               },
                             ),
@@ -161,7 +164,9 @@ class SheetIdTile extends StatelessWidget {
                             ),
                             ElevatedButton(
                               child: const Text('OK'),
-                              onPressed: () {
+                              onPressed: () async {
+                                RestartWidget.restartApp(context);
+                                await runApplication();
                                 Navigator.of(context).pop();
                                 Navigator.of(context).pop();
                               },
@@ -246,7 +251,7 @@ class TimeZoneTile extends StatelessWidget {
                                   ),
                                   onTap: () {
                                     settings.catchTZValue(li[idx]);
-                                    Navigator.of(context).pop();
+                                    RestartWidget.restartApp(context);
                                     Navigator.of(context).pop();
                                   },
                                 );

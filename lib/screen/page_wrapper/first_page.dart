@@ -20,9 +20,7 @@ class FirstPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(
-            height: height * 0.04,
-          ),
+          SizedBox(height: outerSpacing),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
             child: Row(

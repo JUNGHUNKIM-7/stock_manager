@@ -18,10 +18,6 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
         automaticallyImplyLeading: false,
         leading: Builder(builder: (context) => AppBarSettingsBtn(theme: theme)),
         actions: [
-          DarkModeToggle(
-            iconSize: 25.0,
-            theme: theme,
-          ),
           const HistoryPanel(
             historyViewBlocEnum: HistoryViewBlocEnum.history,
           ),
@@ -42,9 +38,8 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
         ),
         actions: [
           UserInventoryBtn(theme: theme),
-          DarkModeToggle(
-            iconSize: 25.0,
-            theme: theme,
+          const SizedBox(
+            width: 4.0,
           ),
           const HistoryPanel(
             historyViewBlocEnum: HistoryViewBlocEnum.inventory,
