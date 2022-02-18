@@ -5,7 +5,6 @@ import 'package:stock_manager/bloc/constant/provider.dart';
 import 'package:stock_manager/bloc/global/theme_bloc.dart';
 import 'package:stock_manager/database/model/history_model.dart';
 import 'package:stock_manager/database/repository/gsheet_handler.dart';
-import 'package:stock_manager/screen/global_components/dark_mode_container.dart';
 import 'package:stock_manager/screen/inventory_components/inventory_tile_dummy.dart';
 
 import '../../styles.dart';
@@ -36,19 +35,16 @@ class CardListView extends StatelessWidget {
             historyHistory.push(history);
             context.goNamed('historyDetails', extra: history);
           },
-          child: DarkModeContainer(
+          child: Cards(
+            history: history,
             theme: theme,
-            height: 0.08,
-            reverse: true,
-            child: Cards(
-              history: history,
-              theme: theme,
-            ),
           ),
         );
       },
       separatorBuilder: (BuildContext context, int index) {
-        return const SizedBox(height: innerSpacing);
+        return const Divider(
+          thickness: 1.0,
+        );
       },
     );
   }
@@ -150,8 +146,13 @@ class Cards extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             backgroundColor: Colors.yellow[600],
-                            content:
-                                const Text('Pending: Processing Your Request'),
+                            content: Text(
+                              'Pending: Processing Your Request',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4
+                                  ?.copyWith(fontSize: 14),
+                            ),
                             duration: const Duration(seconds: 1),
                           ),
                         );
@@ -175,16 +176,26 @@ class Cards extends StatelessWidget {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         backgroundColor: Colors.green[600],
-                                        content: const Text(
-                                            'Success: Deleted Item from "history" Sheet (and Restored Qty in "inventory" Sheet)'),
+                                        content: Text(
+                                          'Success: Deleted Item from "history" Sheet (and Restored Qty in "inventory" Sheet)',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline4
+                                              ?.copyWith(fontSize: 14),
+                                        ),
                                       ),
                                     ));
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 backgroundColor: Colors.red[600],
-                                content: const Text(
-                                    'Not Found Item in "inventory Sheet"'),
+                                content: Text(
+                                  'Not Found Item in "inventory Sheet"',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline4
+                                      ?.copyWith(fontSize: 14),
+                                ),
                               ),
                             );
                           }
@@ -206,15 +217,25 @@ class Cards extends StatelessWidget {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         backgroundColor: Colors.green[600],
-                                        content: const Text(
-                                            'Success: Deleted Item from "history" Sheet (and Restored Qty in "inventory" Sheet)'),
+                                        content: Text(
+                                          'Success: Deleted Item from "history" Sheet (and Restored Qty in "inventory" Sheet)',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline4
+                                              ?.copyWith(fontSize: 14),
+                                        ),
                                       ),
                                     ));
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               backgroundColor: Colors.red[600],
-                              content: const Text(
-                                  'Not Found Item in "inventory Sheet"'),
+                              content: Text(
+                                'Not Found Item in "inventory Sheet"',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline4
+                                    ?.copyWith(fontSize: 14),
+                              ),
                             ));
                           }
                         }

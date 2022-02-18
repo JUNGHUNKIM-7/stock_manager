@@ -63,7 +63,7 @@ class StatusSwitch extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headline3
-                    ?.copyWith(fontSize: 20),
+                    ?.copyWith(fontSize: 18),
               )
             else
               Text(

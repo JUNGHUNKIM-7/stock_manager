@@ -147,14 +147,12 @@ mixin FormMixin<T extends String> {
   });
   final requiredAndValidInt = StreamTransformer<String, String>.fromHandlers(
       handleData: (String value, EventSink<String> sink) {
-    if (value.contains(RegExp(r'[a-zA-Z]'))) {
+    if (value.contains(RegExp(r'[^\w\s]+'))) {
       sink.addError('Any Character is not Allowed');
     } else if (value.isEmpty) {
       sink.addError('This Field is Required');
     } else if (int.parse(value).isNegative) {
       sink.addError('Only Positive Number is Allowed');
-    } else if (value.contains('.')) {
-      sink.addError('Number Can\'t Contain Decimal');
     } else {
       sink.add(value.trim());
     }

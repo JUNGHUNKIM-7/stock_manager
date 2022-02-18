@@ -49,8 +49,13 @@ class ExportToExcelBtn extends StatelessWidget {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor: Colors.yellow[600],
-                                  content: const Text(
-                                      'Pending: Processing Your Request'),
+                                  content: Text(
+                                    'Pending: Processing Your Request',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline4
+                                        ?.copyWith(fontSize: 14),
+                                  ),
                                   duration: const Duration(seconds: 1),
                                 ),
                               );
@@ -67,15 +72,26 @@ class ExportToExcelBtn extends StatelessWidget {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor: Colors.green[600],
-                                  content: const Text(
-                                      'Success: Saved Current Filtered Data to "temp" Sheet'),
+                                  content: Text(
+                                    'Success: Saved Current Filtered Data to "temp" Sheet',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline4
+                                        ?.copyWith(fontSize: 14),
+                                  ),
                                 ),
                               );
                             } catch (e) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor: Colors.red[600],
-                                  content: Text(e.toString().split(':')[1]),
+                                  content: Text(
+                                    e.toString().split(':')[1],
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline4
+                                        ?.copyWith(fontSize: 14),
+                                  ),
                                 ),
                               );
                             }

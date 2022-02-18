@@ -46,8 +46,7 @@ class _QrCameraState extends State<QrCamera> {
       child: Scaffold(
         appBar: showAppBarWithBackBtn(context: context),
         body: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: outerSpacing, vertical: outerSpacing),
+          padding: const EdgeInsets.symmetric(vertical: outerSpacing),
           child: Column(
             children: <Widget>[
               Flexible(
@@ -224,7 +223,11 @@ class _QrCameraState extends State<QrCamera> {
     log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
+        SnackBar(
+            content: Text(
+          'no Permission',
+          style: Theme.of(context).textTheme.headline4?.copyWith(fontSize: 14),
+        )),
       );
     }
   }

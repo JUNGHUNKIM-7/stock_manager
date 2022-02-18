@@ -47,12 +47,14 @@ class HistoryDetails extends StatelessWidget {
                     const SizedBox(height: outerSpacing * 1.5),
                     DarkModeContainer(
                       height: 0.20,
+                      reverse: true,
                       child: HistoryInfoCard(history: history),
                     ),
                     const SizedBox(height: outerSpacing),
                     DarkModeContainer(
                       theme: theme,
                       height: 0.55,
+                      reverse: true,
                       child: StreamByStatusWrapper(history: history),
                     ),
                   ],

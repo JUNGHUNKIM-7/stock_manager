@@ -99,7 +99,11 @@ class PdfMaker extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.yellow[600],
-            content: const Text('Pending: Processing Your Request'),
+            content: Text(
+              'Pending: Processing Your Request',
+              style:
+                  Theme.of(context).textTheme.headline4?.copyWith(fontSize: 14),
+            ),
             duration: const Duration(seconds: 1),
           ),
         );
@@ -159,7 +163,7 @@ class PdfMaker extends StatelessWidget {
                                   pw.Container(child: qr),
                                   pw.Text(
                                       title.length > 10
-                                          ? '${title.substring(0, 10)}..'
+                                          ? '${title.substring(0, 5)}..${title.substring(title.length - 5)}'
                                           : title,
                                       style: myStyle),
                                 ],
@@ -182,16 +186,26 @@ class PdfMaker extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Colors.green[600],
-                  content:
-                      const Text('Success: All your Qr are Exported as PDF'),
+                  content: Text(
+                    'Success: All your Qr are Exported as PDF',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4
+                        ?.copyWith(fontSize: 14),
+                  ),
                 ),
               );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Colors.red[600],
-                  content:
-                      const Text('Error: "inventory" Sheet Seems to be Empty'),
+                  content: Text(
+                    'Error: "inventory" Sheet Seems to be Empty',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4
+                        ?.copyWith(fontSize: 14),
+                  ),
                 ),
               );
             }
@@ -200,7 +214,13 @@ class PdfMaker extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.red[600],
-              content: Text('Failed to Export Qr Code : Fetching Data Error'),
+              content: Text(
+                'Failed to Export Qr Code : Fetching Data Error',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4
+                    ?.copyWith(fontSize: 14),
+              ),
             ),
           );
         }
@@ -233,7 +253,11 @@ class UserInventoryBtn extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.yellow[600],
-            content: const Text('Pending: Processing Your Request'),
+            content: Text(
+              'Pending: Processing Your Request',
+              style:
+                  Theme.of(context).textTheme.headline4?.copyWith(fontSize: 14),
+            ),
             duration: const Duration(seconds: 1),
           ),
         );
@@ -243,15 +267,26 @@ class UserInventoryBtn extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.green[600],
-              content: const Text(
-                  'Success: All Items are Added to "inventory" Sheet'),
+              content: Text(
+                'Success: All Items are Added to "inventory" Sheet',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4
+                    ?.copyWith(fontSize: 14),
+              ),
             ),
           );
         } catch (e) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.red[600],
-              content: Text('Failed: ${e.toString().split(':')[1]}'),
+              content: Text(
+                'Failed: ${e.toString().split(':')[1]}',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4
+                    ?.copyWith(fontSize: 14),
+              ),
             ),
           );
         }
@@ -292,7 +327,7 @@ class MainHeader extends StatelessWidget {
               return Text(
                 title,
                 style: Theme.of(context).textTheme.headline1?.copyWith(
-                      fontSize: 24,
+                      fontSize: 20,
                       color: snapshot.data! == true
                           ? Styles.lightColor
                           : Styles.darkColor,

@@ -55,7 +55,12 @@ class SubmitHistory extends StatelessWidget {
                                 SnackBar(
                                   backgroundColor: Colors.red[600],
                                   content: Text(
-                                      'Failed: ${e.toString().split(':')[1]}'),
+                                    'Failed: ${e.toString().split(':')[1]}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline4
+                                        ?.copyWith(fontSize: 14),
+                                  ),
                                 ),
                               );
                             }
@@ -84,7 +89,10 @@ class SubmitHistory extends StatelessWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.yellow[600],
-        content: const Text('Pending: Processing Your Request'),
+        content: Text(
+          'Pending: Processing Your Request',
+          style: Theme.of(context).textTheme.headline4?.copyWith(fontSize: 14),
+        ),
         duration: const Duration(seconds: 1),
       ),
     );
@@ -135,7 +143,10 @@ class SubmitHistory extends StatelessWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.green[600],
-        content: const Text('Success: Added to "history" Sheet'),
+        content: Text(
+          'Success: Added to "history" Sheet',
+          style: Theme.of(context).textTheme.headline4?.copyWith(fontSize: 14),
+        ),
       ),
     );
   }

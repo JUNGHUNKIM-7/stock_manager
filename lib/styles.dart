@@ -101,7 +101,7 @@ class Styles {
 
   ThemeData themeMain() {
     return ThemeData(
-      errorColor: darkMode ? Colors.orangeAccent : Colors.redAccent,
+      errorColor: darkMode ? Colors.orangeAccent : Colors.pinkAccent,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Colors.black26,
         foregroundColor: Colors.white,
@@ -115,10 +115,13 @@ class Styles {
       scaffoldBackgroundColor: darkMode ? darkColor : lightColor,
       inputDecorationTheme: darkMode
           ? const InputDecorationTheme(
-              iconColor: Colors.redAccent, suffixIconColor: Colors.redAccent)
+              iconColor: Colors.redAccent,
+              suffixIconColor: Colors.redAccent,
+            )
           : const InputDecorationTheme(
               iconColor: Colors.orangeAccent,
-              suffixIconColor: Colors.orangeAccent),
+              suffixIconColor: Colors.orangeAccent,
+            ),
       bottomNavigationBarTheme: returnBottomTheme(),
       textTheme: TextTheme(
         headline1: header.copyWith(
@@ -131,6 +134,10 @@ class Styles {
         headline3: GoogleFonts.orbitron().copyWith(
           fontSize: 18.0,
           fontWeight: FontWeight.bold,
+        ),
+        headline4: subHeader.copyWith(
+          fontSize: 26.0,
+          color: Colors.black,
         ),
         bodyText1: GoogleFonts.inter().copyWith(
           fontSize: 16.0,

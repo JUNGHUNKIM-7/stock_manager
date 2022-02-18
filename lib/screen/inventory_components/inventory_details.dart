@@ -30,6 +30,7 @@ class InventoryDetails extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
             child: DarkModeContainer(
               height: 0.8,
+              reverse: true,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,13 +53,15 @@ class InventoryDetails extends StatelessWidget {
                     height: outerSpacing * 2,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: outerSpacing * 2),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: outerSpacing * 2),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: innerSpacing * 2, vertical: innerSpacing),
+                              horizontal: innerSpacing * 2,
+                              vertical: innerSpacing),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -150,7 +153,9 @@ class InventoryDetails extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: Text(
-                                  inventory.createAt.toString().substring(0, 10),
+                                  inventory.createAt
+                                      .toString()
+                                      .substring(0, 10),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1

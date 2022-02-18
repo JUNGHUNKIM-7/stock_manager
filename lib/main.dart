@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stock_manager/database/secret/secret.dart';
-import 'package:stock_manager/utils/debugging.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 import 'app.dart';

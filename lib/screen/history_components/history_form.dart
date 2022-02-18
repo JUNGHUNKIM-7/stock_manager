@@ -50,6 +50,7 @@ class HistoryForm extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: outerSpacing * 1.5),
               child: DarkModeContainer(
                 height: height * 0.0008,
+                reverse: true,
                 child:
                     HistoryInfoCard(inventory: inventory, out: out, val: val),
               ),

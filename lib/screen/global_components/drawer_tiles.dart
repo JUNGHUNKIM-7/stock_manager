@@ -22,33 +22,43 @@ class CredentialsTile extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListTile(
-              title: Text('GoogleSheet Credentials',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3
-                      ?.copyWith(fontSize: 18, letterSpacing: 0.6)),
+              title: Text(
+                'GoogleSheet Credentials',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3
+                    ?.copyWith(fontSize: 18, letterSpacing: 0.6),
+              ),
               leading: snapshot.data!['secret'].isNotEmpty
                   ? const Icon(
                       Icons.check_circle,
-                      color: Colors.greenAccent,
+                      color: Colors.cyan,
                     )
                   : const Icon(
                       Icons.check_circle,
-                      color: Colors.redAccent,
+                      color: Colors.pink,
                     ),
               trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () {
                 showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
+                          backgroundColor: themeSnapshot.data == true
+                              ? Styles.darkColor
+                              : Styles.lightColor,
                           title: Text(
                             'Google Credentials',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline3
-                                ?.copyWith(fontSize: 24),
+                                ?.copyWith(
+                                    fontSize: 24,
+                                    color: themeSnapshot.data == true
+                                        ? Styles.lightColor
+                                        : Styles.darkColor),
                           ),
                           content: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'Please provide your GoogleSheet credentials.\n',
@@ -58,13 +68,37 @@ class CredentialsTile extends StatelessWidget {
                                     ?.copyWith(fontSize: 20),
                               ),
                               Text(
-                                'If you don\'t have a GoogleSheet account,\nyou '
-                                'can create one here: \n\n'
-                                'https://console.developers.google.com',
+                                'You can create one here: \n',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.copyWith(
+                                        fontSize: 16,
+                                        color: Colors.yellowAccent),
+                              ),
+                              Text(
+                                'https://console.developers.google.com \n',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
                                     ?.copyWith(fontSize: 16),
+                              ),
+                              Text(
+                                'Example: \n',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.copyWith(
+                                        fontSize: 16,
+                                        color: Colors.yellowAccent),
+                              ),
+                              Text(
+                                '{"type": ..., "client_x509_cert_url": ...} ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.copyWith(
+                                        fontSize: 16, color: Colors.redAccent),
                               )
                             ],
                           ),
@@ -73,15 +107,29 @@ class CredentialsTile extends StatelessWidget {
                               autofocus: true,
                               obscureText: true,
                               autocorrect: false,
+                              decoration: InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                              ),
                               onChanged: (String value) {
                                 settings.catchCredential(value);
                               },
                             ),
-                            ElevatedButton(
-                              child: const Text('OK'),
+                            OutlinedButton(
+                              child: Text(
+                                'OK',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3
+                                    ?.copyWith(
+                                        fontSize: 16,
+                                        color: themeSnapshot.data == true
+                                            ? Styles.lightColor
+                                            : Styles.darkColor),
+                              ),
                               onPressed: () {
-                                RestartWidget.restartApp(context);
                                 Navigator.of(context).pop();
+                                RestartWidget.restartApp(context);
                               },
                             ),
                           ],
@@ -110,30 +158,39 @@ class SheetIdTile extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListTile(
-              title: Text('GoogleSheet ID',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3
-                      ?.copyWith(fontSize: 18, letterSpacing: 0.6)),
+              title: Text(
+                'GoogleSheet ID',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3
+                    ?.copyWith(fontSize: 18, letterSpacing: 0.6),
+              ),
               leading: snapshot.data!['sheetId'].isNotEmpty
                   ? const Icon(
                       Icons.check_circle,
-                      color: Colors.greenAccent,
+                      color: Colors.cyan,
                     )
                   : const Icon(
                       Icons.check_circle,
-                      color: Colors.redAccent,
+                      color: Colors.pink,
                     ),
               onTap: () {
                 showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
+                          backgroundColor: themeSnapshot.data == true
+                              ? Styles.darkColor
+                              : Styles.lightColor,
                           title: Text(
                             'GoogleSheet ID',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline3
-                                ?.copyWith(fontSize: 24),
+                                ?.copyWith(
+                                    fontSize: 24,
+                                    color: themeSnapshot.data == true
+                                        ? Styles.lightColor
+                                        : Styles.darkColor),
                           ),
                           content: Column(
                             children: [
@@ -144,12 +201,44 @@ class SheetIdTile extends StatelessWidget {
                                     .headline2
                                     ?.copyWith(fontSize: 20),
                               ),
-                              Text(
-                                'Example: https://docs.google.com/spreadsheets/d/"YOUR SHEET ID"/edit#gid=xxx',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(fontSize: 14),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Example: \n\n',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          ?.copyWith(
+                                              fontSize: 16,
+                                              color: Colors.yellowAccent),
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          'https://docs.google.com/spreadsheets/d/',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          ?.copyWith(fontSize: 16),
+                                    ),
+                                    TextSpan(
+                                      text: 'Your Sheet ID',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          ?.copyWith(
+                                              fontSize: 16,
+                                              color: Colors.redAccent),
+                                    ),
+                                    TextSpan(
+                                      text: '/edit#gid=xxx',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          ?.copyWith(fontSize: 16),
+                                    )
+                                  ],
+                                ),
                               )
                             ],
                           ),
@@ -157,12 +246,26 @@ class SheetIdTile extends StatelessWidget {
                             TextField(
                               autofocus: true,
                               autocorrect: false,
+                              decoration: InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                              ),
                               onChanged: (String value) {
                                 settings.catchSheetId(value);
                               },
                             ),
-                            ElevatedButton(
-                              child: const Text('OK'),
+                            OutlinedButton(
+                              child: Text(
+                                'OK',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3
+                                    ?.copyWith(
+                                        fontSize: 16,
+                                        color: themeSnapshot.data == true
+                                            ? Styles.lightColor
+                                            : Styles.darkColor),
+                              ),
                               onPressed: () async {
                                 RestartWidget.restartApp(context);
                                 await runApplication();
@@ -197,20 +300,22 @@ class TimeZoneTile extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListTile(
-              title: Text('Select TimeZone',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3
-                      ?.copyWith(fontSize: 18, letterSpacing: 0.6)),
+              title: Text(
+                'Select TimeZone',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3
+                    ?.copyWith(fontSize: 18, letterSpacing: 0.6),
+              ),
               trailing: const Icon(Icons.arrow_forward_ios),
               leading: snapshot.data!['tz'].isNotEmpty
                   ? const Icon(
                       Icons.check_circle,
-                      color: Colors.greenAccent,
+                      color: Colors.cyan,
                     )
                   : const Icon(
                       Icons.check_circle,
-                      color: Colors.redAccent,
+                      color: Colors.pink,
                     ),
               onTap: () {
                 showDialog(
@@ -250,17 +355,27 @@ class TimeZoneTile extends StatelessWidget {
                                   ),
                                   onTap: () {
                                     settings.catchTZValue(li[idx]);
-                                    RestartWidget.restartApp(context);
                                     Navigator.of(context).pop();
+                                    RestartWidget.restartApp(context);
                                   },
                                 );
                               }),
                             ),
                           ),
                           actions: [
-                            TextButton(
+                            OutlinedButton(
                               onPressed: () => Navigator.of(context).pop(),
-                              child: const Text('Close'),
+                              child: Text(
+                                'Close',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3
+                                    ?.copyWith(
+                                        fontSize: 16,
+                                        color: themeSnapshot.data == true
+                                            ? Styles.lightColor
+                                            : Styles.darkColor),
+                              ),
                             )
                           ]);
                     });

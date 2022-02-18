@@ -8,7 +8,6 @@ import 'package:stock_manager/database/model/inventory_model.dart';
 
 import '../../styles.dart';
 import '../../utils/string_handler.dart';
-import '../global_components/dark_mode_container.dart';
 
 class InventoryList extends StatelessWidget {
   const InventoryList({
@@ -29,22 +28,21 @@ class InventoryList extends StatelessWidget {
           vertical: innerSpacing, horizontal: innerSpacing),
       itemCount: snapshot.data!.length,
       itemBuilder: (context, idx) {
-        return DarkModeContainer(
+        return DismissibleWrapper(
           theme: theme,
-          height: MediaQuery.of(context).size.height * 0.00014,
-          reverse: true,
-          child: DismissibleWrapper(
-            theme: theme,
-            snapshot: snapshot,
-            idx: idx,
-            combiner: combiner,
-            inventory: snapshot.data![idx],
-          ),
+          snapshot: snapshot,
+          idx: idx,
+          combiner: combiner,
+          inventory: snapshot.data![idx],
         );
       },
       separatorBuilder: (BuildContext context, int index) {
-        return const SizedBox(
-          height: innerSpacing,
+        return Column(
+          children: [
+            const Divider(
+              thickness: 1.0,
+            ),
+          ],
         );
       },
     );
@@ -241,7 +239,13 @@ class DeleteDialog extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: Colors.yellow[600],
-                content: const Text('Pending: Processing Your Request'),
+                content: Text(
+                  'Pending: Processing Your Request',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4
+                      ?.copyWith(fontSize: 14),
+                ),
                 duration: const Duration(seconds: 1),
               ),
             );
@@ -249,7 +253,13 @@ class DeleteDialog extends StatelessWidget {
                   () => ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Colors.green[600],
-                      content: const Text('Success: Deleted Permanently'),
+                      content: Text(
+                        'Success: Deleted Permanently',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4
+                            ?.copyWith(fontSize: 14),
+                      ),
                     ),
                   ),
                 );

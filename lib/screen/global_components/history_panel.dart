@@ -78,8 +78,8 @@ class HistoryDialog extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Badge(
-                  animationType: BadgeAnimationType.fade,
-                  animationDuration: const Duration(milliseconds: 400),
+                  animationType: BadgeAnimationType.scale,
+                  animationDuration: const Duration(milliseconds: 200),
                   position: BadgePosition.topEnd(top: 2, end: 4),
                   badgeColor:
                       snapshot.data! ? Colors.redAccent : Colors.orangeAccent,
@@ -87,7 +87,7 @@ class HistoryDialog extends StatelessWidget {
                     historySnapshot!.data!.length.toString(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline2
+                        .headline3
                         ?.copyWith(fontSize: 12, color: Colors.black),
                   ),
                   child: IconButton(
@@ -116,8 +116,8 @@ class HistoryDialog extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Badge(
-                  animationType: BadgeAnimationType.fade,
-                  animationDuration: const Duration(milliseconds: 400),
+                  animationType: BadgeAnimationType.scale,
+                  animationDuration: const Duration(milliseconds: 200),
                   position: BadgePosition.topEnd(top: 2, end: 4),
                   badgeColor:
                       snapshot.data! ? Colors.redAccent : Colors.orangeAccent,
@@ -125,7 +125,7 @@ class HistoryDialog extends StatelessWidget {
                     inventorySnapshot!.data!.length.toString(),
                     style: Theme.of(context)
                         .textTheme
-                        .headline2
+                        .headline3
                         ?.copyWith(fontSize: 12, color: Colors.black),
                   ),
                   child: IconButton(
