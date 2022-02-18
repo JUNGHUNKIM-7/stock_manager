@@ -118,8 +118,8 @@ class StreamByStatusWrapper extends StatelessWidget {
               horizontal: innerSpacing / 2, vertical: innerSpacing / 4),
           child: Divider(
             color: Colors.grey[700],
-            thickness: 2,
-            height: 2,
+            thickness: 1,
+            height: 1,
           ),
         ),
         Expanded(

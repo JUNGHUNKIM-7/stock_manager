@@ -37,7 +37,6 @@ class InventoryBloc extends BaseStreamController<List<Inventory>>
         .whenComplete(() => reload());
   }
 
-  // for Qr Scan
   @override
   Inventory filterByIdWithQr(String? scanData) {
     return state.firstWhere((element) => element.id == scanData);

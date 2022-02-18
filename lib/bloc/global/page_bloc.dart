@@ -8,11 +8,11 @@ abstract class PageBlocInterface {
 
 class PageBloc extends BaseStreamController<int>
     implements BaseInterface<int>, PageBlocInterface {
-  PageBloc(
-      {required state,
-      required this.inventorySearch,
-      required this.historySearch})
-      : super(state: state);
+  PageBloc({
+    required state,
+    required this.inventorySearch,
+    required this.historySearch,
+  }) : super(state: state);
 
   final InventorySearchBloc inventorySearch;
   final HistorySearchBloc historySearch;

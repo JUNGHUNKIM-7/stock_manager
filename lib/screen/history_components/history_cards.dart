@@ -151,7 +151,8 @@ class Cards extends StatelessWidget {
                           SnackBar(
                             backgroundColor: Colors.yellow[600],
                             content:
-                                const Text('Pending: Processing Your Data'),
+                                const Text('Pending: Processing Your Request'),
+                            duration: const Duration(seconds: 1),
                           ),
                         );
                         final String nowVal = await handler.getCellVal(

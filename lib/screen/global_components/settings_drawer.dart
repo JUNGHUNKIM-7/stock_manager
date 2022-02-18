@@ -129,7 +129,7 @@ class Header extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    snapshot.data?['tz'] ?? '',
+                    (snapshot.data?['tz'] as String).replaceAll('_', ' ') ?? '',
                     style: themeSnapshot.data == true
                         ? Theme.of(context)
                             .textTheme

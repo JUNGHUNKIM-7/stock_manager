@@ -282,7 +282,6 @@ class DialogList extends StatelessWidget {
                     }),
                   ),
                 ),
-                // actions:
               );
             });
       case HistoryViewBlocEnum.inventory:

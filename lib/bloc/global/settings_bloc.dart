@@ -17,9 +17,11 @@ mixin SettingsMixin<T extends Map<String, dynamic>> {}
 class SettingsBloc extends BaseStreamController<Map<String, dynamic>>
     with SettingsMixin
     implements BaseInterface<Map<String, dynamic>>, SettingsBlocInterface {
-  SettingsBloc(
-      {required state, required this.settingBox, required this.handlerMap})
-      : super(state: state);
+  SettingsBloc({
+    required state,
+    required this.settingBox,
+    required this.handlerMap,
+  }) : super(state: state);
   final Box settingBox;
   final Map<String, dynamic> handlerMap;
 

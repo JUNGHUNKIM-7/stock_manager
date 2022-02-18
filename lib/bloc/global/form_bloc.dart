@@ -153,6 +153,8 @@ mixin FormMixin<T extends String> {
       sink.addError('This Field is Required');
     } else if (int.parse(value).isNegative) {
       sink.addError('Only Positive Number is Allowed');
+    } else if (value.contains('.')) {
+      sink.addError('Number Can\'t Contain Decimal');
     } else {
       sink.add(value.trim());
     }

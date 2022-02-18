@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stock_manager/styles.dart';
 
+import '../../app.dart';
 import '../../bloc/global/settings_bloc.dart';
-import '../../database/hive_storage/box_handler.dart';
-import '../../main.dart';
 import '../../utils/datetime_tz_handler.dart';
 import '../../utils/restart_widget.dart';
 
@@ -239,7 +238,7 @@ class TimeZoneTile extends StatelessWidget {
                                 final li = DateTimeHandler.getTzList();
                                 return ListTile(
                                   title: Text(
-                                    li[idx],
+                                    li[idx].replaceAll('_', ' '),
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline2

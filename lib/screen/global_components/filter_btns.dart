@@ -23,7 +23,7 @@ class FilterBtns extends StatelessWidget {
     return StreamBuilder(
       stream: bloc?.stream,
       builder: (context, AsyncSnapshot<bool> filterSnapShot) {
-        return FilterStreamBtns(
+        return FilterBtnStream(
           theme: theme,
           onPressed: onPressed,
           text: text,
@@ -34,8 +34,8 @@ class FilterBtns extends StatelessWidget {
   }
 }
 
-class FilterStreamBtns extends StatelessWidget {
-  const FilterStreamBtns({
+class FilterBtnStream extends StatelessWidget {
+  const FilterBtnStream({
     Key? key,
     required this.theme,
     required this.onPressed,

@@ -1,6 +1,6 @@
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:stock_manager/bloc/constant/blocs_combiner.dart';
 import 'package:stock_manager/bloc/constant/provider.dart';
 import 'package:stock_manager/bloc/global/theme_bloc.dart';
@@ -31,7 +31,7 @@ class InventoryList extends StatelessWidget {
       itemBuilder: (context, idx) {
         return DarkModeContainer(
           theme: theme,
-          height: MediaQuery.of(context).size.height * 0.00013,
+          height: MediaQuery.of(context).size.height * 0.00014,
           reverse: true,
           child: DismissibleWrapper(
             theme: theme,
@@ -123,7 +123,7 @@ class PrimaryBackGround extends StatelessWidget {
           const Icon(
             Icons.playlist_add,
             size: 30,
-            color: Colors.redAccent,
+            color: Colors.black,
           ),
           const SizedBox(
             width: 10,
@@ -133,7 +133,7 @@ class PrimaryBackGround extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .headline3
-                ?.copyWith(color: Colors.redAccent),
+                ?.copyWith(color: Colors.black),
           ),
           const SizedBox(
             width: 20,
@@ -164,7 +164,7 @@ class SecondBackGround extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .headline3
-                ?.copyWith(color: Colors.green),
+                ?.copyWith(color: Colors.black),
           ),
           const SizedBox(
             width: 10,
@@ -172,7 +172,7 @@ class SecondBackGround extends StatelessWidget {
           const Icon(
             Icons.delete,
             size: 30,
-            color: Colors.green,
+            color: Colors.black,
           ),
           const SizedBox(
             width: 20,
@@ -241,7 +241,8 @@ class DeleteDialog extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: Colors.yellow[600],
-                content: const Text('Pending: Processing Your Data'),
+                content: const Text('Pending: Processing Your Request'),
+                duration: const Duration(seconds: 1),
               ),
             );
             await combiner.inventoryBloc.delete(id).whenComplete(
@@ -281,25 +282,23 @@ class Tiles extends StatelessWidget {
 
     return ListTile(
       dense: true,
+      visualDensity: VisualDensity.compact,
       trailing: Text(
         inventory.qty.toString(),
         style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
       ),
-      // dense: true,
       leading: StreamBuilder<bool>(
           stream: theme?.stream,
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return QrImage(
-                data: inventory.id,
-                version: QrVersions.auto,
-                backgroundColor: Colors.transparent,
-                foregroundColor: snapshot.data == true
-                    ? Styles.lightColor
-                    : Styles.darkColor,
-              );
-            }
-            return const SizedBox(height: 20);
+            return BarcodeWidget(
+              data: inventory.id,
+              color:
+                  snapshot.data ?? false ? Styles.lightColor : Styles.darkColor,
+              width: 50,
+              height: 50,
+              barcode: Barcode.qrCode(
+                  errorCorrectLevel: BarcodeQRCorrectionLevel.high),
+            );
           }),
       onTap: () {
         inventoryHistory.push(inventory);

@@ -48,7 +48,7 @@ class Blocs {
     state: {
       'secret': settingBox.get('secret') ?? '',
       'sheetId': settingBox.get('sheetId') ?? '',
-      'tz': settingBox.get('tz') ?? '',
+      'tz': settingBox.get('tz') ?? 'America/New_York',
     },
     settingBox: settingBox,
     handlerMap: handlerMap,

@@ -15,7 +15,7 @@ class QrFloatingBtn extends StatelessWidget {
     return FloatingActionButton(
       tooltip: 'Make a Deal with QR',
       elevation: 10.0,
-      child: const Icon(Icons.qr_code_scanner_rounded),
+      child: const Icon(Icons.camera_enhance),
       onPressed: () => context.goNamed('qrCamera'),
     );
   }
@@ -43,14 +43,15 @@ class ExportToExcelBtn extends StatelessWidget {
                       builder: (context, yearSnapShot) {
                         return FloatingActionButton(
                           tooltip: 'Save Filtered Data',
-                          child: const Icon(Icons.save),
+                          child: const Icon(Icons.move_to_inbox),
                           onPressed: () async {
                             try {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor: Colors.yellow[600],
                                   content: const Text(
-                                      'Pending: Processing Your Data'),
+                                      'Pending: Processing Your Request'),
+                                  duration: const Duration(seconds: 1),
                                 ),
                               );
                               await GSheetHandler.makeHistorySheet(
@@ -74,7 +75,7 @@ class ExportToExcelBtn extends StatelessWidget {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor: Colors.red[600],
-                                  content: Text(e.toString()),
+                                  content: Text(e.toString().split(':')[1]),
                                 ),
                               );
                             }

@@ -34,7 +34,7 @@ class HistoryInfoCard extends StatelessWidget {
             ItemDetails(inventory: inventory!)
           else if (history != null)
             HistoryDetails(history: history!),
-          if (val != null) HistoryFormField(val: val!)
+          if (val != null) HistoryFormFields(val: val!)
         ],
       ),
     );
@@ -114,7 +114,7 @@ class ItemDetails extends StatelessWidget {
           ),
           Divider(
             color: Colors.grey[700],
-            thickness: 2.0,
+            thickness: 1.0,
           ),
           Align(
             alignment: Alignment.center,
@@ -134,7 +134,7 @@ class ItemDetails extends StatelessWidget {
           ),
           Divider(
             color: Colors.grey[700],
-            thickness: 2.0,
+            thickness: 1.0,
           ),
           Align(
             alignment: Alignment.center,
@@ -154,7 +154,7 @@ class ItemDetails extends StatelessWidget {
           ),
           Divider(
             color: Colors.grey[700],
-            thickness: 2.0,
+            thickness: 1.0,
           ),
           Align(
             alignment: Alignment.center,
@@ -190,7 +190,7 @@ class HistoryDetails extends StatelessWidget {
           ),
           Divider(
             color: Colors.grey[700],
-            thickness: 2.0,
+            thickness: 1.0,
           ),
           Align(
             alignment: Alignment.center,
@@ -223,7 +223,7 @@ class HistoryDetails extends StatelessWidget {
           ),
           Divider(
             color: Colors.grey[700],
-            thickness: 2.0,
+            thickness: 1.0,
           ),
           Align(
             alignment: Alignment.center,

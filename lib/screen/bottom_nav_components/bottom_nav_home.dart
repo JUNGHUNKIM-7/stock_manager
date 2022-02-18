@@ -16,8 +16,6 @@ class TabNavHome extends StatefulWidget {
   static final pages = [
     const FirstPage(),
     const SecondPage(),
-    // const ThirdPage(),
-    // const FourthPage(),
   ];
 
   @override

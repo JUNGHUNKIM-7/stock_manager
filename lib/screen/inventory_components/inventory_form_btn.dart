@@ -26,6 +26,13 @@ class InventorySubmit extends StatelessWidget {
         return OutlinedButton(
           onPressed: (snapshot.hasData && snapshot.data!.isNotEmpty)
               ? () async {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.yellow[600],
+                      content: const Text('Pending: Processing Your Request'),
+                      duration: const Duration(seconds: 1),
+                    ),
+                  );
                   try {
                     await handler
                         .insertOne(

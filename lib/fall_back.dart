@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:stock_manager/main.dart';
 
-import '../bloc/constant/blocs_combiner.dart';
-import '../bloc/constant/provider.dart';
-import '../styles.dart';
-import '../utils/restart_widget.dart';
+import 'app.dart';
+import 'bloc/constant/blocs_combiner.dart';
+import 'bloc/constant/provider.dart';
+import 'styles.dart';
+import 'utils/restart_widget.dart';
 
 void runFallback(Map<String, dynamic> handler, Widget child) {
   runApp(

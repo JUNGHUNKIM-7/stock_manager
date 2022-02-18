@@ -1,5 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:stock_manager/bloc/constant/provider.dart';
 import 'package:stock_manager/bloc/global/form_bloc.dart';
 import 'package:stock_manager/bloc/global/history_view.dart';
@@ -12,6 +18,8 @@ import 'dark_mode_toggle.dart';
 import 'history_panel.dart';
 
 AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
+  final handler = GSheetHandler();
+
   switch (pageIdx) {
     case 0:
       return AppBar(
@@ -37,9 +45,13 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
           builder: (context) => AppBarSettingsBtn(theme: theme),
         ),
         actions: [
-          UserInventoryBtn(theme: theme),
-          const SizedBox(
-            width: 4.0,
+          PdfMaker(
+            theme: theme,
+            handler: handler,
+          ),
+          UserInventoryBtn(
+            theme: theme,
+            handler: handler,
           ),
           const HistoryPanel(
             historyViewBlocEnum: HistoryViewBlocEnum.inventory,
@@ -71,27 +83,161 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
   }
 }
 
-class UserInventoryBtn extends StatelessWidget {
-  const UserInventoryBtn({
+class PdfMaker extends StatelessWidget {
+  const PdfMaker({
     Key? key,
+    required this.handler,
     required this.theme,
   }) : super(key: key);
+  final GSheetHandler handler;
   final ThemeBloc theme;
 
   @override
   Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () async {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.yellow[600],
+            content: const Text('Pending: Processing Your Request'),
+            duration: const Duration(seconds: 1),
+          ),
+        );
+        try {
+          final dummyData = await handler.extractIdForQr();
+          final data = await rootBundle.load("assets/open_sans.ttf");
+          final myFont = pw.Font.ttf(data);
+          final myStyle = pw.TextStyle(font: myFont);
+
+          List chunk(List list, int chunkSize) {
+            List chunks = [];
+            int len = list.length;
+            for (var i = 0; i < len; i += chunkSize) {
+              int size = i + chunkSize;
+              chunks.add(list.sublist(i, size > len ? len : size));
+            }
+            return chunks;
+          }
+
+          if (dummyData != null) {
+            if (dummyData['id'] != null &&
+                dummyData['id']!.isNotEmpty &&
+                dummyData['title'] != null &&
+                dummyData['title']!.isNotEmpty) {
+              final doc = pw.Document();
+
+              final convertToQr = dummyData['id']
+                  ?.map(
+                    (e) => pw.BarcodeWidget(
+                        textStyle: myStyle,
+                        data: e,
+                        barcode: pw.Barcode.qrCode(),
+                        width: 100,
+                        height: 100),
+                  )
+                  .toList();
+
+              final qrList = chunk(convertToQr!, 24);
+              final titleList = chunk(dummyData['title']!, 24);
+
+              final len = (convertToQr.length / 24).ceil();
+              for (var i = 0; i < len; ++i) {
+                doc.addPage(
+                  pw.Page(
+                    pageFormat: PdfPageFormat.a4,
+                    build: (pw.Context context) {
+                      return pw.Center(
+                        child: pw.Wrap(
+                          spacing: 20,
+                          children: List.generate(
+                            qrList[i].length,
+                            (int idx) {
+                              final qr = qrList[i][idx];
+                              final title = titleList[i][idx] as String;
+                              return pw.Column(
+                                children: [
+                                  pw.Container(child: qr),
+                                  pw.Text(
+                                      title.length > 10
+                                          ? '${title.substring(0, 10)}..'
+                                          : title,
+                                      style: myStyle),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ); // Page
+              }
+
+              final output = await getTemporaryDirectory();
+              final file = File(
+                  '${output.path}/qr_code-${DateTime.now().millisecondsSinceEpoch}.pdf');
+
+              await file.writeAsBytes(await doc.save());
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.green[600],
+                  content:
+                      const Text('Success: All your Qr are Exported as PDF'),
+                ),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.red[600],
+                  content:
+                      const Text('Error: "inventory" Sheet Seems to be Empty'),
+                ),
+              );
+            }
+          }
+        } catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red[600],
+              content: Text('Failed to Export Qr Code : Fetching Data Error'),
+            ),
+          );
+        }
+      },
+      icon: StreamBuilder<bool>(
+          stream: theme.stream,
+          builder: (context, snapshot) {
+            return Icon(
+              Icons.qr_code_scanner_rounded,
+              color:
+                  snapshot.data ?? false ? Styles.lightColor : Styles.darkColor,
+            );
+          }),
+    );
+  }
+}
+
+class UserInventoryBtn extends StatelessWidget {
+  const UserInventoryBtn({Key? key, required this.theme, required this.handler})
+      : super(key: key);
+  final ThemeBloc theme;
+  final GSheetHandler handler;
+
+  @override
+  Widget build(BuildContext context) {
     final inventoryBloc = BlocProvider.of<BlocsCombiner>(context).inventoryBloc;
-    final handler = GSheetHandler();
 
     return IconButton(
       onPressed: () async {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.yellow[600],
+            content: const Text('Pending: Processing Your Request'),
+            duration: const Duration(seconds: 1),
+          ),
+        );
         try {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: Colors.yellow[600],
-              content: const Text('Pending: Processing Your Data'),
-            ),
-          );
           await handler.moveToInventoryAndBackUp();
           await inventoryBloc.reload();
           ScaffoldMessenger.of(context).showSnackBar(
@@ -116,7 +262,7 @@ class UserInventoryBtn extends StatelessWidget {
             if (snapshot.hasData) {
               if (snapshot.connectionState == ConnectionState.active) {
                 return Icon(
-                  Icons.cloud_download,
+                  Icons.playlist_add,
                   size: 25,
                   color: snapshot.data! == true
                       ? Styles.lightColor
@@ -223,31 +369,31 @@ AppBar showAppBarWithBackBtn({
       ],
       title: typeOfForm == 'history'
           ? Text(
-              'History Form'.toUpperCase(),
+              'History    Form'.toUpperCase(),
               style:
-                  Theme.of(context).textTheme.headline1?.copyWith(fontSize: 24),
+                  Theme.of(context).textTheme.headline1?.copyWith(fontSize: 18),
             )
           : typeOfForm == 'inventory'
               ? Text(
-                  'Inventory Form'.toUpperCase(),
+                  'Inventory    Form'.toUpperCase(),
                   style: Theme.of(context)
                       .textTheme
                       .headline1
-                      ?.copyWith(fontSize: 24),
+                      ?.copyWith(fontSize: 18),
                 )
               : typeOfForm == 'historyDetails'
                   ? Text(
-                      'History Details'.toUpperCase(),
+                      'History   Details'.toUpperCase(),
                       style: Theme.of(context)
                           .textTheme
                           .headline1
-                          ?.copyWith(fontSize: 24),
+                          ?.copyWith(fontSize: 18),
                     )
                   : Text(
-                      'Inventory Details'.toUpperCase(),
+                      'Inventory   Details'.toUpperCase(),
                       style: Theme.of(context)
                           .textTheme
                           .headline1
-                          ?.copyWith(fontSize: 24),
+                          ?.copyWith(fontSize: 18),
                     ),
     );

@@ -54,7 +54,6 @@ class Styles {
     ),
   ];
 
-  //fontStyle
   static final header = TextStyle(
     fontFamily: GoogleFonts.monoton().fontFamily,
     fontWeight: FontWeight.w700,
@@ -65,7 +64,6 @@ class Styles {
     fontWeight: FontWeight.w700,
   );
 
-  //AppBar
   static const appbarLight = AppBarTheme(
     backgroundColor: Colors.transparent,
     elevation: 0.0,
@@ -101,7 +99,6 @@ class Styles {
     return darkMode ? bottomNavLight : bottomNavDark;
   }
 
-  //return ThemeSet
   ThemeData themeMain() {
     return ThemeData(
       errorColor: darkMode ? Colors.orangeAccent : Colors.redAccent,

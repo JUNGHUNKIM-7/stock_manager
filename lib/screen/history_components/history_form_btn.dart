@@ -81,6 +81,13 @@ class SubmitHistory extends StatelessWidget {
     BlocsCombiner combiner,
     AsyncSnapshot<Map<String, dynamic>> snapshot,
   ) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.yellow[600],
+        content: const Text('Pending: Processing Your Request'),
+        duration: const Duration(seconds: 1),
+      ),
+    );
     await handler
         .insertOne(
           history: History.toMap(
@@ -90,7 +97,6 @@ class SubmitHistory extends StatelessWidget {
               id: inventory.id,
               title: inventory.title,
               memo: inventory.memo,
-              //'y' => out
               qty: snapshot.data?['status'] == 'y'
                   ? (inventory.qty != 0 &&
                           snapshot.data?['val'] <= inventory.qty)

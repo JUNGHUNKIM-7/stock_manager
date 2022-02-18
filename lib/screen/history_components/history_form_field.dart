@@ -4,8 +4,8 @@ import 'package:stock_manager/screen/global_components/dark_mode_container.dart'
 
 import '../../styles.dart';
 
-class HistoryFormField extends StatelessWidget {
-  const HistoryFormField({
+class HistoryFormFields extends StatelessWidget {
+  const HistoryFormFields({
     Key? key,
     required this.val,
   }) : super(key: key);
@@ -26,7 +26,7 @@ class HistoryFormField extends StatelessWidget {
             child: StreamBuilder(
                 stream: val.valStream,
                 builder: (context, AsyncSnapshot<String> snapshot) {
-                  return HistoryFormFields(
+                  return ValueField(
                     val: val,
                     snapshot: snapshot,
                   );
@@ -38,8 +38,8 @@ class HistoryFormField extends StatelessWidget {
   }
 }
 
-class HistoryFormFields extends StatelessWidget {
-  const HistoryFormFields({
+class ValueField extends StatelessWidget {
+  const ValueField({
     Key? key,
     required this.val,
     required this.snapshot,
