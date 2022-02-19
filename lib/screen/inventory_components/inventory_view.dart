@@ -59,7 +59,10 @@ class InventoryView extends StatelessWidget {
               ),
               Expanded(
                 child: InventoryList(
-                    combiner: combiner, snapshot: snapshot, theme: theme),
+                  combiner: combiner,
+                  snapshot: snapshot,
+                  theme: theme,
+                ),
               ),
             ],
           );

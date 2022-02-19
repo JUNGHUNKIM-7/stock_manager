@@ -15,8 +15,10 @@ class BlocsCombiner extends Blocs
     List<History>? historyData,
     List<Inventory>? inventoryData,
     Box? settingsBox,
+    Box? listsBox,
   }) : super.initializer(
           settingBox: settingsBox ?? Hive.box('settings'),
+          listsBox: listsBox ?? Hive.box('lists'),
           handlerMap: handlerMap,
           historyData: historyData ?? [],
           inventoryData: inventoryData ?? [],

@@ -1,10 +1,11 @@
-import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:stock_manager/bloc/constant/blocs_combiner.dart';
 import 'package:stock_manager/bloc/constant/provider.dart';
 import 'package:stock_manager/bloc/global/theme_bloc.dart';
+import 'package:stock_manager/bloc/inventory/inventory_bloc.dart';
 import 'package:stock_manager/database/model/inventory_model.dart';
+import 'package:stock_manager/database/repository/gsheet_handler.dart';
 
 import '../../styles.dart';
 import '../../utils/string_handler.dart';
@@ -37,12 +38,8 @@ class InventoryList extends StatelessWidget {
         );
       },
       separatorBuilder: (BuildContext context, int index) {
-        return Column(
-          children: [
-            const Divider(
-              thickness: 1.0,
-            ),
-          ],
+        return const Divider(
+          thickness: 1.0,
         );
       },
     );
@@ -287,8 +284,8 @@ class Tiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final inventory = data[idx];
-    final inventoryHistory =
-        BlocProvider.of<BlocsCombiner>(context).inventoryView;
+    final handler = GSheetHandler();
+    final inventoryBloc = BlocProvider.of<BlocsCombiner>(context).inventoryBloc;
 
     return ListTile(
       dense: true,
@@ -297,21 +294,9 @@ class Tiles extends StatelessWidget {
         inventory.qty.toString(),
         style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
       ),
-      leading: StreamBuilder<bool>(
-          stream: theme?.stream,
-          builder: (context, snapshot) {
-            return BarcodeWidget(
-              data: inventory.id,
-              color:
-                  snapshot.data ?? false ? Styles.lightColor : Styles.darkColor,
-              width: 50,
-              height: 50,
-              barcode: Barcode.qrCode(
-                  errorCorrectLevel: BarcodeQRCorrectionLevel.high),
-            );
-          }),
+      leading: BookMarkUpdate(
+          handler: handler, inventory: inventory, inventoryBloc: inventoryBloc),
       onTap: () {
-        inventoryHistory.push(inventory);
         context.goNamed('inventoryDetails', extra: inventory);
       },
       title: Text(
@@ -325,6 +310,61 @@ class Tiles extends StatelessWidget {
             ? '${inventory.memo.substring(0, 12)}...'.toTitleCase()
             : inventory.memo.toTitleCase(),
         style: Theme.of(context).textTheme.bodyText1,
+      ),
+    );
+  }
+}
+
+class BookMarkUpdate extends StatelessWidget {
+  const BookMarkUpdate({
+    Key? key,
+    required this.handler,
+    required this.inventory,
+    required this.inventoryBloc,
+  }) : super(key: key);
+
+  final GSheetHandler handler;
+  final Inventory inventory;
+  final InventoryBloc inventoryBloc;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () async {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.yellow[600],
+            content: Text(
+              'Pending: Processing Your Request',
+              style:
+                  Theme.of(context).textTheme.headline4?.copyWith(fontSize: 14),
+            ),
+            duration: const Duration(seconds: 1),
+          ),
+        );
+        await handler.updateOne(
+          inventory.id,
+          'bookMark',
+          inventory.bookMark == true ? 'n' : 'y',
+          SheetType.inventory,
+        );
+        await inventoryBloc.reload();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.green[600],
+            content: Text(
+              'Success: Bookmark Updated',
+              style:
+                  Theme.of(context).textTheme.headline4?.copyWith(fontSize: 14),
+            ),
+            duration: const Duration(seconds: 1),
+          ),
+        );
+      },
+      icon: Icon(
+        Icons.star_rounded,
+        color: inventory.bookMark ? Colors.yellow[600] : Colors.grey[600],
+        size: 30,
       ),
     );
   }

@@ -6,12 +6,12 @@ import 'bloc/constant/provider.dart';
 import 'styles.dart';
 import 'utils/restart_widget.dart';
 
-void runFallback(Map<String, dynamic> handler, Widget child) {
+void runFallback(Map<String, dynamic> boxHandler, Widget child) {
   runApp(
     RestartWidget(
       child: BlocProvider<BlocsCombiner>(
         child: child,
-        combiner: BlocsCombiner(handlerMap: handler['handler'] ?? {}),
+        combiner: BlocsCombiner(handlerMap: boxHandler['handler'] ?? {}),
       ),
     ),
   );
@@ -59,12 +59,17 @@ class NoConnectionPage extends StatelessWidget {
               style:
                   Theme.of(context).textTheme.headline4?.copyWith(fontSize: 14),
             ),
-            ElevatedButton(
+            SizedBox(height: outerSpacing),
+            OutlinedButton(
               onPressed: () async {
                 RestartWidget.restartApp(context);
                 await runApplication();
               },
-              child: Text('Restart App'),
+              child: Text('Restart App',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      ?.copyWith(fontSize: 14)),
             ),
           ],
         ),

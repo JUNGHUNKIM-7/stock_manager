@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:hive/hive.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:stock_manager/bloc/constant/base_controller.dart';
 import 'package:stock_manager/database/model/history_model.dart';
@@ -10,26 +11,32 @@ enum HistoryViewBlocEnum { history, inventory }
 abstract class HistoryViewBlocInterface {
   void push(dynamic data);
 
+  void delete(dynamic data);
+
   void clear(HistoryViewBlocEnum type);
 }
 
 class HistoryViewBloc extends BaseStreamController<List>
     implements BaseInterface<List>, HistoryViewBlocInterface {
-  late final BehaviorSubject<List> history;
-  late final BehaviorSubject<List> inventory;
+  late final BehaviorSubject<List<History>> histories;
+  late final BehaviorSubject<List<Inventory>> bookmarks;
+  final Box listsBox;
 
-  HistoryViewBloc({required state, required HistoryViewBlocEnum type})
-      : super(state: state) {
+  HistoryViewBloc({
+    required state,
+    required HistoryViewBlocEnum type,
+    required this.listsBox,
+  }) : super(state: state) {
     if (type == HistoryViewBlocEnum.history) {
-      history = BehaviorSubject<List>.seeded(state);
+      histories = BehaviorSubject<List<History>>.seeded(state);
     } else if (type == HistoryViewBlocEnum.inventory) {
-      inventory = BehaviorSubject<List>.seeded(state);
+      bookmarks = BehaviorSubject<List<Inventory>>.seeded(state);
     }
   }
 
-  Stream<List> get historyStream => history.stream;
+  Stream<List<History>> get historyStream => histories.stream;
 
-  Stream<List> get inventoryStream => inventory.stream;
+  Stream<List<Inventory>> get inventoryStream => bookmarks.stream;
 
   @override
   void dispose() {
@@ -43,20 +50,25 @@ class HistoryViewBloc extends BaseStreamController<List>
   }
 
   @override
-  void push(dynamic data) {
+  Future<void> push(dynamic data) async {
     if (data is History) {
-      history.add({...history.value, data}.toList());
-    } else if (data is Inventory) {
-      inventory.add({...inventory.value, data}.toList());
-    }
+      histories.add({...histories.value, data}.toList().cast<History>());
+    } else if (data is Inventory) {}
+  }
+
+  @override
+  void delete(dynamic data) {
+    if (data is History) {
+      histories.add({...histories.value}
+          .where((element) => element.id != data.id)
+          .toList());
+    } else if (data is Inventory) {}
   }
 
   @override
   void clear(HistoryViewBlocEnum type) {
     if (type == HistoryViewBlocEnum.history) {
-      history.add([]);
-    } else if (type == HistoryViewBlocEnum.inventory) {
-      inventory.add([]);
-    }
+      histories.add([]);
+    } else if (type == HistoryViewBlocEnum.inventory) {}
   }
 }

@@ -51,14 +51,14 @@ class SettingsBloc extends BaseStreamController<Map<String, dynamic>>
   }
 
   @override
-  void catchSheetId(String value) {
-    settingBox.put('sheetId', value);
+  void catchSheetId(String value) async {
+    await settingBox.put('sheetId', value);
     state['sheetId'] = settingBox.get('sheetId');
   }
 
   @override
-  void catchTZValue(String value) {
-    settingBox.put('tz', value);
+  void catchTZValue(String value) async {
+    await settingBox.put('tz', value);
     state['tz'] = settingBox.get('tz');
   }
 }

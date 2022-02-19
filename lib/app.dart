@@ -1,7 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:stock_manager/database/hive_storage/box_handler.dart';
+import 'package:stock_manager/database/hive_utils/box_handler.dart';
 import 'package:stock_manager/database/model/history_model.dart';
 import 'package:stock_manager/database/model/inventory_model.dart';
 import 'package:stock_manager/fall_back.dart';
@@ -14,32 +14,32 @@ import 'database/repository/gsheet_handler.dart';
 import 'database/repository/gsheet_repository.dart';
 
 Future<void> runApplication() async {
-  final handler = await BoxHandler.returnBox();
+  final boxHandler = await SettingBoxHandler.returnBox();
   var connectivityResult = await (Connectivity().checkConnectivity());
 
   if (connectivityResult == ConnectivityResult.mobile ||
       connectivityResult == ConnectivityResult.wifi) {
-    if (handler['secret'] != null && handler['sheetId'] != null) {
-      if (handler['secret'].isNotEmpty && handler['sheetId'].isNotEmpty) {
-        await runAppWithNetwork(handler);
+    if (boxHandler['secret'] != null && boxHandler['sheetId'] != null) {
+      if (boxHandler['secret'].isNotEmpty && boxHandler['sheetId'].isNotEmpty) {
+        await runAppWithNetwork(boxHandler);
       }
     } else {
-      runFallback(handler, App(router: PageRouter.router));
+      runFallback(boxHandler, App(router: PageRouter.router));
     }
   } else {
-    runFallback(handler, NoConnectionApp());
+    runFallback(boxHandler, NoConnectionApp());
   }
 }
 
-Future<void> runAppWithNetwork(Map<String, dynamic> handler) async {
-  await GSheetHandler.init(sheetId: handler['sheetId']);
+Future<void> runAppWithNetwork(Map<String, dynamic> boxHandler) async {
+  await GSheetHandler.init(sheetId: boxHandler['sheetId']);
   final fetchedData = await GSheetRepository.getDataMap();
 
   runApp(
     BlocProvider<BlocsCombiner>(
       child: App(router: PageRouter.router),
       combiner: BlocsCombiner(
-        handlerMap: handler['handler'],
+        handlerMap: boxHandler['handler'],
         historyData: fetchedData['history']!.cast<History>(),
         inventoryData: fetchedData['inventory']!.cast<Inventory>(),
       ),

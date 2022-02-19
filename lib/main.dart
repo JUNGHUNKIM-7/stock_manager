@@ -4,29 +4,15 @@ import 'package:stock_manager/database/secret/secret.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 import 'app.dart';
-import 'database/hive_storage/histories.dart';
-import 'database/hive_storage/hive_handler.dart';
-import 'database/hive_storage/settings.dart';
+import 'database/hive_utils/hive_handler.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   tz.initializeTimeZones();
-
+  await Hive.initFlutter();
   await Future.wait([
-    Hive.initFlutter(),
-    HiveHandler.init(),
+    HiveHandler.initialize(),
     SecretHandler.initialize(),
   ]);
-
-  HiveHandler.registerAdapter([
-    SettingsAdapter(),
-    HistoriesAdapter(),
-  ]);
-
-  await HiveHandler.openRegisteredBox([
-    'settings',
-    'histories',
-  ]);
-
   await runApplication();
 }

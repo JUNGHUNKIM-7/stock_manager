@@ -20,6 +20,7 @@ class Blocs {
   late List<History> historyData;
   late List<Inventory> inventoryData;
   late Box settingBox;
+  late Box listsBox;
   late Map<String, dynamic> handlerMap;
 
   Blocs._();
@@ -29,8 +30,10 @@ class Blocs {
     required this.inventoryData,
     required this.settingBox,
     required this.handlerMap,
+    required this.listsBox,
   }) {
     settingBox = settingBox;
+    listsBox = listsBox;
     handlerMap = handlerMap;
     historyData = historyData;
     inventoryData = inventoryData;
@@ -54,10 +57,17 @@ class Blocs {
     handlerMap: handlerMap,
   );
 
-  final historyView =
-      HistoryViewBloc(state: [], type: HistoryViewBlocEnum.history);
-  final inventoryView =
-      HistoryViewBloc(state: [], type: HistoryViewBlocEnum.inventory);
+  late final historyView = HistoryViewBloc(
+    state: listsBox.get('histories') ?? [].cast<History>(),
+    type: HistoryViewBlocEnum.history,
+    listsBox: listsBox,
+  );
+
+  late final bookMarkedView = HistoryViewBloc(
+    state: listsBox.get('bookmarks') ?? [].cast<Inventory>(),
+    type: HistoryViewBlocEnum.inventory,
+    listsBox: listsBox,
+  );
 
   late final historyBloc =
       HistoryBloc(state: historyData, handler: GSheetHandler());

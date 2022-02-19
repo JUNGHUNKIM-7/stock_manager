@@ -41,9 +41,6 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
     case 1:
       return AppBar(
         automaticallyImplyLeading: false,
-        leading: Builder(
-          builder: (context) => AppBarSettingsBtn(theme: theme),
-        ),
         actions: [
           PdfMaker(
             theme: theme,
@@ -72,7 +69,7 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
               Builder(builder: (context) => AppBarSettingsBtn(theme: theme)),
           actions: [
             DarkModeToggle(
-              iconSize: 25.0,
+              iconSize: 25,
               theme: theme,
             ),
             const SizedBox(
@@ -230,6 +227,7 @@ class PdfMaker extends StatelessWidget {
           builder: (context, snapshot) {
             return Icon(
               Icons.qr_code_scanner_rounded,
+              size: 25,
               color:
                   snapshot.data ?? false ? Styles.lightColor : Styles.darkColor,
             );
@@ -297,7 +295,7 @@ class UserInventoryBtn extends StatelessWidget {
             if (snapshot.hasData) {
               if (snapshot.connectionState == ConnectionState.active) {
                 return Icon(
-                  Icons.playlist_add,
+                  Icons.library_add_outlined,
                   size: 25,
                   color: snapshot.data! == true
                       ? Styles.lightColor

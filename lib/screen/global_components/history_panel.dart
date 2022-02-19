@@ -37,9 +37,9 @@ class HistoryPanel extends StatelessWidget {
           });
     } else if (historyViewBlocEnum == HistoryViewBlocEnum.inventory) {
       final inventoryHistory =
-          BlocProvider.of<BlocsCombiner>(context).inventoryView;
+          BlocProvider.of<BlocsCombiner>(context).inventoryBloc;
       return StreamBuilder(
-          stream: inventoryHistory.inventoryStream,
+          stream: inventoryHistory.stream,
           builder: (context, AsyncSnapshot<List> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.connectionState == ConnectionState.active) {
@@ -101,7 +101,10 @@ class HistoryDialog extends StatelessWidget {
                         },
                       );
                     },
-                    icon: HistoryIcon(theme: theme),
+                    icon: HistoryPanelIcon(
+                      theme: theme,
+                      icon: Icons.view_list,
+                    ),
                   ),
                 );
               }
@@ -122,7 +125,10 @@ class HistoryDialog extends StatelessWidget {
                   badgeColor:
                       snapshot.data! ? Colors.redAccent : Colors.orangeAccent,
                   badgeContent: Text(
-                    inventorySnapshot!.data!.length.toString(),
+                    inventorySnapshot!.data!
+                        .where((element) => element.bookMark == true)
+                        .length
+                        .toString(),
                     style: Theme.of(context)
                         .textTheme
                         .headline3
@@ -140,7 +146,10 @@ class HistoryDialog extends StatelessWidget {
                         },
                       );
                     },
-                    icon: HistoryIcon(theme: theme),
+                    icon: HistoryPanelIcon(
+                      theme: theme,
+                      icon: Icons.bookmarks_outlined,
+                    ),
                   ),
                 );
               }
@@ -152,13 +161,15 @@ class HistoryDialog extends StatelessWidget {
   }
 }
 
-class HistoryIcon extends StatelessWidget {
-  const HistoryIcon({
+class HistoryPanelIcon extends StatelessWidget {
+  const HistoryPanelIcon({
     Key? key,
     required this.theme,
+    required this.icon,
   }) : super(key: key);
 
   final ThemeBloc theme;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
@@ -168,8 +179,8 @@ class HistoryIcon extends StatelessWidget {
           if (snapshot.hasData) {
             if (snapshot.connectionState == ConnectionState.active) {
               return Icon(
-                Icons.history,
-                size: 30,
+                icon,
+                size: 25,
                 color: snapshot.data! == true
                     ? Styles.lightColor
                     : Styles.darkColor,
@@ -209,7 +220,7 @@ class DialogList extends StatelessWidget {
                 title: Text(
                   'Trade History',
                   style: Theme.of(context).textTheme.headline3?.copyWith(
-                      fontSize: 24,
+                      fontSize: 20,
                       color: snapshot.data ?? false
                           ? Styles.darkColor
                           : Styles.lightColor),
@@ -293,23 +304,26 @@ class DialogList extends StatelessWidget {
                       ? Styles.lightColor
                       : Styles.darkColor,
                   title: Text(
-                    'Inventory\'s History',
+                    'Bookmarks',
                     style: Theme.of(context).textTheme.headline3?.copyWith(
-                        fontSize: 24,
+                        fontSize: 20,
                         color: snapshot.data == true
                             ? Styles.darkColor
                             : Styles.lightColor),
                   ),
                   content: SingleChildScrollView(
                     child: Column(
-                      children: List.generate(inventorySnapshot!.data!.length,
-                          (int idx) {
-                        final inventory =
-                            inventorySnapshot?.data?[idx] as Inventory;
+                      children: List.generate(
+                          inventorySnapshot!.data!
+                              .where((element) => element.bookMark == true)
+                              .length, (int idx) {
+                        final inventory = inventorySnapshot?.data
+                            ?.where((element) => element.bookMark == true)
+                            .toList()[idx] as Inventory;
 
                         return ListTile(
                           leading: Icon(
-                            Icons.history,
+                            Icons.bookmark_border,
                             color: snapshot.data == true
                                 ? Styles.darkColor
                                 : Styles.lightColor,
@@ -351,8 +365,8 @@ class DialogList extends StatelessWidget {
                                           : Styles.lightColor,
                                     ),
                           ),
-                          onTap: () => context.goNamed('inventoryDetails',
-                              extra: inventory),
+                          onTap: () =>
+                              context.goNamed('historyForm', extra: inventory),
                         );
                       }),
                     ),

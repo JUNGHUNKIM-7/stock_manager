@@ -9,6 +9,7 @@ class BaseStreamController<T> {
   }
 
   T get state => _state;
+
   set state(T value) {
     _state = value;
     _subject.add(_state);
@@ -19,5 +20,6 @@ class BaseStreamController<T> {
 
 abstract class BaseInterface<T> {
   Stream<T> get stream;
+
   void dispose();
 }
