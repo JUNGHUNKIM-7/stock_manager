@@ -3,7 +3,7 @@ import 'package:stock_manager/bloc/global/page_bloc.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
-import '../global_components/appbar_icons.dart';
+import '../global_components/appbar_wrapper.dart';
 import '../global_components/floating_btns.dart';
 import '../global_components/settings_drawer.dart';
 import '../page_wrapper/first_page.dart';

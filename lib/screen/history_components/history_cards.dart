@@ -18,7 +18,7 @@ class CardListView extends StatelessWidget {
   }) : super(key: key);
 
   final ThemeBloc theme;
-  final AsyncSnapshot<List> snapshot;
+  final AsyncSnapshot<List<History>> snapshot;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +31,12 @@ class CardListView extends StatelessWidget {
         final history = snapshot.data?[idx];
 
         return GestureDetector(
-          onTap: () {
-            historyHistory.push(history);
+          onTap: () async {
+            await historyHistory.push(history);
             context.goNamed('historyDetails', extra: history);
           },
           child: Cards(
-            history: history,
+            history: history!,
             theme: theme,
           ),
         );

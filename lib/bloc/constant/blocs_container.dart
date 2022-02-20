@@ -1,8 +1,8 @@
 import 'package:hive/hive.dart';
 import 'package:stock_manager/bloc/global/form_bloc.dart';
+import 'package:stock_manager/bloc/global/history_view.dart';
 import 'package:stock_manager/bloc/global/settings_bloc.dart';
 
-import '../../bloc/global/history_view.dart';
 import '../../bloc/global/page_bloc.dart';
 import '../../bloc/global/theme_bloc.dart';
 import '../../bloc/history/chip_bloc.dart';
@@ -20,7 +20,6 @@ class Blocs {
   late List<History> historyData;
   late List<Inventory> inventoryData;
   late Box settingBox;
-  late Box listsBox;
   late Map<String, dynamic> handlerMap;
 
   Blocs._();
@@ -30,10 +29,8 @@ class Blocs {
     required this.inventoryData,
     required this.settingBox,
     required this.handlerMap,
-    required this.listsBox,
   }) {
     settingBox = settingBox;
-    listsBox = listsBox;
     handlerMap = handlerMap;
     historyData = historyData;
     inventoryData = inventoryData;
@@ -47,6 +44,11 @@ class Blocs {
     inventorySearch: inventorySearchBloc,
   );
 
+  final historyView = HistoryViewBloc(
+    state: [].cast<History>(),
+    type: HistoryViewBlocEnum.history,
+  );
+
   late final settings = SettingsBloc(
     state: {
       'secret': settingBox.get('secret') ?? '',
@@ -55,18 +57,6 @@ class Blocs {
     },
     settingBox: settingBox,
     handlerMap: handlerMap,
-  );
-
-  late final historyView = HistoryViewBloc(
-    state: listsBox.get('histories') ?? [].cast<History>(),
-    type: HistoryViewBlocEnum.history,
-    listsBox: listsBox,
-  );
-
-  late final bookMarkedView = HistoryViewBloc(
-    state: listsBox.get('bookmarks') ?? [].cast<Inventory>(),
-    type: HistoryViewBlocEnum.inventory,
-    listsBox: listsBox,
   );
 
   late final historyBloc =

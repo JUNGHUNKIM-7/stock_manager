@@ -4,7 +4,7 @@ import 'package:stock_manager/bloc/global/theme_bloc.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
 import '../../database/model/inventory_model.dart';
-import '../../screen/global_components/filter_section.dart';
+import '../../screen/global_components/filter_button_generator.dart';
 import '../../utils/string_handler.dart';
 import 'inventory_tile_dummy.dart';
 
@@ -28,7 +28,7 @@ class InventoryView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (snapshot.connectionState == ConnectionState.active)
-                const FilterSectionWithBtns(
+                const FilterButtonGenerator(
                   title: '0 Items',
                   btnType: 'inventory',
                 ),
@@ -53,7 +53,7 @@ class InventoryView extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FilterSectionWithBtns(
+              FilterButtonGenerator(
                 title: '${snapshot.data!.length} items',
                 btnType: 'inventory',
               ),

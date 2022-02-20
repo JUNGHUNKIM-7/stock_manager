@@ -223,7 +223,6 @@ class DeleteDialog extends StatelessWidget {
             style:
                 Theme.of(context).textTheme.headline3?.copyWith(fontSize: 14),
           ),
-          //FIX goRouter
           onPressed: () => Navigator.of(context).pop(),
         ),
         OutlinedButton(
@@ -260,7 +259,6 @@ class DeleteDialog extends StatelessWidget {
                     ),
                   ),
                 );
-            //FIX goRouter
             Navigator.of(context).pop();
           },
         ),
@@ -295,7 +293,10 @@ class Tiles extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
       ),
       leading: BookMarkUpdate(
-          handler: handler, inventory: inventory, inventoryBloc: inventoryBloc),
+        handler: handler,
+        inventory: inventory,
+        inventoryBloc: inventoryBloc,
+      ),
       onTap: () {
         context.goNamed('inventoryDetails', extra: inventory);
       },
@@ -331,24 +332,14 @@ class BookMarkUpdate extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () async {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.yellow[600],
-            content: Text(
-              'Pending: Processing Your Request',
-              style:
-                  Theme.of(context).textTheme.headline4?.copyWith(fontSize: 14),
-            ),
-            duration: const Duration(seconds: 1),
-          ),
-        );
-        await handler.updateOne(
-          inventory.id,
-          'bookMark',
-          inventory.bookMark == true ? 'n' : 'y',
-          SheetType.inventory,
-        );
-        await inventoryBloc.reload();
+        await handler
+            .updateOne(
+              inventory.id,
+              'bookMark',
+              inventory.bookMark == true ? 'n' : 'y',
+              SheetType.inventory,
+            )
+            .whenComplete(() => inventoryBloc.reload());
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.green[600],

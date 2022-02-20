@@ -4,7 +4,7 @@ import 'package:uuid/uuid.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
 import '../../database/repository/gsheet_handler.dart';
-import '../../screen/global_components/appbar_icons.dart';
+import '../../screen/global_components/appbar_wrapper.dart';
 import '../../styles.dart';
 import 'inventory_form_btn.dart';
 import 'inventory_form_field.dart';

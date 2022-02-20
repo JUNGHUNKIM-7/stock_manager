@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stock_manager/bloc/global/theme_bloc.dart';
 import 'package:stock_manager/database/model/history_model.dart';
-import 'package:stock_manager/screen/global_components/filter_section.dart';
+import 'package:stock_manager/screen/global_components/filter_button_generator.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
@@ -27,8 +27,8 @@ class HistoryView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (snapshot.connectionState == ConnectionState.active)
-                const FilterSectionWithBtns(
-                  title: '0 Histories',
+                const FilterButtonGenerator(
+                  title: '0 trades',
                   btnType: 'history',
                 ),
               if (snapshot.connectionState == ConnectionState.active)
@@ -54,8 +54,8 @@ class HistoryView extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FilterSectionWithBtns(
-                title: '${snapshot.data!.length} Histories',
+              FilterButtonGenerator(
+                title: '${snapshot.data!.length} trades',
                 btnType: 'history',
               ),
               Expanded(

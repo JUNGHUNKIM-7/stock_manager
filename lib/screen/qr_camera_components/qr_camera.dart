@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:stock_manager/bloc/constant/blocs_combiner.dart';
 import 'package:stock_manager/bloc/constant/provider.dart';
-import 'package:stock_manager/screen/global_components/appbar_icons.dart';
+import 'package:stock_manager/screen/global_components/appbar_wrapper.dart';
 import 'package:stock_manager/styles.dart';
 
 class QrCamera extends StatefulWidget {

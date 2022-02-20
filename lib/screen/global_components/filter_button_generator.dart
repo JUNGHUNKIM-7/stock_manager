@@ -4,10 +4,10 @@ import 'package:go_router/go_router.dart';
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
 import '../../styles.dart';
-import 'filter_btns.dart';
+import 'filter_button_wrapper.dart';
 
-class FilterSectionWithBtns extends StatelessWidget {
-  const FilterSectionWithBtns({
+class FilterButtonGenerator extends StatelessWidget {
+  const FilterButtonGenerator({
     Key? key,
     required this.title,
     required this.btnType,

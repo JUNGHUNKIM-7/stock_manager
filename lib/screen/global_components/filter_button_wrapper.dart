@@ -23,7 +23,7 @@ class FilterBtns extends StatelessWidget {
     return StreamBuilder(
       stream: bloc?.stream,
       builder: (context, AsyncSnapshot<bool> filterSnapShot) {
-        return FilterBtnStream(
+        return FilterButtonWithStream(
           theme: theme,
           onPressed: onPressed,
           text: text,
@@ -34,8 +34,8 @@ class FilterBtns extends StatelessWidget {
   }
 }
 
-class FilterBtnStream extends StatelessWidget {
-  const FilterBtnStream({
+class FilterButtonWithStream extends StatelessWidget {
+  const FilterButtonWithStream({
     Key? key,
     required this.theme,
     required this.onPressed,
@@ -53,24 +53,26 @@ class FilterBtnStream extends StatelessWidget {
     return StreamBuilder(
         stream: theme.stream,
         builder: (context, AsyncSnapshot<bool> themeSnapShot) {
-          return OutlinedButton(
-            style: filterSnapShot.data == true
-                ? ButtonStyle(
-                    backgroundColor: themeSnapShot.data == true
-                        ? MaterialStateProperty.all(Colors.redAccent)
-                        : MaterialStateProperty.all(Colors.orangeAccent),
-                  )
-                : ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Colors.transparent),
-                  ),
-            onPressed: onPressed,
-            child: Text(
-              text,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline3
-                  ?.copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+          return Center(
+            child: OutlinedButton(
+              style: filterSnapShot.data == true
+                  ? ButtonStyle(
+                      backgroundColor: themeSnapShot.data == true
+                          ? MaterialStateProperty.all(Colors.redAccent)
+                          : MaterialStateProperty.all(Colors.orangeAccent),
+                    )
+                  : ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.transparent),
+                    ),
+              onPressed: onPressed,
+              child: Text(
+                text,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3
+                    ?.copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+              ),
             ),
           );
         });

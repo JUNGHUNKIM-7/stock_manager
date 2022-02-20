@@ -11,8 +11,6 @@ enum HistoryViewBlocEnum { history, inventory }
 abstract class HistoryViewBlocInterface {
   void push(dynamic data);
 
-  void delete(dynamic data);
-
   void clear(HistoryViewBlocEnum type);
 }
 
@@ -20,12 +18,14 @@ class HistoryViewBloc extends BaseStreamController<List>
     implements BaseInterface<List>, HistoryViewBlocInterface {
   late final BehaviorSubject<List<History>> histories;
   late final BehaviorSubject<List<Inventory>> bookmarks;
-  final Box listsBox;
+  final Box? hiveHistoryBox;
+  final Box? hiveBookMarkBox;
 
   HistoryViewBloc({
     required state,
     required HistoryViewBlocEnum type,
-    required this.listsBox,
+    this.hiveHistoryBox,
+    this.hiveBookMarkBox,
   }) : super(state: state) {
     if (type == HistoryViewBlocEnum.history) {
       histories = BehaviorSubject<List<History>>.seeded(state);
@@ -52,16 +52,7 @@ class HistoryViewBloc extends BaseStreamController<List>
   @override
   Future<void> push(dynamic data) async {
     if (data is History) {
-      histories.add({...histories.value, data}.toList().cast<History>());
-    } else if (data is Inventory) {}
-  }
-
-  @override
-  void delete(dynamic data) {
-    if (data is History) {
-      histories.add({...histories.value}
-          .where((element) => element.id != data.id)
-          .toList());
+      histories.add({...histories.value, data}.toList());
     } else if (data is Inventory) {}
   }
 

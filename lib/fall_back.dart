@@ -55,7 +55,7 @@ class NoConnectionPage extends StatelessWidget {
             ),
             SizedBox(height: outerSpacing / 2),
             Text(
-              'Please Check Your Connection And Restart the App',
+              'Please check your network connection. then Restart the App',
               style:
                   Theme.of(context).textTheme.headline4?.copyWith(fontSize: 14),
             ),
