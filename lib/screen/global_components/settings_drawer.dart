@@ -134,7 +134,7 @@ class Header extends StatelessWidget {
                       style: themeSnapshot.data == true
                           ? Theme.of(context)
                               .textTheme
-                              .headline2
+                              .bodyText1
                               ?.copyWith(color: Styles.darkColor, fontSize: 16)
                           : Theme.of(context).textTheme.headline2?.copyWith(
                               color: Styles.lightColor, fontSize: 16),
@@ -161,7 +161,7 @@ class Header extends StatelessWidget {
                       style: themeSnapshot.data == true
                           ? Theme.of(context)
                               .textTheme
-                              .headline2
+                              .bodyText1
                               ?.copyWith(color: Styles.darkColor, fontSize: 16)
                           : Theme.of(context).textTheme.headline2?.copyWith(
                               color: Styles.lightColor, fontSize: 16),

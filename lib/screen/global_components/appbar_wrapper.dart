@@ -8,7 +8,7 @@ import '../../bloc/constant/blocs_combiner.dart';
 import '../../database/repository/gsheet_handler.dart';
 import 'appbar_components.dart';
 import 'dark_mode_toggle.dart';
-import 'history_panel.dart';
+import 'panel_main.dart';
 
 AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
   final handler = GSheetHandler();
@@ -19,8 +19,8 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
         automaticallyImplyLeading: false,
         leading: Builder(builder: (context) => AppBarSettingsBtn(theme: theme)),
         actions: [
-          const HistoryPanel(
-            historyViewBlocEnum: HistoryViewBlocEnum.history,
+          const PanelMain(
+            historyViewBlocEnum: PanelEnum.history,
           ),
           const SizedBox(
             width: 4.0,
@@ -43,8 +43,8 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
             theme: theme,
             handler: handler,
           ),
-          const HistoryPanel(
-            historyViewBlocEnum: HistoryViewBlocEnum.inventory,
+          const PanelMain(
+            historyViewBlocEnum: PanelEnum.inventory,
           ),
           const SizedBox(
             width: 4.0,
@@ -123,14 +123,14 @@ AppBar showAppBarWithBackBtn({
                 )
               : typeOfForm == 'historyDetails'
                   ? Text(
-                      'History   Details'.toUpperCase(),
+                      'History  Details'.toUpperCase(),
                       style: Theme.of(context)
                           .textTheme
                           .headline1
                           ?.copyWith(fontSize: 18),
                     )
                   : Text(
-                      'Inventory   Details'.toUpperCase(),
+                      'Inventory  Details'.toUpperCase(),
                       style: Theme.of(context)
                           .textTheme
                           .headline1

@@ -89,7 +89,7 @@ class InventoryDetails extends StatelessWidget {
                                       ?.copyWith(fontSize: 18),
                                 ),
                               ),
-                              const SizedBox(height: innerSpacing),
+                              const SizedBox(height: innerSpacing * 2),
                               Text(
                                 'Item Memo'.toUpperCase(),
                                 style: Theme.of(context)
@@ -114,7 +114,7 @@ class InventoryDetails extends StatelessWidget {
                                       ?.copyWith(fontSize: 18),
                                 ),
                               ),
-                              const SizedBox(height: innerSpacing),
+                              const SizedBox(height: innerSpacing * 2),
                               Text(
                                 'current qty'.toUpperCase(),
                                 style: Theme.of(context)
@@ -138,7 +138,7 @@ class InventoryDetails extends StatelessWidget {
                                       ?.copyWith(fontSize: 18),
                                 ),
                               ),
-                              const SizedBox(height: innerSpacing),
+                              const SizedBox(height: innerSpacing * 2),
                               Text(
                                 'Created Date'.toUpperCase(),
                                 style: Theme.of(context)
@@ -151,7 +151,7 @@ class InventoryDetails extends StatelessWidget {
                                 thickness: 1.0,
                               ),
                               Align(
-                                alignment: Alignment.centerRight,
+                                alignment: Alignment.center,
                                 child: Text(
                                   inventory.createAt
                                       .toString()

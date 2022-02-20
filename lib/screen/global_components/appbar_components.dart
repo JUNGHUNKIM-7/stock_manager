@@ -128,7 +128,7 @@ class UserInventoryBtn extends StatelessWidget {
             if (snapshot.hasData) {
               if (snapshot.connectionState == ConnectionState.active) {
                 return Icon(
-                  Icons.library_add_outlined,
+                  Icons.add,
                   size: 25,
                   color: snapshot.data! == true
                       ? Styles.lightColor
@@ -287,7 +287,7 @@ class PdfMaker extends StatelessWidget {
           stream: theme.stream,
           builder: (context, snapshot) {
             return Icon(
-              Icons.qr_code_scanner_rounded,
+              Icons.subdirectory_arrow_right,
               size: 25,
               color:
                   snapshot.data ?? false ? Styles.lightColor : Styles.darkColor,

@@ -7,46 +7,44 @@ import 'package:stock_manager/bloc/global/theme_bloc.dart';
 import 'package:stock_manager/styles.dart';
 
 import '../../database/model/history_model.dart';
+import '../../database/model/inventory_model.dart';
 import 'dialog_pop_up.dart';
 
-class HistoryPanel extends StatelessWidget {
-  const HistoryPanel({
+class PanelMain extends StatelessWidget {
+  const PanelMain({
     Key? key,
     this.historyViewBlocEnum,
   }) : super(key: key);
-  final HistoryViewBlocEnum? historyViewBlocEnum;
+  final PanelEnum? historyViewBlocEnum;
 
   @override
   Widget build(BuildContext context) {
     final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
-    if (historyViewBlocEnum == HistoryViewBlocEnum.history) {
-      final historyHistory =
-          BlocProvider.of<BlocsCombiner>(context).historyView;
+    if (historyViewBlocEnum == PanelEnum.history) {
+      final historyPanel = BlocProvider.of<BlocsCombiner>(context).historyView;
       return StreamBuilder(
-          stream: historyHistory.historyStream,
+          stream: historyPanel.historyStream,
           builder: (context, AsyncSnapshot<List<History>> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.connectionState == ConnectionState.active) {
-                return HistoryDialog(
+                return PanelDialog(
                     theme: theme,
-                    historySnapshot: snapshot,
-                    clean: () =>
-                        historyHistory.clear(HistoryViewBlocEnum.history));
+                    historyViewSnapShot: snapshot,
+                    clean: () => historyPanel.clear(PanelEnum.history));
               }
             }
             return Container();
           });
-    } else if (historyViewBlocEnum == HistoryViewBlocEnum.inventory) {
-      final inventoryHistory =
-          BlocProvider.of<BlocsCombiner>(context).inventoryBloc;
+    } else if (historyViewBlocEnum == PanelEnum.inventory) {
+      final bookMarkView = BlocProvider.of<BlocsCombiner>(context).bookMarkView;
       return StreamBuilder(
-          stream: inventoryHistory.stream,
-          builder: (context, AsyncSnapshot<List> snapshot) {
+          stream: bookMarkView.bookMarkStream,
+          builder: (context, AsyncSnapshot<List<Inventory>> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.connectionState == ConnectionState.active) {
-                return HistoryDialog(
+                return PanelDialog(
                   theme: theme,
-                  inventorySnapshot: snapshot,
+                  bookMarkViewSnapShot: snapshot,
                 );
               }
             }
@@ -58,24 +56,25 @@ class HistoryPanel extends StatelessWidget {
   }
 }
 
-class HistoryDialog extends StatelessWidget {
-  const HistoryDialog(
+class PanelDialog extends StatelessWidget {
+  const PanelDialog(
       {Key? key,
-      this.historySnapshot,
-      this.inventorySnapshot,
+      this.historyViewSnapShot,
+      this.bookMarkViewSnapShot,
       required this.theme,
       this.clean})
       : super(key: key);
 
-  final AsyncSnapshot<List<History>>? historySnapshot;
-  final AsyncSnapshot<List>? inventorySnapshot;
+  final AsyncSnapshot<List<History>>? historyViewSnapShot;
+  final AsyncSnapshot<List<Inventory>>? bookMarkViewSnapShot;
   final ThemeBloc theme;
   final void Function()? clean;
 
   @override
   Widget build(BuildContext context) {
-    if (historySnapshot != null) {
-      if (historySnapshot!.data != null && historySnapshot!.data!.isNotEmpty) {
+    if (historyViewSnapShot != null) {
+      if (historyViewSnapShot!.data != null &&
+          historyViewSnapShot!.data!.isNotEmpty) {
         return StreamBuilder<bool>(
             stream: theme.stream,
             builder: (context, snapshot) {
@@ -87,7 +86,7 @@ class HistoryDialog extends StatelessWidget {
                   badgeColor:
                       snapshot.data! ? Colors.redAccent : Colors.orangeAccent,
                   badgeContent: Text(
-                    historySnapshot!.data!.length.toString(),
+                    historyViewSnapShot!.data!.length.toString(),
                     style: Theme.of(context)
                         .textTheme
                         .headline3
@@ -99,13 +98,13 @@ class HistoryDialog extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           return DialogPopUp(
-                              historySnapshot: historySnapshot,
-                              type: HistoryViewBlocEnum.history,
+                              historySnapshot: historyViewSnapShot,
+                              type: PanelEnum.history,
                               clean: clean);
                         },
                       );
                     },
-                    icon: HistoryPanelIcon(
+                    icon: PanelIcon(
                       theme: theme,
                       icon: Icons.view_list,
                     ),
@@ -115,9 +114,9 @@ class HistoryDialog extends StatelessWidget {
               return Container();
             });
       }
-    } else if (inventorySnapshot != null) {
-      if (inventorySnapshot!.data != null &&
-          inventorySnapshot!.data!.isNotEmpty) {
+    } else if (bookMarkViewSnapShot != null) {
+      if (bookMarkViewSnapShot!.data != null &&
+          bookMarkViewSnapShot!.data!.isNotEmpty) {
         return StreamBuilder<bool>(
             stream: theme.stream,
             builder: (context, snapshot) {
@@ -129,10 +128,7 @@ class HistoryDialog extends StatelessWidget {
                   badgeColor:
                       snapshot.data! ? Colors.redAccent : Colors.orangeAccent,
                   badgeContent: Text(
-                    inventorySnapshot!.data!
-                        .where((element) => element.bookMark == true)
-                        .length
-                        .toString(),
+                    bookMarkViewSnapShot!.data!.length.toString(),
                     style: Theme.of(context)
                         .textTheme
                         .headline3
@@ -144,13 +140,13 @@ class HistoryDialog extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           return DialogPopUp(
-                            inventorySnapshot: inventorySnapshot,
-                            type: HistoryViewBlocEnum.inventory,
+                            bookMarkSnapShot: bookMarkViewSnapShot,
+                            type: PanelEnum.inventory,
                           );
                         },
                       );
                     },
-                    icon: HistoryPanelIcon(
+                    icon: PanelIcon(
                       theme: theme,
                       icon: Icons.bookmarks_outlined,
                     ),
@@ -165,8 +161,8 @@ class HistoryDialog extends StatelessWidget {
   }
 }
 
-class HistoryPanelIcon extends StatelessWidget {
-  const HistoryPanelIcon({
+class PanelIcon extends StatelessWidget {
+  const PanelIcon({
     Key? key,
     required this.theme,
     required this.icon,

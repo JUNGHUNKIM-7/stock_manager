@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_manager/styles.dart';
 
@@ -115,22 +116,46 @@ class CredentialsTile extends StatelessWidget {
                                 settings.catchCredential(value);
                               },
                             ),
-                            OutlinedButton(
-                              child: Text(
-                                'OK',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline3
-                                    ?.copyWith(
-                                        fontSize: 16,
-                                        color: themeSnapshot.data == true
-                                            ? Styles.lightColor
-                                            : Styles.darkColor),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                RestartWidget.restartApp(context);
-                              },
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                OutlinedButton(
+                                  child: Text(
+                                    'Cancel',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3
+                                        ?.copyWith(
+                                            fontSize: 16,
+                                            color: themeSnapshot.data == true
+                                                ? Styles.lightColor
+                                                : Styles.darkColor),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                SizedBox(
+                                  width: innerSpacing,
+                                ),
+                                OutlinedButton(
+                                  child: Text(
+                                    'OK',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3
+                                        ?.copyWith(
+                                            fontSize: 16,
+                                            color: themeSnapshot.data == true
+                                                ? Styles.lightColor
+                                                : Styles.darkColor),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    RestartWidget.restartApp(context);
+                                  },
+                                ),
+                              ],
                             ),
                           ],
                         ));
@@ -254,24 +279,48 @@ class SheetIdTile extends StatelessWidget {
                                 settings.catchSheetId(value);
                               },
                             ),
-                            OutlinedButton(
-                              child: Text(
-                                'OK',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline3
-                                    ?.copyWith(
-                                        fontSize: 16,
-                                        color: themeSnapshot.data == true
-                                            ? Styles.lightColor
-                                            : Styles.darkColor),
-                              ),
-                              onPressed: () async {
-                                RestartWidget.restartApp(context);
-                                await runApplication();
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
-                              },
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                OutlinedButton(
+                                  child: Text(
+                                    'Cancel',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3
+                                        ?.copyWith(
+                                            fontSize: 16,
+                                            color: themeSnapshot.data == true
+                                                ? Styles.lightColor
+                                                : Styles.darkColor),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                SizedBox(
+                                  width: innerSpacing,
+                                ),
+                                OutlinedButton(
+                                  child: Text(
+                                    'OK',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3
+                                        ?.copyWith(
+                                            fontSize: 16,
+                                            color: themeSnapshot.data == true
+                                                ? Styles.lightColor
+                                                : Styles.darkColor),
+                                  ),
+                                  onPressed: () async {
+                                    RestartWidget.restartApp(context);
+                                    await runApplication();
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
                             ),
                           ],
                         ));

@@ -34,26 +34,25 @@ class HistoryDetails extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Center(
-                      child: Text(
-                        "${history.title.toTitleCase()}'s Details",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline3
-                            ?.copyWith(fontSize: 24),
-                      ),
+                    Text(
+                      "${history.title.toTitleCase()}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline3
+                          ?.copyWith(fontSize: 20),
                     ),
                     const SizedBox(height: outerSpacing * 1.5),
                     DarkModeContainer(
-                      height: 0.20,
+                      height: 0.22,
                       reverse: true,
                       child: HistoryInfoCard(history: history),
                     ),
                     const SizedBox(height: outerSpacing),
                     DarkModeContainer(
                       theme: theme,
-                      height: 0.55,
+                      height: 0.50,
                       reverse: true,
                       child: StreamByStatusWrapper(history: history),
                     ),
@@ -121,7 +120,6 @@ class StreamByStatusWrapper extends StatelessWidget {
           child: Divider(
             color: Colors.grey[700],
             thickness: 1,
-            height: 1,
           ),
         ),
         Expanded(
@@ -214,7 +212,6 @@ class OutWidget extends StatelessWidget {
           return Divider(
             color: Colors.grey[700],
             thickness: 1,
-            height: 1,
           );
         },
         itemCount: outHistory.length);
@@ -258,7 +255,6 @@ class InWidget extends StatelessWidget {
           return Divider(
             color: Colors.grey[700],
             thickness: 1,
-            height: 1,
           );
         },
         itemCount: inHistory.length);

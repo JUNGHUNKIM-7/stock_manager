@@ -7,19 +7,20 @@ import 'package:stock_manager/database/model/inventory_model.dart';
 import 'package:stock_manager/styles.dart';
 
 import '../../database/model/history_model.dart';
+import '../../utils/string_handler.dart';
 
 class DialogPopUp extends StatelessWidget {
   const DialogPopUp({
     Key? key,
     required this.type,
     this.historySnapshot,
-    this.inventorySnapshot,
+    this.bookMarkSnapShot,
     this.clean,
   }) : super(key: key);
 
-  final AsyncSnapshot<List>? inventorySnapshot;
+  final AsyncSnapshot<List<Inventory>>? bookMarkSnapShot;
   final AsyncSnapshot<List<History>>? historySnapshot;
-  final HistoryViewBlocEnum type;
+  final PanelEnum type;
   final void Function()? clean;
 
   @override
@@ -27,7 +28,7 @@ class DialogPopUp extends StatelessWidget {
     final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
 
     switch (type) {
-      case HistoryViewBlocEnum.history:
+      case PanelEnum.history:
         return StreamBuilder(
             stream: theme.stream,
             builder: (context, AsyncSnapshot<bool> snapshot) {
@@ -95,8 +96,9 @@ class DialogPopUp extends StatelessWidget {
                                         : Styles.lightColor,
                                   ),
                         ),
-                        title: history.title.length > 20
-                            ? Text('${history.title.substring(0, 20)}...',
+                        title: history.title.length > 10
+                            ? Text(
+                                '${history.title.substring(0, 8).toCapitalized()}...${history.title.substring(history.title.length - 3, history.title.length)}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
@@ -105,7 +107,7 @@ class DialogPopUp extends StatelessWidget {
                                         color: snapshot.data == true
                                             ? Styles.darkColor
                                             : Styles.lightColor))
-                            : Text(history.title,
+                            : Text(history.title.toCapitalized(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
@@ -127,7 +129,7 @@ class DialogPopUp extends StatelessWidget {
                 ),
               );
             });
-      case HistoryViewBlocEnum.inventory:
+      case PanelEnum.inventory:
         return StreamBuilder(
             stream: theme.stream,
             builder: (context, AsyncSnapshot<bool> snapshot) {
@@ -145,13 +147,10 @@ class DialogPopUp extends StatelessWidget {
                   ),
                   content: SingleChildScrollView(
                     child: Column(
-                      children: List.generate(
-                          inventorySnapshot!.data!
-                              .where((element) => element.bookMark == true)
-                              .length, (int idx) {
-                        final inventory = inventorySnapshot?.data
-                            ?.where((element) => element.bookMark == true)
-                            .toList()[idx] as Inventory;
+                      children: List.generate(bookMarkSnapShot!.data!.length,
+                          (int idx) {
+                        final inventory =
+                            bookMarkSnapShot?.data![idx] as Inventory;
 
                         return ListTile(
                           leading: Icon(
@@ -161,7 +160,7 @@ class DialogPopUp extends StatelessWidget {
                                 : Styles.lightColor,
                           ),
                           subtitle: Text(
-                            inventory.memo,
+                            inventory.memo.toCapitalized(),
                             style:
                                 Theme.of(context).textTheme.bodyText1?.copyWith(
                                       color: snapshot.data == true
@@ -169,8 +168,9 @@ class DialogPopUp extends StatelessWidget {
                                           : Styles.lightColor,
                                     ),
                           ),
-                          title: inventory.title.length > 20
-                              ? Text('${inventory.title.substring(0, 20)}...',
+                          title: inventory.title.length > 10
+                              ? Text(
+                                  '${inventory.title.substring(0, 8).toCapitalized()}...${inventory.title.substring(inventory.title.length - 3, inventory.title.length)}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1
@@ -179,7 +179,7 @@ class DialogPopUp extends StatelessWidget {
                                           color: snapshot.data == true
                                               ? Styles.darkColor
                                               : Styles.lightColor))
-                              : Text(inventory.title,
+                              : Text(inventory.title.toCapitalized(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1

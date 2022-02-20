@@ -38,7 +38,8 @@ class InventoryList extends StatelessWidget {
         );
       },
       separatorBuilder: (BuildContext context, int index) {
-        return const Divider(
+        return Divider(
+          color: Colors.grey[700],
           thickness: 1.0,
         );
       },
@@ -301,14 +302,14 @@ class Tiles extends StatelessWidget {
         context.goNamed('inventoryDetails', extra: inventory);
       },
       title: Text(
-        inventory.title.length > 12
-            ? '${inventory.title.substring(0, 12)}...'.toTitleCase()
+        inventory.title.length > 15
+            ? '${inventory.title.substring(0, 15).toTitleCase()}...${inventory.title.substring(inventory.title.length - 3, inventory.title.length).toTitleCase()}'
             : inventory.title.toTitleCase(),
         style: Theme.of(context).textTheme.bodyText1,
       ),
       subtitle: Text(
-        inventory.memo.length > 12
-            ? '${inventory.memo.substring(0, 12)}...'.toTitleCase()
+        inventory.memo.length > 15
+            ? '${inventory.memo.substring(0, 15).toTitleCase()}...${inventory.memo.substring(inventory.memo.length - 3, inventory.memo.length).toTitleCase()}'
             : inventory.memo.toTitleCase(),
         style: Theme.of(context).textTheme.bodyText1,
       ),
@@ -330,6 +331,8 @@ class BookMarkUpdate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final inventoryBloc = BlocProvider.of<BlocsCombiner>(context).inventoryBloc;
+    final bookmark = BlocProvider.of<BlocsCombiner>(context).bookMarkView;
     return IconButton(
       onPressed: () async {
         await handler
@@ -339,7 +342,8 @@ class BookMarkUpdate extends StatelessWidget {
               inventory.bookMark == true ? 'n' : 'y',
               SheetType.inventory,
             )
-            .whenComplete(() => inventoryBloc.reload());
+            .whenComplete(() => inventoryBloc.reload())
+            .whenComplete(() => bookmark.push());
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.green[600],

@@ -42,7 +42,8 @@ class CardListView extends StatelessWidget {
         );
       },
       separatorBuilder: (BuildContext context, int index) {
-        return const Divider(
+        return Divider(
+          color: Colors.grey[700],
           thickness: 1.0,
         );
       },
@@ -319,8 +320,7 @@ class HistoryDetailsRouteBtn extends StatelessWidget {
                     children: [
                       history.title.length > 10
                           ? Text(
-                              '${history.title.substring(0, 10)}...'
-                                  .toTitleCase(),
+                              '${history.title.substring(0, 10).toTitleCase()}...${history.title.substring(history.title.length - 3, history.title.length).toTitleCase()}',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1
@@ -334,9 +334,8 @@ class HistoryDetailsRouteBtn extends StatelessWidget {
                                   ?.copyWith(fontSize: 16),
                             ),
                       Text(
-                        (history.memo ?? '').length > 32
-                            ? '${history.memo?.substring(0, 32)}...'
-                                .toTitleCase()
+                        (history.memo ?? '').length > 10
+                            ? '${history.memo?.substring(0, 10).toTitleCase()}...${history.memo?.substring(history.memo!.length - 3, history.memo?.length).toTitleCase()}'
                             : history.memo?.toTitleCase() ?? '',
                         style: Theme.of(context).textTheme.bodyText1?.copyWith(
                             fontSize: 14, fontWeight: FontWeight.normal),

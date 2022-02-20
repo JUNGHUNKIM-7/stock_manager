@@ -126,7 +126,7 @@ class ItemDetails extends StatelessWidget {
                   Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
             ),
           ),
-          const SizedBox(height: innerSpacing),
+          const SizedBox(height: innerSpacing * 2),
           Text(
             'Item Memo'.toUpperCase(),
             style:
@@ -146,7 +146,7 @@ class ItemDetails extends StatelessWidget {
                   Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
             ),
           ),
-          const SizedBox(height: innerSpacing),
+          const SizedBox(height: innerSpacing * 2),
           Text(
             'Current Qty'.toUpperCase(),
             style:
@@ -202,6 +202,7 @@ class HistoryDetails extends StatelessWidget {
                   Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
             ),
           ),
+          const SizedBox(height: innerSpacing),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

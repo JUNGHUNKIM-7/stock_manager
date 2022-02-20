@@ -17,10 +17,10 @@ import '../../database/model/inventory_model.dart';
 import '../../database/repository/gsheet_handler.dart';
 
 class Blocs {
-  late List<History> historyData;
-  late List<Inventory> inventoryData;
   late Box settingBox;
   late Map<String, dynamic> handlerMap;
+  late List<History> historyData;
+  late List<Inventory> inventoryData;
 
   Blocs._();
 
@@ -46,7 +46,13 @@ class Blocs {
 
   final historyView = HistoryViewBloc(
     state: [].cast<History>(),
-    type: HistoryViewBlocEnum.history,
+    type: PanelEnum.history,
+  );
+
+  late final bookMarkView = HistoryViewBloc(
+    state: inventoryData.where((element) => element.bookMark == true).toList(),
+    type: PanelEnum.inventory,
+    handler: GSheetHandler(),
   );
 
   late final settings = SettingsBloc(
