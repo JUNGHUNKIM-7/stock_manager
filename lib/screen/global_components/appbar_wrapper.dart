@@ -130,7 +130,7 @@ AppBar showAppBarWithBackBtn({
                           ?.copyWith(fontSize: 18),
                     )
                   : Text(
-                      'Inventory  Details'.toUpperCase(),
+                      'Manual'.toUpperCase(),
                       style: Theme.of(context)
                           .textTheme
                           .headline1

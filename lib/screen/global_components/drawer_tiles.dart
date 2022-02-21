@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:stock_manager/styles.dart';
 
 import '../../app.dart';
@@ -69,22 +69,6 @@ class CredentialsTile extends StatelessWidget {
                                     ?.copyWith(fontSize: 20),
                               ),
                               Text(
-                                'You can create one here: \n',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(
-                                        fontSize: 16,
-                                        color: Colors.yellowAccent),
-                              ),
-                              Text(
-                                'https://console.developers.google.com \n',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(fontSize: 16),
-                              ),
-                              Text(
                                 'Example: \n',
                                 style: Theme.of(context)
                                     .textTheme
@@ -94,13 +78,20 @@ class CredentialsTile extends StatelessWidget {
                                         color: Colors.yellowAccent),
                               ),
                               Text(
-                                '{"type": ..., "client_x509_cert_url": ...} ',
+                                '{"type": ..., "client_x509_cert_url": ...} \n',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
                                     ?.copyWith(
                                         fontSize: 16, color: Colors.redAccent),
-                              )
+                              ),
+                              Text(
+                                'If you don\'t have, See starting guide first. \n',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.copyWith(fontSize: 16),
+                              ),
                             ],
                           ),
                           actions: [
@@ -433,5 +424,27 @@ class TimeZoneTile extends StatelessWidget {
           }
           return Container();
         });
+  }
+}
+
+class ManualTile extends StatelessWidget {
+  const ManualTile({Key? key, required this.themeSnapshot}) : super(key: key);
+  final AsyncSnapshot<bool> themeSnapshot;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(Icons.menu_book),
+      title: Text(
+        'Starting Guide',
+        style: Theme.of(context)
+            .textTheme
+            .headline3
+            ?.copyWith(fontSize: 18, letterSpacing: 0.6),
+      ),
+      onTap: () {
+        context.goNamed('manual');
+      },
+    );
   }
 }

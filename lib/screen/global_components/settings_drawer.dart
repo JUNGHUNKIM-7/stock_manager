@@ -29,6 +29,11 @@ class SettingsDrawer extends StatelessWidget {
                 Header(themeSnapshot: themeSnapshot),
                 Column(
                   children: [
+                    ManualTile(themeSnapshot:themeSnapshot),
+                    Divider(
+                      color: Colors.grey[700],
+                      thickness: 1.0,
+                    ),
                     TimeZoneTile(
                         themeSnapshot: themeSnapshot, settings: settings),
                     Divider(

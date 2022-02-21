@@ -31,8 +31,8 @@ class CardListView extends StatelessWidget {
         final history = snapshot.data?[idx];
 
         return GestureDetector(
-          onTap: () async {
-            await historyHistory.push(history);
+          onTap: () {
+            historyHistory.push(history);
             context.goNamed('historyDetails', extra: history);
           },
           child: Cards(

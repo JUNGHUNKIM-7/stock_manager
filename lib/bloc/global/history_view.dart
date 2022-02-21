@@ -56,7 +56,7 @@ class HistoryViewBloc extends BaseStreamController<List>
   @override
   Future<void> push([dynamic data]) async {
     if (data is History) {
-      histories.add({...histories.value, data}.toList());
+      histories.add([...histories.value, data].toSet().toList());
     } else {
       final newState = await handler?.fetchData(SheetType.inventory);
       bookmarks.add(newState!

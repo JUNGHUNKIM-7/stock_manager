@@ -6,6 +6,7 @@ import 'package:stock_manager/screen/history_components/history_details.dart';
 import 'package:stock_manager/screen/history_components/history_form.dart';
 import 'package:stock_manager/screen/inventory_components/inventory_details.dart';
 import 'package:stock_manager/screen/inventory_components/inventory_form_group.dart';
+import 'package:stock_manager/screen/markdown/manual_markdown.dart';
 import 'package:stock_manager/screen/qr_camera_components/qr_camera.dart';
 
 import 'database/model/inventory_model.dart';
@@ -18,6 +19,11 @@ class PageRouter {
         name: 'home',
         path: '/',
         builder: (context, state) => const TabNavHome(),
+      ),
+      GoRoute(
+        name: 'manual',
+        path: '/manual',
+        builder: (context, state) => const MarkDownManual(),
       ),
       GoRoute(
         name: 'historyDetails',

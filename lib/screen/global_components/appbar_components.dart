@@ -78,6 +78,7 @@ class UserInventoryBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final inventoryBloc = BlocProvider.of<BlocsCombiner>(context).inventoryBloc;
+    final historyBloc = BlocProvider.of<BlocsCombiner>(context).historyBloc;
 
     return IconButton(
       onPressed: () async {
@@ -93,8 +94,12 @@ class UserInventoryBtn extends StatelessWidget {
           ),
         );
         try {
-          await handler.moveToInventoryAndBackUp();
-          await inventoryBloc.reload();
+          await handler
+              .moveToInventoryAndBackUp()
+              .whenComplete(() => Future.wait([
+                    historyBloc.reload(),
+                    inventoryBloc.reload(),
+                  ]));
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.green[600],
