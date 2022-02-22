@@ -82,6 +82,7 @@ class DialogPopUp extends StatelessWidget {
                           '${history.val}',
                           style:
                               Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    fontSize: 14,
                                     color: snapshot.data == true
                                         ? Styles.darkColor
                                         : Styles.lightColor,
@@ -91,6 +92,7 @@ class DialogPopUp extends StatelessWidget {
                           '${history.date}'.substring(0, 10),
                           style:
                               Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    fontSize: 14,
                                     color: snapshot.data == true
                                         ? Styles.darkColor
                                         : Styles.lightColor,
@@ -169,6 +171,7 @@ class DialogPopUp extends StatelessWidget {
                             inventory.memo.toCapitalized(),
                             style:
                                 Theme.of(context).textTheme.bodyText2?.copyWith(
+                                      fontSize: 14,
                                       color: snapshot.data == true
                                           ? Styles.darkColor
                                           : Styles.lightColor,
@@ -198,6 +201,7 @@ class DialogPopUp extends StatelessWidget {
                             '${inventory.qty}',
                             style:
                                 Theme.of(context).textTheme.bodyText2?.copyWith(
+                                      fontSize: 14,
                                       color: snapshot.data == true
                                           ? Styles.darkColor
                                           : Styles.lightColor,

@@ -28,7 +28,7 @@ class CredentialsTile extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headline3
-                    ?.copyWith(fontSize: 18, letterSpacing: 0.6),
+                    ?.copyWith(fontSize: 16, letterSpacing: 0.6),
               ),
               leading: snapshot.data!['secret'].isNotEmpty
                   ? const Icon(
@@ -66,19 +66,10 @@ class CredentialsTile extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline2
-                                    ?.copyWith(fontSize: 20),
+                                    ?.copyWith(fontSize: 18),
                               ),
                               Text(
-                                'Example: \n',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(
-                                        fontSize: 16,
-                                        color: Colors.yellowAccent),
-                              ),
-                              Text(
-                                '{"type": ..., "client_x509_cert_url": ...} \n',
+                                '{"type": ..., "client_x509_cert_url": ...}\n',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
@@ -86,11 +77,11 @@ class CredentialsTile extends StatelessWidget {
                                         fontSize: 16, color: Colors.redAccent),
                               ),
                               Text(
-                                'If you don\'t have, See starting guide first. \n',
+                                '`If you don\'t have google credentials yet, See \"Starting Guide\" first`',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
-                                    ?.copyWith(fontSize: 16),
+                                    ?.copyWith(fontSize: 14),
                               ),
                             ],
                           ),
@@ -100,12 +91,25 @@ class CredentialsTile extends StatelessWidget {
                               obscureText: true,
                               autocorrect: false,
                               decoration: InputDecoration(
-                                enabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: themeSnapshot.data == true
+                                        ? Styles.lightColor
+                                        : Styles.darkColor,
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  gapPadding: 20,
+                                ),
                               ),
                               onChanged: (String value) {
                                 settings.catchCredential(value);
                               },
+                            ),
+                            SizedBox(
+                              height: innerSpacing,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -179,7 +183,7 @@ class SheetIdTile extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headline3
-                    ?.copyWith(fontSize: 18, letterSpacing: 0.6),
+                    ?.copyWith(fontSize: 16, letterSpacing: 0.6),
               ),
               leading: snapshot.data!['sheetId'].isNotEmpty
                   ? const Icon(
@@ -215,27 +219,18 @@ class SheetIdTile extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline2
-                                    ?.copyWith(fontSize: 20),
+                                    ?.copyWith(fontSize: 18),
                               ),
                               Text.rich(
                                 TextSpan(
                                   children: [
-                                    TextSpan(
-                                      text: 'Example: \n\n',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          ?.copyWith(
-                                              fontSize: 16,
-                                              color: Colors.yellowAccent),
-                                    ),
                                     TextSpan(
                                       text:
                                           'https://docs.google.com/spreadsheets/d/',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          ?.copyWith(fontSize: 16),
+                                          ?.copyWith(fontSize: 14),
                                     ),
                                     TextSpan(
                                       text: 'Your Sheet ID',
@@ -251,7 +246,7 @@ class SheetIdTile extends StatelessWidget {
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          ?.copyWith(fontSize: 16),
+                                          ?.copyWith(fontSize: 14),
                                     )
                                   ],
                                 ),
@@ -263,12 +258,25 @@ class SheetIdTile extends StatelessWidget {
                               autofocus: true,
                               autocorrect: false,
                               decoration: InputDecoration(
-                                enabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: themeSnapshot.data == true
+                                        ? Styles.lightColor
+                                        : Styles.darkColor,
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  gapPadding: 20,
+                                ),
                               ),
                               onChanged: (String value) {
                                 settings.catchSheetId(value);
                               },
+                            ),
+                            SizedBox(
+                              height: innerSpacing,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -345,7 +353,7 @@ class TimeZoneTile extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headline3
-                    ?.copyWith(fontSize: 18, letterSpacing: 0.6),
+                    ?.copyWith(fontSize: 16, letterSpacing: 0.6),
               ),
               trailing: const Icon(Icons.arrow_forward_ios),
               leading: snapshot.data!['tz'].isNotEmpty
@@ -388,7 +396,7 @@ class TimeZoneTile extends StatelessWidget {
                                         .textTheme
                                         .headline2
                                         ?.copyWith(
-                                            fontSize: 20,
+                                            fontSize: 16,
                                             color: themeSnapshot.data == true
                                                 ? Styles.lightColor
                                                 : Styles.darkColor),
@@ -434,13 +442,21 @@ class ManualTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(Icons.menu_book),
+      leading: themeSnapshot.data ?? false
+          ? Icon(
+              Icons.menu_book,
+              color: Styles.lightColor,
+            )
+          : Icon(
+              Icons.menu_book,
+              color: Styles.darkColor,
+            ),
       title: Text(
         'Starting Guide',
         style: Theme.of(context)
             .textTheme
             .headline3
-            ?.copyWith(fontSize: 18, letterSpacing: 0.6),
+            ?.copyWith(fontSize: 16, letterSpacing: 0.6),
       ),
       onTap: () {
         context.goNamed('manual');

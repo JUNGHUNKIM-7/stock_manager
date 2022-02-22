@@ -200,14 +200,14 @@ class DeleteDialog extends StatelessWidget {
           themeSnapShot.data == true ? Styles.darkColor : Styles.lightColor,
       title: Text(
         'Delete?',
-        style: Theme.of(context).textTheme.headline2,
+        style: Theme.of(context).textTheme.headline3?.copyWith(fontSize: 24),
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Name: ${inventory.title}(${inventory.memo})',
+            'Name: ${inventory.title}-${inventory.memo}',
             style: Theme.of(context).textTheme.bodyText2,
           ),
           const SizedBox(height: innerSpacing),

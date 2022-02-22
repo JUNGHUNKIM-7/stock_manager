@@ -90,7 +90,10 @@ class DarkModeStatus extends StatelessWidget {
                   if (snapshot.hasData) {
                     return Text(
                       snapshot.data ?? false ? 'Dark Mode' : 'Light Mode',
-                      style: Theme.of(context).textTheme.headline3,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline3
+                          ?.copyWith(fontSize: 16),
                     );
                   }
 

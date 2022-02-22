@@ -25,26 +25,32 @@ dismissHistory(
                 backgroundColor: snapshot.data ?? false
                     ? Styles.darkColor
                     : Styles.lightColor,
-                title: const Text('Delete'),
+                title: Text(
+                  'Delete?',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      ?.copyWith(fontSize: 24),
+                ),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Name: ${history?.title}(${history?.memo})',
-                      style: Theme.of(context).textTheme.bodyText1,
+                      'Name: ${history?.title}-${history?.memo}',
+                      style: Theme.of(context).textTheme.bodyText2,
                     ),
                     const SizedBox(height: innerSpacing),
                     Text(
                       'Date: ${history?.date}',
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyText2,
                     ),
                     const SizedBox(height: innerSpacing),
                     Row(
                       children: [
                         Text(
                           'Status: ',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                         history?.status == 'y'
                             ? const Icon(
@@ -57,7 +63,7 @@ dismissHistory(
                               ),
                         Text(
                           ' (${history?.status == 'y' ? 'Out' : 'In'})',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ],
                     )
@@ -97,7 +103,10 @@ dismissHistory(
                         ),
                       );
                       final String nowVal = await handler.getCellVal(
-                          history!.id, SheetType.inventory);
+                        id: history!.id,
+                        type: SheetType.inventory,
+                      );
+
                       if (history.status == 'y') {
                         try {
                           await handler

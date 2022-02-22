@@ -17,7 +17,7 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
     case 0:
       return AppBar(
         automaticallyImplyLeading: false,
-        leading: Builder(builder: (context) => AppBarSettingsBtn(theme: theme)),
+        leading: Builder(builder: (context) => Settings(theme: theme)),
         actions: [
           const PanelMain(
             historyViewBlocEnum: PanelEnum.history,
@@ -39,7 +39,7 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
             theme: theme,
             handler: handler,
           ),
-          UserInventoryBtn(
+          InputUserInventory(
             theme: theme,
             handler: handler,
           ),
@@ -59,7 +59,7 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
       return AppBar(
           automaticallyImplyLeading: false,
           leading:
-              Builder(builder: (context) => AppBarSettingsBtn(theme: theme)),
+              Builder(builder: (context) => Settings(theme: theme)),
           actions: [
             DarkModeToggle(
               iconSize: 25,

@@ -42,8 +42,8 @@ class MainHeader extends StatelessWidget {
   }
 }
 
-class AppBarSettingsBtn extends StatelessWidget {
-  const AppBarSettingsBtn({Key? key, required this.theme}) : super(key: key);
+class Settings extends StatelessWidget {
+  const Settings({Key? key, required this.theme}) : super(key: key);
   final ThemeBloc theme;
 
   @override
@@ -70,8 +70,8 @@ class AppBarSettingsBtn extends StatelessWidget {
   }
 }
 
-class UserInventoryBtn extends StatelessWidget {
-  const UserInventoryBtn({Key? key, required this.theme, required this.handler})
+class InputUserInventory extends StatelessWidget {
+  const InputUserInventory({Key? key, required this.theme, required this.handler})
       : super(key: key);
   final ThemeBloc theme;
   final SheetHandlerMain handler;
@@ -283,19 +283,18 @@ class PdfMaker extends StatelessWidget {
             }
           }
         } catch (e) {
-          // ScaffoldMessenger.of(context).showSnackBar(
-          //   SnackBar(
-          //     backgroundColor: Colors.red[600],
-          //     content: Text(
-          //       'Failed to Export Qr Code : Fetching Data Error',
-          //       style: Theme.of(context)
-          //           .textTheme
-          //           .headline4
-          //           ?.copyWith(fontSize: 14),
-          //     ),
-          //   ),
-          // );
-          print(e);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red[600],
+              content: Text(
+                'Failed to export QrCode list. Check your network connection and "inventory sheet" are not empty',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4
+                    ?.copyWith(fontSize: 14),
+              ),
+            ),
+          );
         }
       },
       icon: StreamBuilder<bool>(

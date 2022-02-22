@@ -61,6 +61,7 @@ class MarkDownManual extends StatelessWidget {
 # The Guide of Linking Sheet to App
 ### 
 ### 
+### 
 
 ## 1. Set your Timezone 
 * Default: "America/New_York"
@@ -68,7 +69,6 @@ class MarkDownManual extends StatelessWidget {
 
 ### 
 ### 
-
 
 ## 2. Set Google Sheet Credentials
 * Open your desktop for settings.
@@ -78,7 +78,6 @@ class MarkDownManual extends StatelessWidget {
 -- [Online json file viewer (Link)](https://jsoneditoronline.org/)
 * Need: { ALL Content include curly bracket }
 * Apply Credentials to app
-
 
 ### 
 ### 

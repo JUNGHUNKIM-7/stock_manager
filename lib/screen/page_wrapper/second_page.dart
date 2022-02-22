@@ -15,41 +15,39 @@ class SecondPage extends StatelessWidget {
     final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
     final height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(
-            height: outerSpacing,
+    return Column(
+      children: [
+        SizedBox(
+          height: outerSpacing,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
+          child: DarkModeContainer(
+            height: height * 0.00012,
+            theme: theme,
+            child: const SearchField(
+              type: 'inventory',
+              hintText: 'Get Inventory By Item',
+            ),
           ),
-          Padding(
+        ),
+        const SizedBox(
+          height: outerSpacing,
+        ),
+        Expanded(
+          child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
             child: DarkModeContainer(
-              height: height * 0.00012,
               theme: theme,
-              child: const SearchField(
-                type: 'inventory',
-                hintText: 'Get Inventory By Item',
-              ),
+              height: 0,
+              child: InventoryListView(theme: theme),
             ),
           ),
-          const SizedBox(
-            height: outerSpacing,
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
-              child: DarkModeContainer(
-                theme: theme,
-                height: 0,
-                child: InventoryListView(theme: theme),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: outerSpacing,
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(
+          height: outerSpacing,
+        ),
+      ],
     );
   }
 }

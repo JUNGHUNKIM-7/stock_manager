@@ -84,16 +84,18 @@ class Styles {
   );
 
   static const bottomNavLight = BottomNavigationBarThemeData(
-      backgroundColor: Colors.black26,
-      selectedItemColor: Colors.redAccent,
-      unselectedItemColor: lightColor,
-      elevation: 0);
+    backgroundColor: Colors.black26,
+    selectedItemColor: Colors.redAccent,
+    unselectedItemColor: lightColor,
+    elevation: 0,
+  );
 
   static const bottomNavDark = BottomNavigationBarThemeData(
-      backgroundColor: Colors.black26,
-      selectedItemColor: Colors.orangeAccent,
-      unselectedItemColor: darkColor,
-      elevation: 0);
+    backgroundColor: Colors.black26,
+    selectedItemColor: Colors.orangeAccent,
+    unselectedItemColor: darkColor,
+    elevation: 0,
+  );
 
   BottomNavigationBarThemeData returnBottomTheme() {
     return darkMode ? bottomNavLight : bottomNavDark;

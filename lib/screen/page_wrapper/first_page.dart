@@ -17,64 +17,62 @@ class FirstPage extends StatelessWidget {
     final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
     final height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(height: outerSpacing),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
-            child: Row(
-              children: [
-                Expanded(
-                  child: DarkModeContainer(
-                    theme: theme,
-                    height: height * 0.00012,
-                    child: const SearchField(
-                      type: 'history',
-                      hintText: 'Get History By Item',
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 12,
-                ),
-                DarkModeContainer(
+    return Column(
+      children: [
+        SizedBox(height: outerSpacing),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
+          child: Row(
+            children: [
+              Expanded(
+                child: DarkModeContainer(
                   theme: theme,
                   height: height * 0.00012,
-                  child: Years(theme: theme),
-                )
-              ],
-            ),
+                  child: const SearchField(
+                    type: 'history',
+                    hintText: 'Get History By Item',
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 12,
+              ),
+              DarkModeContainer(
+                theme: theme,
+                height: height * 0.00012,
+                child: Years(theme: theme),
+              )
+            ],
           ),
-          const SizedBox(
-            height: outerSpacing,
+        ),
+        const SizedBox(
+          height: outerSpacing,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
+          child: DarkModeContainer(
+            theme: theme,
+            height: height * 0.0001,
+            child: const Chips(),
           ),
-          Padding(
+        ),
+        const SizedBox(
+          height: outerSpacing,
+        ),
+        Expanded(
+          child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
             child: DarkModeContainer(
               theme: theme,
-              height: height * 0.0001,
-              child: const Chips(),
+              height: 0,
+              child: HistoryListView(theme: theme),
             ),
           ),
-          const SizedBox(
-            height: outerSpacing,
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
-              child: DarkModeContainer(
-                theme: theme,
-                height: 0,
-                child: HistoryListView(theme: theme),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: outerSpacing,
-          )
-        ],
-      ),
+        ),
+        const SizedBox(
+          height: outerSpacing,
+        )
+      ],
     );
   }
 }
