@@ -52,7 +52,7 @@ class DialogPopUp extends StatelessWidget {
                     },
                     child: Text(
                       'Delete All',
-                      style: Theme.of(context).textTheme.headline2?.copyWith(
+                      style: Theme.of(context).textTheme.headline3?.copyWith(
                           fontSize: 16,
                           color: snapshot.data ?? false
                               ? Styles.darkColor
@@ -63,7 +63,7 @@ class DialogPopUp extends StatelessWidget {
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text(
                       'Close',
-                      style: Theme.of(context).textTheme.headline2?.copyWith(
+                      style: Theme.of(context).textTheme.headline3?.copyWith(
                           fontSize: 16,
                           color: snapshot.data ?? false
                               ? Styles.darkColor
@@ -81,7 +81,7 @@ class DialogPopUp extends StatelessWidget {
                         trailing: Text(
                           '${history.val}',
                           style:
-                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                              Theme.of(context).textTheme.bodyText2?.copyWith(
                                     color: snapshot.data == true
                                         ? Styles.darkColor
                                         : Styles.lightColor,
@@ -90,18 +90,18 @@ class DialogPopUp extends StatelessWidget {
                         subtitle: Text(
                           '${history.date}'.substring(0, 10),
                           style:
-                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                              Theme.of(context).textTheme.bodyText2?.copyWith(
                                     color: snapshot.data == true
                                         ? Styles.darkColor
                                         : Styles.lightColor,
                                   ),
                         ),
-                        title: history.title.length > 10
+                        title: history.title.length > 4
                             ? Text(
-                                '${history.title.substring(0, 8).toCapitalized()}...${history.title.substring(history.title.length - 3, history.title.length)}',
+                                '${history.title.substring(0, 4).toCapitalized()}...${history.title.substring(history.title.length - 3, history.title.length)}',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1
+                                    .bodyText2
                                     ?.copyWith(
                                         fontWeight: FontWeight.w600,
                                         color: snapshot.data == true
@@ -110,7 +110,7 @@ class DialogPopUp extends StatelessWidget {
                             : Text(history.title.toCapitalized(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1
+                                    .bodyText2
                                     ?.copyWith(
                                         fontWeight: FontWeight.w600,
                                         color: snapshot.data == true
@@ -168,18 +168,18 @@ class DialogPopUp extends StatelessWidget {
                           subtitle: Text(
                             inventory.memo.toCapitalized(),
                             style:
-                                Theme.of(context).textTheme.bodyText1?.copyWith(
+                                Theme.of(context).textTheme.bodyText2?.copyWith(
                                       color: snapshot.data == true
                                           ? Styles.darkColor
                                           : Styles.lightColor,
                                     ),
                           ),
-                          title: inventory.title.length > 10
+                          title: inventory.title.length > 4
                               ? Text(
-                                  '${inventory.title.substring(0, 8).toCapitalized()}...${inventory.title.substring(inventory.title.length - 3, inventory.title.length)}',
+                                  '${inventory.title.substring(0, 4).toCapitalized()}...${inventory.title.substring(inventory.title.length - 3, inventory.title.length)}',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1
+                                      .bodyText2
                                       ?.copyWith(
                                           fontWeight: FontWeight.w600,
                                           color: snapshot.data == true
@@ -188,7 +188,7 @@ class DialogPopUp extends StatelessWidget {
                               : Text(inventory.title.toCapitalized(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1
+                                      .bodyText2
                                       ?.copyWith(
                                           fontWeight: FontWeight.w600,
                                           color: snapshot.data == true
@@ -197,7 +197,7 @@ class DialogPopUp extends StatelessWidget {
                           trailing: Text(
                             '${inventory.qty}',
                             style:
-                                Theme.of(context).textTheme.bodyText1?.copyWith(
+                                Theme.of(context).textTheme.bodyText2?.copyWith(
                                       color: snapshot.data == true
                                           ? Styles.darkColor
                                           : Styles.lightColor,
@@ -214,7 +214,7 @@ class DialogPopUp extends StatelessWidget {
                       onPressed: () => Navigator.of(context).pop(),
                       child: Text(
                         'Close',
-                        style: Theme.of(context).textTheme.headline2?.copyWith(
+                        style: Theme.of(context).textTheme.headline3?.copyWith(
                             fontSize: 16,
                             color: snapshot.data ?? false
                                 ? Styles.darkColor

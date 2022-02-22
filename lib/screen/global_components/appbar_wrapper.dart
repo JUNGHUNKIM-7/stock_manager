@@ -11,7 +11,7 @@ import 'dark_mode_toggle.dart';
 import 'panel_main.dart';
 
 AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
-  final handler = GSheetHandler();
+  final handler = SheetHandlerMain();
 
   switch (pageIdx) {
     case 0:

@@ -197,13 +197,13 @@ class OutWidget extends StatelessWidget {
             title: Text(
               '${item.date.toString().substring(0, 16)} ${item.jm}',
               style:
-                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                  Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 14),
             ),
             trailing: Text(
               item.val.toString(),
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1
+                  .bodyText2
                   ?.copyWith(color: Colors.cyanAccent),
             ),
           );
@@ -240,13 +240,13 @@ class InWidget extends StatelessWidget {
             title: Text(
               '${item.date.toString().substring(0, 16)} ${item.jm}',
               style:
-                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                  Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 14),
             ),
             trailing: Text(
               item.val.toString(),
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1
+                  .bodyText2
                   ?.copyWith(color: Colors.limeAccent),
             ),
           );

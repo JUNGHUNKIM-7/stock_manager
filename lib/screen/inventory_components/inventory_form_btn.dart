@@ -14,7 +14,7 @@ class InventorySubmit extends StatelessWidget {
     required this.uuid,
   }) : super(key: key);
   final BlocsCombiner combiner;
-  final GSheetHandler handler;
+  final SheetHandlerMain handler;
   final Uuid uuid;
 
   @override

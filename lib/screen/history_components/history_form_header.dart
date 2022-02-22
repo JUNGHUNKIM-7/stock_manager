@@ -123,7 +123,7 @@ class ItemDetails extends StatelessWidget {
                   ? '${inventory.title.substring(0, 32)}...'.toTitleCase()
                   : inventory.title.toTitleCase(),
               style:
-                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 18),
             ),
           ),
           const SizedBox(height: innerSpacing * 2),
@@ -143,7 +143,7 @@ class ItemDetails extends StatelessWidget {
                   ? '${inventory.memo.substring(0, 32)}...'.toTitleCase()
                   : inventory.memo.toTitleCase(),
               style:
-                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 18),
             ),
           ),
           const SizedBox(height: innerSpacing * 2),
@@ -163,7 +163,7 @@ class ItemDetails extends StatelessWidget {
                   ? '${inventory.qty.toString().substring(0, 35)}...'
                   : inventory.qty.toString(),
               style:
-                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 18),
             ),
           ),
         ],
@@ -199,7 +199,7 @@ class HistoryDetails extends StatelessWidget {
                   ? '${history.memo?.substring(0, 32)}...'.toTitleCase()
                   : history.memo?.toTitleCase() ?? '',
               style:
-                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 18),
             ),
           ),
           const SizedBox(height: innerSpacing),
@@ -233,7 +233,7 @@ class HistoryDetails extends StatelessWidget {
                   ? '${history.qty.toString().substring(0, 35)}...'
                   : history.qty.toString(),
               style:
-                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 18),
             ),
           ),
         ],

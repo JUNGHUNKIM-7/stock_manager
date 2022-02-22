@@ -208,12 +208,12 @@ class DeleteDialog extends StatelessWidget {
         children: [
           Text(
             'Name: ${inventory.title}(${inventory.memo})',
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyText2,
           ),
           const SizedBox(height: innerSpacing),
           Text(
             'Qty: ${inventory.qty}',
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyText2,
           ),
         ],
       ),
@@ -283,7 +283,7 @@ class Tiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final inventory = data[idx];
-    final handler = GSheetHandler();
+    final handler = SheetHandlerMain();
     final inventoryBloc = BlocProvider.of<BlocsCombiner>(context).inventoryBloc;
 
     return ListTile(
@@ -291,7 +291,7 @@ class Tiles extends StatelessWidget {
       visualDensity: VisualDensity.compact,
       trailing: Text(
         inventory.qty.toString(),
-        style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
+        style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 16),
       ),
       leading: BookMarkUpdate(
         handler: handler,
@@ -305,13 +305,13 @@ class Tiles extends StatelessWidget {
         inventory.title.length > 15
             ? '${inventory.title.substring(0, 15).toTitleCase()}...${inventory.title.substring(inventory.title.length - 3, inventory.title.length).toTitleCase()}'
             : inventory.title.toTitleCase(),
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.bodyText2,
       ),
       subtitle: Text(
         inventory.memo.length > 15
             ? '${inventory.memo.substring(0, 15).toTitleCase()}...${inventory.memo.substring(inventory.memo.length - 3, inventory.memo.length).toTitleCase()}'
             : inventory.memo.toTitleCase(),
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.bodyText2,
       ),
     );
   }
@@ -325,7 +325,7 @@ class BookMarkUpdate extends StatelessWidget {
     required this.inventoryBloc,
   }) : super(key: key);
 
-  final GSheetHandler handler;
+  final SheetHandlerMain handler;
   final Inventory inventory;
   final InventoryBloc inventoryBloc;
 

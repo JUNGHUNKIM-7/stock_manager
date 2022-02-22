@@ -52,7 +52,7 @@ class Blocs {
   late final bookMarkView = HistoryViewBloc(
     state: inventoryData.where((element) => element.bookMark == true).toList(),
     type: PanelEnum.inventory,
-    handler: GSheetHandler(),
+    handler: SheetHandlerMain(),
   );
 
   late final settings = SettingsBloc(
@@ -66,9 +66,9 @@ class Blocs {
   );
 
   late final historyBloc =
-      HistoryBloc(state: historyData, handler: GSheetHandler());
+      HistoryBloc(state: historyData, handler: SheetHandlerMain());
   late final inventoryBloc =
-      InventoryBloc(state: inventoryData, handler: GSheetHandler());
+      InventoryBloc(state: inventoryData, handler: SheetHandlerMain());
 
   final historySearchBloc = HistorySearchBloc(state: '');
   final inventorySearchBloc = InventorySearchBloc(state: '');

@@ -13,7 +13,7 @@ import 'history_form_header.dart';
 class HistoryForm extends StatelessWidget {
   HistoryForm({Key? key, required this.inventory}) : super(key: key);
   final Inventory inventory;
-  final GSheetHandler _handler = GSheetHandler();
+  final SheetHandlerMain _handler = SheetHandlerMain();
 
   @override
   Widget build(BuildContext context) {

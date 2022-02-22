@@ -14,7 +14,7 @@ class InventoryBloc extends BaseStreamController<List<Inventory>>
     implements BaseInterface<List<Inventory>>, InventoryBlocInterface {
   InventoryBloc({required state, required this.handler}) : super(state: state);
 
-  final GSheetHandler handler;
+  final SheetHandlerMain handler;
 
   @override
   void dispose() {

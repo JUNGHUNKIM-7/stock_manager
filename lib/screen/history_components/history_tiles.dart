@@ -20,7 +20,7 @@ class HistoryTiles extends StatelessWidget {
 
   final ThemeBloc theme;
   final AsyncSnapshot<List<History>> snapshot;
-  final GSheetHandler handler = GSheetHandler();
+  final SheetHandlerMain handler = SheetHandlerMain();
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +93,7 @@ class HistoryTile extends StatelessWidget {
                 ),
           Text(
             history.val.toString(),
-            style: Theme.of(context).textTheme.bodyText1?.copyWith(
+            style: Theme.of(context).textTheme.bodyText2?.copyWith(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: history.status == 'y'
@@ -106,31 +106,31 @@ class HistoryTile extends StatelessWidget {
           ? Text(
               '${history.title.substring(0, 10).toTitleCase()}...${history.title.substring(history.title.length - 3, history.title.length).toTitleCase()}',
               style:
-                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
+                  Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 16),
             )
           : Text(
               history.title.toTitleCase(),
               style:
-                  Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
+                  Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 16),
             ),
       subtitle: Row(
         children: [
           Text(
             history.date!.split(' ')[0],
             style:
-                Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 14),
           ),
           SizedBox(width: innerSpacing / 1.5),
           Text(
             history.date!.split(' ')[1].substring(0, 5),
             style:
-                Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 14),
           ),
           const SizedBox(width: innerSpacing / 4),
           Text(
             history.jm!,
             style:
-                Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 14),
           ),
         ],
       ),
@@ -140,7 +140,7 @@ class HistoryTile extends StatelessWidget {
             : history.memo?.toTitleCase() ?? '',
         style: Theme.of(context)
             .textTheme
-            .bodyText1
+            .bodyText2
             ?.copyWith(fontSize: 14, fontWeight: FontWeight.normal),
       ),
     );

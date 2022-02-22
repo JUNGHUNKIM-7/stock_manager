@@ -12,7 +12,7 @@ import 'inventory_form_field.dart';
 class InventoryForm extends StatelessWidget {
   InventoryForm({Key? key}) : super(key: key);
   final _uuid = const Uuid();
-  final _handler = GSheetHandler();
+  final _handler = SheetHandlerMain();
 
   @override
   Widget build(BuildContext context) {

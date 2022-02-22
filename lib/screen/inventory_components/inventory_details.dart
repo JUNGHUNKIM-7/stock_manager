@@ -85,7 +85,7 @@ class InventoryDetails extends StatelessWidget {
                                       : inventory.title.toTitleCase(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1
+                                      .bodyText2
                                       ?.copyWith(fontSize: 18),
                                 ),
                               ),
@@ -110,7 +110,7 @@ class InventoryDetails extends StatelessWidget {
                                       : inventory.memo.toTitleCase(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1
+                                      .bodyText2
                                       ?.copyWith(fontSize: 18),
                                 ),
                               ),
@@ -134,7 +134,7 @@ class InventoryDetails extends StatelessWidget {
                                       : inventory.qty.toString(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1
+                                      .bodyText2
                                       ?.copyWith(fontSize: 18),
                                 ),
                               ),
@@ -158,7 +158,7 @@ class InventoryDetails extends StatelessWidget {
                                       .substring(0, 10),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1
+                                      .bodyText2
                                       ?.copyWith(fontSize: 18),
                                 ),
                               ),

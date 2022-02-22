@@ -32,7 +32,7 @@ Future<void> runApplication() async {
 }
 
 Future<void> runAppWithNetwork(Map<String, dynamic> boxHandler) async {
-  await GSheetHandler.init(sheetId: boxHandler['sheetId']);
+  await SheetHandlerMain.init(sheetId: boxHandler['sheetId']);
   final fetchedData = await GSheetRepository.getDataMap();
 
   runApp(

@@ -73,7 +73,7 @@ class UserInventoryBtn extends StatelessWidget {
   const UserInventoryBtn({Key? key, required this.theme, required this.handler})
       : super(key: key);
   final ThemeBloc theme;
-  final GSheetHandler handler;
+  final SheetHandlerMain handler;
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +153,7 @@ class PdfMaker extends StatelessWidget {
     required this.handler,
     required this.theme,
   }) : super(key: key);
-  final GSheetHandler handler;
+  final SheetHandlerMain handler;
   final ThemeBloc theme;
 
   @override
@@ -173,7 +173,7 @@ class PdfMaker extends StatelessWidget {
         );
         try {
           final dummyData = await handler.extractIdForQr();
-          final data = await rootBundle.load("assets/open_sans.ttf");
+          final data = await rootBundle.load("assets/CascadiaMonoPL.ttf");
           final myFont = pw.Font.ttf(data);
           final myStyle = pw.TextStyle(font: myFont);
 
@@ -197,7 +197,6 @@ class PdfMaker extends StatelessWidget {
               final convertToQr = dummyData['id']
                   ?.map(
                     (e) => pw.BarcodeWidget(
-                        textStyle: myStyle,
                         data: e,
                         barcode: pw.Barcode.qrCode(),
                         width: 100,
@@ -207,6 +206,7 @@ class PdfMaker extends StatelessWidget {
 
               final qrList = chunk(convertToQr!, 24);
               final titleList = chunk(dummyData['title']!, 24);
+              final memoList = chunk(dummyData['memo']!, 24);
 
               final len = (convertToQr.length / 24).ceil();
               for (var i = 0; i < len; ++i) {
@@ -222,13 +222,19 @@ class PdfMaker extends StatelessWidget {
                             (int idx) {
                               final qr = qrList[i][idx];
                               final title = titleList[i][idx] as String;
+                              final memo = memoList[i][idx] as String;
                               return pw.Column(
                                 children: [
                                   pw.Container(child: qr),
                                   pw.Text(
-                                      title.length > 10
+                                      title.length > 5
                                           ? '${title.substring(0, 5)}..${title.substring(title.length - 5)}'
                                           : title,
+                                      style: myStyle),
+                                  pw.Text(
+                                      memo.length > 5
+                                          ? '${memo.substring(0, 5)}..${memo.substring(memo.length - 5)}'
+                                          : memo,
                                       style: myStyle),
                                 ],
                               );

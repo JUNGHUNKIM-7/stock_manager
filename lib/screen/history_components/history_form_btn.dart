@@ -14,7 +14,7 @@ class SubmitHistory extends StatelessWidget {
     required this.inventory,
   }) : super(key: key);
 
-  final GSheetHandler handler;
+  final SheetHandlerMain handler;
   final Inventory inventory;
 
   @override
@@ -39,11 +39,11 @@ class SubmitHistory extends StatelessWidget {
                                 await _insertOne(
                                     context, combiner, historyFormStream);
                               } else if (DateTime.now().day == 1) {
-                                await GSheetHandler.newMonthEvent();
+                                await SheetHandlerMain.newMonthEvent();
                                 await _insertOne(
                                     context, combiner, historyFormStream);
                               } else if (DateTime.now().month == 1) {
-                                await GSheetHandler.newYearEvent();
+                                await SheetHandlerMain.newYearEvent();
                                 await _insertOne(
                                     context, combiner, historyFormStream);
                               } else {

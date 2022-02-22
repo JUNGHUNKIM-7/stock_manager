@@ -10,7 +10,7 @@ class HistoryBloc extends BaseStreamController<List<History>>
     implements BaseInterface<List<History>>, HistoryBlocInterface {
   HistoryBloc({required state, required this.handler}) : super(state: state);
 
-  final GSheetHandler handler;
+  final SheetHandlerMain handler;
 
   @override
   void dispose() {

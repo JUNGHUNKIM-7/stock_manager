@@ -144,6 +144,11 @@ class Styles {
           color: darkMode ? Styles.lightColor : Styles.darkColor,
           fontWeight: FontWeight.w600,
         ),
+        bodyText2: TextStyle(
+          fontFamily: 'CascadiaMonoPL',
+          fontSize: 16.0,
+          color: darkMode ? Styles.lightColor : Styles.darkColor,
+        ),
       ),
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: darkMode ? Colors.redAccent : Colors.amber,

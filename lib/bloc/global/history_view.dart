@@ -20,7 +20,7 @@ class HistoryViewBloc extends BaseStreamController<List>
     implements BaseInterface<List>, HistoryViewBlocInterface {
   late final BehaviorSubject<List<History>> histories;
   late final BehaviorSubject<List<Inventory>> bookmarks;
-  final GSheetHandler? handler;
+  final SheetHandlerMain? handler;
   final Box? hiveHistoryBox;
   final Box? hiveBookMarkBox;
 

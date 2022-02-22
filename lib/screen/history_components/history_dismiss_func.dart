@@ -9,7 +9,7 @@ import '../../styles.dart';
 
 dismissHistory(
     BuildContext context,
-    GSheetHandler handler,
+    SheetHandlerMain handler,
     History? history,
     HistoryBloc historyBloc,
     InventoryBloc inventoryBloc,
