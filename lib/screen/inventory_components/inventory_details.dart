@@ -29,7 +29,7 @@ class InventoryDetails extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
             child: DarkModeContainer(
-              height: 0.8,
+              height: 0.85,
               reverse: true,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

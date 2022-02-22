@@ -5,7 +5,7 @@ import '../../bloc/constant/provider.dart';
 import '../../screen/global_components/dark_mode_container.dart';
 import '../../screen/global_components/search_field.dart';
 import '../../styles.dart';
-import '../inventory_components/inventory_view.dart';
+import '../inventory_components/inventory_list_view.dart';
 
 class SecondPage extends StatelessWidget {
   const SecondPage({Key? key}) : super(key: key);
@@ -41,7 +41,7 @@ class SecondPage extends StatelessWidget {
               child: DarkModeContainer(
                 theme: theme,
                 height: 0,
-                child: InventoryView(theme: theme),
+                child: InventoryListView(theme: theme),
               ),
             ),
           ),

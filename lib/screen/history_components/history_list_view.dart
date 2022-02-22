@@ -6,10 +6,10 @@ import 'package:stock_manager/screen/global_components/filter_button_generator.d
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
 import '../../utils/string_handler.dart';
-import 'history_cards.dart';
+import 'history_tiles.dart';
 
-class HistoryView extends StatelessWidget {
-  const HistoryView({
+class HistoryListView extends StatelessWidget {
+  const HistoryListView({
     Key? key,
     required this.theme,
   }) : super(key: key);
@@ -50,7 +50,14 @@ class HistoryView extends StatelessWidget {
                 ),
             ],
           );
-        } else if (snapshot.hasData) {
+        } else if (snapshot.hasError) {
+          combiner.chipBloc.dispose();
+          combiner.historyBloc.dispose();
+          combiner.historySearchBloc.dispose();
+          return Center(
+            child: Text(snapshot.error.toString()),
+          );
+        } else {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -59,22 +66,14 @@ class HistoryView extends StatelessWidget {
                 btnType: 'history',
               ),
               Expanded(
-                child: CardListView(
+                child: HistoryTiles(
                   theme: theme,
                   snapshot: snapshot,
                 ),
               ),
             ],
           );
-        } else if (snapshot.hasError) {
-          combiner.chipBloc.dispose();
-          combiner.historyBloc.dispose();
-          combiner.historySearchBloc.dispose();
-          return Center(
-            child: Text(snapshot.error.toString()),
-          );
         }
-        throw Exception('History View ');
       },
     );
   }

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:stock_manager/bloc/global/form_bloc.dart';
-import 'package:stock_manager/database/model/history_model.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
-import '../../database/model/inventory_model.dart';
 import '../../database/repository/gsheet_handler.dart';
 
 class InventorySubmit extends StatelessWidget {
@@ -41,39 +39,9 @@ class InventorySubmit extends StatelessWidget {
                     ),
                   );
                   try {
-                    final newInventory = Inventory(
-                      id: uuid.v4(),
-                      title: snapshot.data?['title'] ?? '',
-                      memo: snapshot.data?['memo'] ?? '',
-                      qty: snapshot.data?['qty'] ?? '0',
-                    );
-
-                    Future<void> insertToInventory() async {
-                      await handler.insertOne(
-                        inventory: Inventory.toMap(newInventory),
-                        type: SheetType.inventory,
-                      );
-                    }
-
-                    Future<void> insertToHistory() async {
-                      await handler.insertOne(
-                          history: History.toMap(
-                            History(
-                                id: newInventory.id,
-                                status: 'n',
-                                title: newInventory.title,
-                                memo: newInventory.memo,
-                                qty: newInventory.qty,
-                                val: newInventory.qty),
-                          ),
-                          type: SheetType.history);
-                    }
-
-                    await Future.wait([insertToHistory(), insertToInventory()])
-                        .whenComplete(() => Future.wait([
-                              combiner.inventoryBloc.reload(),
-                              combiner.historyBloc.reload(),
-                            ]))
+                    await handler
+                        .updateInventorAndHistory(
+                            snapshot: snapshot, uuid: uuid, combiner: combiner)
                         .whenComplete(
                           () => context.goNamed('home'),
                         );

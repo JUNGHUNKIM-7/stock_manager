@@ -46,9 +46,9 @@ class _TabNavHomeState extends State<TabNavHome> {
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,
               floatingActionButton: snapshot.data == 0
-                  ? const ExportToExcelBtn()
+                  ? ExportToTemp()
                   : snapshot.data == 1
-                      ? const QrFloatingBtn()
+                      ? const QrCamera()
                       : null,
               appBar: showAppBar(context, snapshot.data!, theme),
               bottomNavigationBar: const BottomNavBar(),

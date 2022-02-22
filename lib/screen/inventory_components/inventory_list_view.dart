@@ -8,8 +8,8 @@ import '../../screen/global_components/filter_button_generator.dart';
 import '../../utils/string_handler.dart';
 import 'inventory_tile_dummy.dart';
 
-class InventoryView extends StatelessWidget {
-  const InventoryView({
+class InventoryListView extends StatelessWidget {
+  const InventoryListView({
     Key? key,
     this.theme,
   }) : super(key: key);
@@ -58,7 +58,7 @@ class InventoryView extends StatelessWidget {
                 btnType: 'inventory',
               ),
               Expanded(
-                child: InventoryList(
+                child: InventoryTiles(
                   combiner: combiner,
                   snapshot: snapshot,
                   theme: theme,

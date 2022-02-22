@@ -10,8 +10,8 @@ import 'package:stock_manager/database/repository/gsheet_handler.dart';
 import '../../styles.dart';
 import '../../utils/string_handler.dart';
 
-class InventoryList extends StatelessWidget {
-  const InventoryList({
+class InventoryTiles extends StatelessWidget {
+  const InventoryTiles({
     Key? key,
     required this.theme,
     required this.snapshot,
@@ -29,7 +29,7 @@ class InventoryList extends StatelessWidget {
           vertical: innerSpacing, horizontal: innerSpacing),
       itemCount: snapshot.data!.length,
       itemBuilder: (context, idx) {
-        return DismissibleWrapper(
+        return InventoryTile(
           theme: theme,
           snapshot: snapshot,
           idx: idx,
@@ -47,8 +47,8 @@ class InventoryList extends StatelessWidget {
   }
 }
 
-class DismissibleWrapper extends StatelessWidget {
-  const DismissibleWrapper({
+class InventoryTile extends StatelessWidget {
+  const InventoryTile({
     Key? key,
     required this.snapshot,
     required this.idx,

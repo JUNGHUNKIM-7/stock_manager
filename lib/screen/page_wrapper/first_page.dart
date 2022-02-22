@@ -5,7 +5,7 @@ import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
 import '../../screen/global_components/dark_mode_container.dart';
 import '../../screen/history_components/history_chips.dart';
-import '../../screen/history_components/history_view.dart';
+import '../../screen/history_components/history_list_view.dart';
 import '../../styles.dart';
 import '../global_components/search_field.dart';
 
@@ -66,7 +66,7 @@ class FirstPage extends StatelessWidget {
               child: DarkModeContainer(
                 theme: theme,
                 height: 0,
-                child: HistoryView(theme: theme),
+                child: HistoryListView(theme: theme),
               ),
             ),
           ),

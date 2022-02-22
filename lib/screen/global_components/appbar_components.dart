@@ -95,7 +95,7 @@ class UserInventoryBtn extends StatelessWidget {
         );
         try {
           await handler
-              .moveToInventoryAndBackUp()
+              .updateInventoryAndHistoryWithBackup()
               .whenComplete(() => Future.wait([
                     historyBloc.reload(),
                     inventoryBloc.reload(),

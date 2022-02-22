@@ -5,8 +5,8 @@ import 'package:stock_manager/bloc/constant/provider.dart';
 import 'package:stock_manager/database/model/history_model.dart';
 import 'package:stock_manager/database/repository/gsheet_handler.dart';
 
-class QrFloatingBtn extends StatelessWidget {
-  const QrFloatingBtn({
+class QrCamera extends StatelessWidget {
+  const QrCamera({
     Key? key,
   }) : super(key: key);
 
@@ -21,15 +21,16 @@ class QrFloatingBtn extends StatelessWidget {
   }
 }
 
-class ExportToExcelBtn extends StatelessWidget {
-  const ExportToExcelBtn({
+class ExportToTemp extends StatelessWidget {
+  ExportToTemp({
     Key? key,
   }) : super(key: key);
+
+  final handler = GSheetHandler();
 
   @override
   Widget build(BuildContext context) {
     final combiner = BlocProvider.of<BlocsCombiner>(context);
-    final _handler = GSheetHandler();
 
     return StreamBuilder<List<History>>(
         stream: combiner.filterHisByStatus,
@@ -59,16 +60,12 @@ class ExportToExcelBtn extends StatelessWidget {
                                   duration: const Duration(seconds: 1),
                                 ),
                               );
-                              await GSheetHandler.makeHistorySheet(
-                                  SheetType.temp,
-                                  chipSnapShot.data,
-                                  yearSnapShot.data);
-                              for (var element
-                                  in (historySnapShot.data as List<History>)) {
-                                await _handler.insertOne(
-                                    history: History.toMap(element),
-                                    type: SheetType.temp);
-                              }
+
+                              await handler.saveHistoryStreamToTempFile(
+                                  chipSnapShot: chipSnapShot,
+                                  yearSnapShot: yearSnapShot,
+                                  historySnapShot: historySnapShot);
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor: Colors.green[600],
