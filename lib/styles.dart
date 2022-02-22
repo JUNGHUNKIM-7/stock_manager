@@ -104,9 +104,9 @@ class Styles {
   ThemeData themeMain() {
     return ThemeData(
       errorColor: darkMode ? Colors.orangeAccent : Colors.pinkAccent,
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: Colors.black26,
-        foregroundColor: Colors.white,
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: darkMode ? Colors.red[400] : Colors.orange[400],
+        foregroundColor: darkMode ? Styles.lightColor : Styles.darkColor,
       ),
       appBarTheme: darkMode ? appbarDark : appbarLight,
       drawerTheme: darkMode

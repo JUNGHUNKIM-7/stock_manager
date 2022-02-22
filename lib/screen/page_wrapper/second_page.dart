@@ -23,7 +23,7 @@ class SecondPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
           child: DarkModeContainer(
-            height: height * 0.00012,
+            height: height * 0.0001,
             theme: theme,
             child: const SearchField(
               type: 'inventory',

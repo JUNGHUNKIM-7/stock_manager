@@ -50,7 +50,11 @@ class HistoryTiles extends StatelessWidget {
               return await dismissHistory(
                   context, handler, history, historyBloc, inventoryBloc, theme);
             },
-            child: HistoryTile(history: history!),
+            child: StreamBuilder<bool>(
+                stream: theme.stream,
+                builder: (context, snapshot) {
+                  return HistoryTile(snapshot: snapshot, history: history!);
+                }),
           ),
         );
       },
@@ -67,9 +71,11 @@ class HistoryTiles extends StatelessWidget {
 class HistoryTile extends StatelessWidget {
   const HistoryTile({
     Key? key,
+    required this.snapshot,
     required this.history,
   }) : super(key: key);
 
+  final AsyncSnapshot<bool> snapshot;
   final History history;
 
   @override
@@ -81,24 +87,40 @@ class HistoryTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           history.status.toLowerCase() == 'y'
-              ? Icon(
-                  Icons.local_shipping_outlined,
-                  color: Colors.cyanAccent,
-                  size: 26,
-                )
-              : Icon(
-                  Icons.add_business,
-                  color: Colors.limeAccent,
-                  size: 26,
-                ),
+              ? snapshot.data ?? false
+                  ? Icon(
+                      Icons.local_shipping_outlined,
+                      color: Colors.redAccent,
+                      size: 26,
+                    )
+                  : Icon(
+                      Icons.local_shipping_outlined,
+                      color: Colors.amber,
+                      size: 26,
+                    )
+              : snapshot.data ?? false
+                  ? Icon(
+                      Icons.add_business,
+                      color: Colors.amber,
+                      size: 26,
+                    )
+                  : Icon(
+                      Icons.add_business,
+                      color: Colors.redAccent,
+                      size: 26,
+                    ),
           Text(
             history.val.toString(),
             style: Theme.of(context).textTheme.bodyText2?.copyWith(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: history.status == 'y'
-                    ? Colors.cyanAccent
-                    : Colors.limeAccent),
+                    ? snapshot.data ?? false
+                        ? Colors.redAccent
+                        : Colors.amber
+                    : snapshot.data ?? false
+                        ? Colors.amber
+                        : Colors.redAccent),
           ),
         ],
       ),

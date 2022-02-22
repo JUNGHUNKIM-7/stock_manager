@@ -54,7 +54,8 @@ class HistoryDetails extends StatelessWidget {
                       theme: theme,
                       height: 0.50,
                       reverse: true,
-                      child: StreamByStatusWrapper(history: history),
+                      child: StreamByStatusWrapper(
+                          snapshot: snapshot, history: history),
                     ),
                   ],
                 ),
@@ -69,9 +70,11 @@ class StreamByStatusWrapper extends StatelessWidget {
   const StreamByStatusWrapper({
     Key? key,
     required this.history,
+    required this.snapshot,
   }) : super(key: key);
 
   final History history;
+  final AsyncSnapshot<bool> snapshot;
 
   @override
   Widget build(BuildContext context) {
@@ -84,30 +87,37 @@ class StreamByStatusWrapper extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.add_business, color: Colors.limeAccent),
+                  Icon(Icons.add_business,
+                      color: snapshot.data ?? false
+                          ? Colors.amber
+                          : Colors.redAccent),
                   const SizedBox(width: innerSpacing),
                   Text(
                     'in'.toUpperCase(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline2
-                        ?.copyWith(fontSize: 16, color: Colors.limeAccent),
+                    style: Theme.of(context).textTheme.headline2?.copyWith(
+                        fontSize: 16,
+                        color: snapshot.data ?? false
+                            ? Colors.amber
+                            : Colors.redAccent),
                   ),
                 ],
               ),
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.local_shipping_outlined,
-                    color: Colors.cyanAccent,
+                    color: snapshot.data ?? false
+                        ? Colors.redAccent
+                        : Colors.amber,
                   ),
                   const SizedBox(width: innerSpacing),
                   Text(
                     'out'.toUpperCase(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline2
-                        ?.copyWith(fontSize: 16, color: Colors.cyanAccent),
+                    style: Theme.of(context).textTheme.headline2?.copyWith(
+                        fontSize: 16,
+                        color: snapshot.data ?? false
+                            ? Colors.redAccent
+                            : Colors.amber),
                   ),
                 ],
               )
@@ -199,13 +209,8 @@ class OutWidget extends StatelessWidget {
               style:
                   Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 14),
             ),
-            trailing: Text(
-              item.val.toString(),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2
-                  ?.copyWith(color: Colors.cyanAccent),
-            ),
+            trailing: Text(item.val.toString(),
+                style: Theme.of(context).textTheme.bodyText2),
           );
         },
         separatorBuilder: (context, idx) {
@@ -242,13 +247,8 @@ class InWidget extends StatelessWidget {
               style:
                   Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 14),
             ),
-            trailing: Text(
-              item.val.toString(),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2
-                  ?.copyWith(color: Colors.limeAccent),
-            ),
+            trailing: Text(item.val.toString(),
+                style: Theme.of(context).textTheme.bodyText2),
           );
         },
         separatorBuilder: (context, idx) {

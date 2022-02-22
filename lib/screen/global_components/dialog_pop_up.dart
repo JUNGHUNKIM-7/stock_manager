@@ -119,16 +119,28 @@ class DialogPopUp extends StatelessWidget {
                                             ? Styles.darkColor
                                             : Styles.lightColor)),
                         leading: history.status == 'y'
-                            ? Icon(
-                                Icons.local_shipping_outlined,
-                                color: Colors.cyanAccent,
-                                size: 26,
-                              )
-                            : Icon(
-                                Icons.add_business,
-                                color: Colors.limeAccent,
-                                size: 26,
-                              ),
+                            ? snapshot.data ?? false
+                                ? Icon(
+                                    Icons.local_shipping_outlined,
+                                    color: Colors.redAccent,
+                                    size: 26,
+                                  )
+                                : Icon(
+                                    Icons.local_shipping_outlined,
+                                    color: Colors.amber,
+                                    size: 26,
+                                  )
+                            : snapshot.data ?? false
+                                ? Icon(
+                                    Icons.add_business,
+                                    color: Colors.amber,
+                                    size: 26,
+                                  )
+                                : Icon(
+                                    Icons.add_business,
+                                    color: Colors.redAccent,
+                                    size: 26,
+                                  ),
                         onTap: () =>
                             context.goNamed('historyDetails', extra: history),
                       );

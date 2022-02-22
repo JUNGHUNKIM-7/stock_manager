@@ -53,14 +53,24 @@ dismissHistory(
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                         history?.status == 'y'
-                            ? const Icon(
-                                Icons.local_shipping_outlined,
-                                color: Colors.cyanAccent,
-                              )
-                            : const Icon(
-                                Icons.add_business,
-                                color: Colors.limeAccent,
-                              ),
+                            ? snapshot.data ?? false
+                                ? const Icon(
+                                    Icons.local_shipping_outlined,
+                                    color: Colors.redAccent,
+                                  )
+                                : const Icon(
+                                    Icons.local_shipping_outlined,
+                                    color: Colors.amber,
+                                  )
+                            : snapshot.data ?? false
+                                ? const Icon(
+                                    Icons.add_business,
+                                    color: Colors.amber,
+                                  )
+                                : const Icon(
+                                    Icons.add_business,
+                                    color: Colors.redAccent,
+                                  ),
                         Text(
                           ' (${history?.status == 'y' ? 'Out' : 'In'})',
                           style: Theme.of(context).textTheme.bodyText2,
