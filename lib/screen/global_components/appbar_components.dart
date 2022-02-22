@@ -8,6 +8,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:stock_manager/bloc/constant/provider.dart';
 import 'package:stock_manager/bloc/global/theme_bloc.dart';
 import 'package:stock_manager/styles.dart';
+import 'package:stock_manager/utils/move_file.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../database/repository/gsheet_handler.dart';
@@ -251,6 +252,8 @@ class PdfMaker extends StatelessWidget {
               final file = File(
                   '${output}/qr_code-${DateTime.now().millisecondsSinceEpoch}.pdf');
               await file.writeAsBytes(await doc.save());
+              await moveFile(file,
+                  '/storage/emulated/0/Download/qr_code-${DateTime.now().millisecondsSinceEpoch}.pdf');
 
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -280,18 +283,19 @@ class PdfMaker extends StatelessWidget {
             }
           }
         } catch (e) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: Colors.red[600],
-              content: Text(
-                'Failed to Export Qr Code : Fetching Data Error',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline4
-                    ?.copyWith(fontSize: 14),
-              ),
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     backgroundColor: Colors.red[600],
+          //     content: Text(
+          //       'Failed to Export Qr Code : Fetching Data Error',
+          //       style: Theme.of(context)
+          //           .textTheme
+          //           .headline4
+          //           ?.copyWith(fontSize: 14),
+          //     ),
+          //   ),
+          // );
+          print(e);
         }
       },
       icon: StreamBuilder<bool>(
