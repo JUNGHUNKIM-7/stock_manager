@@ -101,13 +101,10 @@ dismissHistory(
                       if (history.status == 'y') {
                         try {
                           await handler
-                              .updateOne(
-                                  history.id,
-                                  'qty',
-                                  history.val + int.parse(nowVal),
-                                  SheetType.inventory)
-                              .whenComplete(() => handler.deleteOne(
-                                  history.id, SheetType.history))
+                              .deleteAndUpdateQty(
+                                history: history,
+                                nowVal: nowVal,
+                              )
                               .whenComplete(() => Future.wait([
                                     historyBloc.reload(),
                                     inventoryBloc.reload()
@@ -142,13 +139,10 @@ dismissHistory(
                       } else {
                         try {
                           await handler
-                              .updateOne(
-                                  history.id,
-                                  'qty',
-                                  int.parse(nowVal) - history.val,
-                                  SheetType.inventory)
-                              .whenComplete(() => handler.deleteOne(
-                                  history.id, SheetType.history))
+                              .deleteAndUpdateQty(
+                                  history: history,
+                                  nowVal: nowVal,
+                                  workingType: 'subtract')
                               .whenComplete(() => Future.wait([
                                     historyBloc.reload(),
                                     inventoryBloc.reload()

@@ -41,7 +41,11 @@ class InventorySubmit extends StatelessWidget {
                   try {
                     await handler
                         .updateInventorAndHistory(
-                            snapshot: snapshot, uuid: uuid, combiner: combiner)
+                            snapshot: snapshot, uuid: uuid)
+                        .whenComplete(() => Future.wait([
+                              combiner.inventoryBloc.reload(),
+                              combiner.historyBloc.reload(),
+                            ]))
                         .whenComplete(
                           () => context.goNamed('home'),
                         );
