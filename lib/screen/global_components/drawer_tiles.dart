@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:stock_manager/styles.dart';
 
 import '../../app.dart';
@@ -435,32 +434,39 @@ class TimeZoneTile extends StatelessWidget {
   }
 }
 
-class ManualTile extends StatelessWidget {
-  const ManualTile({Key? key, required this.themeSnapshot}) : super(key: key);
+class HeaderTile extends StatelessWidget {
+  const HeaderTile({
+    Key? key,
+    required this.themeSnapshot,
+    required this.icon,
+    required this.text,
+    required this.onTap,
+  }) : super(key: key);
   final AsyncSnapshot<bool> themeSnapshot;
+  final IconData icon;
+  final String text;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: themeSnapshot.data ?? false
           ? Icon(
-              Icons.menu_book,
+              icon,
               color: Styles.lightColor,
             )
           : Icon(
-              Icons.menu_book,
+              icon,
               color: Styles.darkColor,
             ),
       title: Text(
-        'Starting Guide',
+        text,
         style: Theme.of(context)
             .textTheme
             .headline3
             ?.copyWith(fontSize: 16, letterSpacing: 0.6),
       ),
-      onTap: () {
-        context.goNamed('manual');
-      },
+      onTap: onTap,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:stock_manager/bloc/constant/blocs_combiner.dart';
 import 'package:stock_manager/bloc/constant/provider.dart';
 import 'package:stock_manager/screen/global_components/dark_mode_toggle.dart';
@@ -29,7 +30,26 @@ class SettingsDrawer extends StatelessWidget {
                 Header(themeSnapshot: themeSnapshot),
                 Column(
                   children: [
-                    ManualTile(themeSnapshot: themeSnapshot),
+                    HeaderTile(
+                      themeSnapshot: themeSnapshot,
+                      icon: Icons.menu_book,
+                      text: 'Starting Guide',
+                      onTap: () {
+                        context.goNamed('manual');
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[700],
+                      thickness: 1.0,
+                    ),
+                    HeaderTile(
+                      themeSnapshot: themeSnapshot,
+                      icon: Icons.search,
+                      text: 'Features',
+                      onTap: () {
+                        context.goNamed('features');
+                      },
+                    ),
                     Divider(
                       color: Colors.grey[700],
                       thickness: 1.0,
@@ -89,7 +109,7 @@ class DarkModeStatus extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return Text(
-                      snapshot.data ?? false ? 'Dark Mode' : 'Light Mode',
+                      snapshot.data ?? false ? 'Light Mode' : 'Dark Mode',
                       style: Theme.of(context)
                           .textTheme
                           .headline3

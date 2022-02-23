@@ -59,7 +59,7 @@ class FilterButtonWithStream extends StatelessWidget {
                   ? ButtonStyle(
                       backgroundColor: themeSnapShot.data == true
                           ? MaterialStateProperty.all(Colors.redAccent)
-                          : MaterialStateProperty.all(Colors.orangeAccent),
+                          : MaterialStateProperty.all(Colors.amber),
                     )
                   : ButtonStyle(
                       backgroundColor:

@@ -6,6 +6,7 @@ import 'package:stock_manager/screen/history_components/history_details.dart';
 import 'package:stock_manager/screen/history_components/history_form.dart';
 import 'package:stock_manager/screen/inventory_components/inventory_details.dart';
 import 'package:stock_manager/screen/inventory_components/inventory_form_group.dart';
+import 'package:stock_manager/screen/markdown/features_markdown.dart';
 import 'package:stock_manager/screen/markdown/manual_markdown.dart';
 import 'package:stock_manager/screen/qr_camera_components/qr_camera.dart';
 
@@ -23,7 +24,12 @@ class PageRouter {
       GoRoute(
         name: 'manual',
         path: '/manual',
-        builder: (context, state) => const MarkDownManual(),
+        builder: (context, state) => const ManualMarkdown(),
+      ),
+      GoRoute(
+        name: 'features',
+        path: '/features',
+        builder: (context, state) => const FeaturesMarkdown(),
       ),
       GoRoute(
         name: 'historyDetails',

@@ -29,7 +29,7 @@ class MainHeader extends StatelessWidget {
               return Text(
                 title,
                 style: Theme.of(context).textTheme.headline1?.copyWith(
-                      fontSize: 20,
+                      fontSize: 26,
                       color: snapshot.data! == true
                           ? Styles.lightColor
                           : Styles.darkColor,

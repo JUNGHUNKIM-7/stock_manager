@@ -1,66 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:stock_manager/screen/global_components/appbar_wrapper.dart';
 import 'package:stock_manager/styles.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-class MarkDownManual extends StatelessWidget {
-  const MarkDownManual({Key? key}) : super(key: key);
+import 'markdown_util_func.dart';
+
+class ManualMarkdown extends StatelessWidget {
+  const ManualMarkdown({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: showAppBarWithBackBtn(context: context, typeOfForm: 'manual'),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
-            child: MarkdownBody(
-                styleSheet: MarkdownStyleSheet(
-                  textAlign: WrapAlignment.spaceBetween,
-                  code: GoogleFonts.jetBrainsMono(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                  p: Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      ?.copyWith(fontSize: 16, color: Colors.black),
-                  codeblockDecoration: (BoxDecoration(
-                    color: Colors.red,
-                  )),
-                  codeblockPadding: EdgeInsets.all(5),
-                  h1: Theme.of(context)
-                      .textTheme
-                      .headline3
-                      ?.copyWith(fontSize: 24),
-                  h1Align: WrapAlignment.center,
-                  h2: Theme.of(context)
-                      .textTheme
-                      .headline2
-                      ?.copyWith(fontSize: 20),
-                  h3: Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      ?.copyWith(fontSize: 18),
-                  h4: Theme.of(context)
-                      .textTheme
-                      .bodyText2
-                      ?.copyWith(fontSize: 16),
-                  a: Theme.of(context)
-                      .textTheme
-                      .bodyText2
-                      ?.copyWith(fontSize: 16, color: Colors.red),
-                ),
-                onTapLink: (text, href, title) {
-                  href != null ? launch(href) : null;
-                },
+    return SafeArea(
+      child: Scaffold(
+        appBar: showAppBarWithBackBtn(context: context, typeOfForm: 'manual'),
+        body: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
+              child: MarkdownBody(
+                styleSheet: markdownBase(context),
+                onTapLink: linkUrl,
                 data: """
 # The Guide of Linking Sheet to App
 ### 
 ### 
+### 
+**That is essential steps for running the app**
 ### 
 
 ## 1. Set your Timezone 
@@ -94,17 +59,19 @@ docs.google.com/spreadsheets/d/ "YOUR SHEET ID" /edit#gid=...
 
 ## 4. Share Document
 * Add your google service account to your sheet you made
-        """),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: outerSpacing, vertical: innerSpacing),
-            child: Image(
-              image: AssetImage('assets/manual/share.png'),
-              fit: BoxFit.contain,
+          """,
+              ),
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: outerSpacing, vertical: innerSpacing),
+              child: Image(
+                image: AssetImage('assets/manual/share.png'),
+                fit: BoxFit.contain,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

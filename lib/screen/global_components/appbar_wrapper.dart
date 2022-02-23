@@ -58,8 +58,7 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
     default:
       return AppBar(
           automaticallyImplyLeading: false,
-          leading:
-              Builder(builder: (context) => Settings(theme: theme)),
+          leading: Builder(builder: (context) => Settings(theme: theme)),
           actions: [
             DarkModeToggle(
               iconSize: 25,
@@ -107,33 +106,32 @@ AppBar showAppBarWithBackBtn({
           width: 4.0,
         ),
       ],
-      title: typeOfForm == 'history'
-          ? Text(
-              'History    Form'.toUpperCase(),
-              style:
-                  Theme.of(context).textTheme.headline1?.copyWith(fontSize: 18),
-            )
-          : typeOfForm == 'inventory'
-              ? Text(
-                  'Inventory    Form'.toUpperCase(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline1
-                      ?.copyWith(fontSize: 18),
-                )
-              : typeOfForm == 'historyDetails'
-                  ? Text(
-                      'History  Details'.toUpperCase(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1
-                          ?.copyWith(fontSize: 18),
-                    )
-                  : Text(
-                      'Manual'.toUpperCase(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1
-                          ?.copyWith(fontSize: 18),
-                    ),
+      title: returnTextWidget(context, typeOfForm!),
     );
+
+Widget returnTextWidget(BuildContext context, String typeOfForm) {
+  Widget _textWidget(String text) {
+    return Text(
+      text.toUpperCase(),
+      style: Theme.of(context).textTheme.headline1?.copyWith(fontSize: 18),
+    );
+  }
+
+  switch (typeOfForm) {
+    case 'history':
+      return _textWidget('History   Form');
+    case 'inventory':
+      return _textWidget('Inventory   Form');
+    case 'historyDetails':
+      return _textWidget('History   Details');
+    case 'manual':
+      return _textWidget('Manual');
+    case 'Features':
+      return _textWidget('Features');
+    default:
+      return Text(
+        typeOfForm.toUpperCase(),
+        style: Theme.of(context).textTheme.headline1?.copyWith(fontSize: 18),
+      );
+  }
+}

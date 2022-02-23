@@ -20,6 +20,7 @@ class PanelMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
+
     if (historyViewBlocEnum == PanelEnum.history) {
       final historyPanel = BlocProvider.of<BlocsCombiner>(context).historyView;
       return StreamBuilder(
@@ -37,6 +38,7 @@ class PanelMain extends StatelessWidget {
           });
     } else if (historyViewBlocEnum == PanelEnum.inventory) {
       final bookMarkView = BlocProvider.of<BlocsCombiner>(context).bookMarkView;
+
       return StreamBuilder(
           stream: bookMarkView.bookMarkStream,
           builder: (context, AsyncSnapshot<List<Inventory>> snapshot) {
@@ -84,7 +86,7 @@ class PanelDialog extends StatelessWidget {
                   animationDuration: const Duration(milliseconds: 200),
                   position: BadgePosition.topEnd(top: 2, end: 4),
                   badgeColor:
-                      snapshot.data! ? Colors.redAccent : Colors.orangeAccent,
+                      snapshot.data! ? Colors.redAccent : Colors.amber,
                   badgeContent: Text(
                     historyViewSnapShot!.data!.length.toString(),
                     style: Theme.of(context)
@@ -126,7 +128,7 @@ class PanelDialog extends StatelessWidget {
                   animationDuration: const Duration(milliseconds: 200),
                   position: BadgePosition.topEnd(top: 2, end: 4),
                   badgeColor:
-                      snapshot.data! ? Colors.redAccent : Colors.orangeAccent,
+                      snapshot.data! ? Colors.redAccent : Colors.amber,
                   badgeContent: Text(
                     bookMarkViewSnapShot!.data!.length.toString(),
                     style: Theme.of(context)

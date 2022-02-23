@@ -74,8 +74,8 @@ class StatusSwitch extends StatelessWidget {
                     ?.copyWith(fontSize: 20),
               ),
             Switch(
-              inactiveTrackColor: Colors.orange[400],
-              activeColor: Colors.red[400],
+              inactiveTrackColor: Colors.amber,
+              activeColor: Colors.redAccent,
               value: snapshot.data == 'y' ? true : false,
               onChanged: (bool value) {
                 if (value == true) {

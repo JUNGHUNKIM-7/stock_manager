@@ -92,7 +92,7 @@ class Styles {
 
   static const bottomNavDark = BottomNavigationBarThemeData(
     backgroundColor: Colors.black26,
-    selectedItemColor: Colors.orangeAccent,
+    selectedItemColor: Colors.amber,
     unselectedItemColor: darkColor,
     elevation: 0,
   );
@@ -103,9 +103,9 @@ class Styles {
 
   ThemeData themeMain() {
     return ThemeData(
-      errorColor: darkMode ? Colors.orangeAccent : Colors.pinkAccent,
+      errorColor: darkMode ? Colors.amber : Colors.pinkAccent,
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: darkMode ? Colors.red[400] : Colors.orange[400],
+        backgroundColor: darkMode ? Colors.redAccent : Colors.amber,
         foregroundColor: darkMode ? Styles.lightColor : Styles.darkColor,
       ),
       appBarTheme: darkMode ? appbarDark : appbarLight,
@@ -121,8 +121,8 @@ class Styles {
               suffixIconColor: Colors.redAccent,
             )
           : const InputDecorationTheme(
-              iconColor: Colors.orangeAccent,
-              suffixIconColor: Colors.orangeAccent,
+              iconColor: Colors.amber,
+              suffixIconColor: Colors.amber,
             ),
       bottomNavigationBarTheme: returnBottomTheme(),
       textTheme: TextTheme(
