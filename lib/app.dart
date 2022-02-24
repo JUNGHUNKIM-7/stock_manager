@@ -64,7 +64,7 @@ class App extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           routerDelegate: router.routerDelegate,
           routeInformationParser: router.routeInformationParser,
-          title: 'Stock Manager',
+          title: 'Qr Sheet Stock Manager',
         ),
       ),
     );
