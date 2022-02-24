@@ -27,7 +27,7 @@ class FirstPage extends StatelessWidget {
               Expanded(
                 child: DarkModeContainer(
                   theme: theme,
-                  height: height * 0.0001,
+                  height: height * 0.00011,
                   child: const SearchField(
                     type: 'history',
                     hintText: 'Get History By Item',
@@ -52,7 +52,7 @@ class FirstPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
           child: DarkModeContainer(
             theme: theme,
-            height: height * 0.00008,
+            height: height * 0.0001,
             child: const Chips(),
           ),
         ),

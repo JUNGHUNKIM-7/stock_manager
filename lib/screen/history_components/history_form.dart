@@ -56,7 +56,7 @@ class HistoryForm extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: outerSpacing * 2,
+              height: outerSpacing,
             ),
             Center(
               child: SubmitHistory(handler: _handler, inventory: inventory),

@@ -105,7 +105,7 @@ class FeaturesMarkdown extends StatelessWidget {
             BodyForFeatures(data: """
 ## 2. Qr Scanner
 ### 2-1. You can find Qr code in both the inventory details and PDF file
-### 2-2. This button will make PDF file which contains your Qr Codes based on your current inventory to your cellphone storage.
+### 2-2. This button will make PDF file which contains Qr Codes based on your current inventory to your cellphone storage.
             """),
             SizedBox(
               height: innerSpacing,
