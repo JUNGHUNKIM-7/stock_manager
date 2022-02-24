@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:stock_manager/screen/global_components/appbar_wrapper.dart';
-import 'package:stock_manager/styles.dart';
+import 'package:qr_sheet_stock_manager/screen/global_components/appbar_wrapper.dart';
+import 'package:qr_sheet_stock_manager/styles.dart';
 
 import 'markdown_util_func.dart';
 

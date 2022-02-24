@@ -5,10 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:stock_manager/bloc/constant/provider.dart';
-import 'package:stock_manager/bloc/global/theme_bloc.dart';
-import 'package:stock_manager/styles.dart';
-import 'package:stock_manager/utils/move_file.dart';
+import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
+import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
+import 'package:qr_sheet_stock_manager/styles.dart';
+import 'package:qr_sheet_stock_manager/utils/move_file.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../database/repository/gsheet_handler.dart';
@@ -71,7 +71,8 @@ class Settings extends StatelessWidget {
 }
 
 class InputUserInventory extends StatelessWidget {
-  const InputUserInventory({Key? key, required this.theme, required this.handler})
+  const InputUserInventory(
+      {Key? key, required this.theme, required this.handler})
       : super(key: key);
   final ThemeBloc theme;
   final SheetHandlerMain handler;
@@ -228,12 +229,12 @@ class PdfMaker extends StatelessWidget {
                                 children: [
                                   pw.Container(child: qr),
                                   pw.Text(
-                                      title.length > 5
+                                      title.length > 10
                                           ? '${title.substring(0, 5)}..${title.substring(title.length - 5)}'
                                           : title,
                                       style: myStyle),
                                   pw.Text(
-                                      memo.length > 5
+                                      memo.length > 10
                                           ? '${memo.substring(0, 5)}..${memo.substring(memo.length - 5)}'
                                           : memo,
                                       style: myStyle),

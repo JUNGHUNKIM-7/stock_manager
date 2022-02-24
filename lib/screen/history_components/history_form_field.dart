@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stock_manager/bloc/global/form_bloc.dart';
-import 'package:stock_manager/screen/global_components/dark_mode_container.dart';
+import 'package:qr_sheet_stock_manager/bloc/global/form_bloc.dart';
+import 'package:qr_sheet_stock_manager/screen/global_components/dark_mode_container.dart';
 
 import '../../styles.dart';
 

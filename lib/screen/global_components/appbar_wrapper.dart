@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:stock_manager/bloc/global/form_bloc.dart';
-import 'package:stock_manager/bloc/global/history_view.dart';
-import 'package:stock_manager/bloc/global/theme_bloc.dart';
+import 'package:qr_sheet_stock_manager/bloc/global/form_bloc.dart';
+import 'package:qr_sheet_stock_manager/bloc/global/history_view.dart';
+import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../database/repository/gsheet_handler.dart';

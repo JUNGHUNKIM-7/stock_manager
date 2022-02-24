@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:qr_sheet_stock_manager/bloc/constant/base_controller.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:stock_manager/bloc/constant/base_controller.dart';
 
 enum FormFields { title, memo, qty, status, val }
 

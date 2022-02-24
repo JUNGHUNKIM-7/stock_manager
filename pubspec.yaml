@@ -1,4 +1,4 @@
-name: stock_manager
+name: qr_sheet_stock_manager
 description: for stock management with google sheet & qr code.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -46,6 +46,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
+  remove_alpha_ios : true
   image_path: "assets/app_logo.png"
 
   flutter_lints: ^1.0.0

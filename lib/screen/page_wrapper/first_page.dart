@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stock_manager/screen/history_components/years_picker.dart';
+import 'package:qr_sheet_stock_manager/screen/history_components/years_picker.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';

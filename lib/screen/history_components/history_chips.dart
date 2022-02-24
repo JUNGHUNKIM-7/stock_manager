@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stock_manager/bloc/history/chip_bloc.dart';
-import 'package:stock_manager/styles.dart';
+import 'package:qr_sheet_stock_manager/bloc/history/chip_bloc.dart';
+import 'package:qr_sheet_stock_manager/styles.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:stock_manager/bloc/constant/base_controller.dart';
+import 'package:qr_sheet_stock_manager/bloc/constant/base_controller.dart';
 
 abstract class HistorySearchBlocInterface {
   void onChanged(String val);

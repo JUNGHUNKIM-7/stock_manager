@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stock_manager/bloc/global/form_bloc.dart';
+import 'package:qr_sheet_stock_manager/bloc/global/form_bloc.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';

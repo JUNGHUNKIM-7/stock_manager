@@ -1,10 +1,10 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:stock_manager/bloc/constant/blocs_combiner.dart';
-import 'package:stock_manager/bloc/constant/provider.dart';
-import 'package:stock_manager/bloc/global/history_view.dart';
-import 'package:stock_manager/bloc/global/theme_bloc.dart';
-import 'package:stock_manager/styles.dart';
+import 'package:qr_sheet_stock_manager/bloc/constant/blocs_combiner.dart';
+import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
+import 'package:qr_sheet_stock_manager/bloc/global/history_view.dart';
+import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
+import 'package:qr_sheet_stock_manager/styles.dart';
 
 import '../../database/model/history_model.dart';
 import '../../database/model/inventory_model.dart';
@@ -85,8 +85,7 @@ class PanelDialog extends StatelessWidget {
                   animationType: BadgeAnimationType.scale,
                   animationDuration: const Duration(milliseconds: 200),
                   position: BadgePosition.topEnd(top: 2, end: 4),
-                  badgeColor:
-                      snapshot.data! ? Colors.redAccent : Colors.amber,
+                  badgeColor: snapshot.data! ? Colors.redAccent : Colors.amber,
                   badgeContent: Text(
                     historyViewSnapShot!.data!.length.toString(),
                     style: Theme.of(context)
@@ -127,8 +126,7 @@ class PanelDialog extends StatelessWidget {
                   animationType: BadgeAnimationType.scale,
                   animationDuration: const Duration(milliseconds: 200),
                   position: BadgePosition.topEnd(top: 2, end: 4),
-                  badgeColor:
-                      snapshot.data! ? Colors.redAccent : Colors.amber,
+                  badgeColor: snapshot.data! ? Colors.redAccent : Colors.amber,
                   badgeContent: Text(
                     bookMarkViewSnapShot!.data!.length.toString(),
                     style: Theme.of(context)

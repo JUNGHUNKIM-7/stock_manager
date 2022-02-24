@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:stock_manager/bloc/constant/blocs_combiner.dart';
-import 'package:stock_manager/bloc/constant/provider.dart';
-import 'package:stock_manager/bloc/global/theme_bloc.dart';
-import 'package:stock_manager/database/model/history_model.dart';
-import 'package:stock_manager/database/repository/gsheet_handler.dart';
-import 'package:stock_manager/screen/inventory_components/inventory_tile_dummy.dart';
+import 'package:qr_sheet_stock_manager/bloc/constant/blocs_combiner.dart';
+import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
+import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
+import 'package:qr_sheet_stock_manager/database/model/history_model.dart';
+import 'package:qr_sheet_stock_manager/database/repository/gsheet_handler.dart';
+import 'package:qr_sheet_stock_manager/screen/inventory_components/inventory_tile_dummy.dart';
 
 import '../../styles.dart';
 import '../../utils/string_handler.dart';
@@ -158,7 +158,7 @@ class HistoryTile extends StatelessWidget {
       ),
       trailing: Text(
         (history.memo ?? '').length > 10
-            ? '${history.memo?.substring(0, 10).toTitleCase()}...${history.memo?.substring(history.memo!.length - 3, history.memo?.length).toTitleCase()}'
+            ? '${history.memo?.substring(0, 4).toTitleCase()}...${history.memo?.substring(history.memo!.length - 3, history.memo?.length).toTitleCase()}'
             : history.memo?.toTitleCase() ?? '',
         style: Theme.of(context)
             .textTheme

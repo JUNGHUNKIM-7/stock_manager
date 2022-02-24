@@ -46,3 +46,6 @@ app.*.map.json
 /android/app/
 /todo.md
 /ref.md
+
+key.properties
+app/upload_keystore.jks
