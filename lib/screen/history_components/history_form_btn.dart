@@ -55,7 +55,7 @@ class SubmitHistory extends StatelessWidget {
                                 SnackBar(
                                   backgroundColor: Colors.red[600],
                                   content: Text(
-                                    'Failed: ${e.toString().split(':')[1]}',
+                                    'Error: ${e.toString().split(':')[1]}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline4

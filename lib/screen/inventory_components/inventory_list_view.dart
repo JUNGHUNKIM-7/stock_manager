@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
+import 'package:qr_sheet_stock_manager/styles.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
@@ -27,6 +28,7 @@ class InventoryListView extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: outerSpacing),
               if (snapshot.connectionState == ConnectionState.active)
                 const FilterButtonGenerator(
                   title: '0 Items',

@@ -5,6 +5,7 @@ import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
 import 'package:qr_sheet_stock_manager/screen/global_components/dark_mode_toggle.dart';
 
 import '../../bloc/global/theme_bloc.dart';
+import '../../database/in_app_purchase/subscription_button.dart';
 import '../../styles.dart';
 import 'drawer_tiles.dart';
 
@@ -27,7 +28,7 @@ class SettingsDrawer extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Header(themeSnapshot: themeSnapshot),
+                SettingsHeader(themeSnapshot: themeSnapshot),
                 Column(
                   children: [
                     HeaderTile(
@@ -79,8 +80,24 @@ class SettingsDrawer extends StatelessWidget {
                   ],
                 ),
                 Expanded(child: Container()),
-                DarkModeStatus(theme: theme),
-                SizedBox(height: innerSpacing),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: innerSpacing),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      RunSubscription(
+                        snapshot: themeSnapshot,
+                      ),
+                      DarkModeToggle(
+                        theme: theme,
+                        iconSize: 30,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: innerSpacing,
+                ),
               ],
             ),
           );
@@ -88,47 +105,8 @@ class SettingsDrawer extends StatelessWidget {
   }
 }
 
-class DarkModeStatus extends StatelessWidget {
-  const DarkModeStatus({
-    Key? key,
-    required this.theme,
-  }) : super(key: key);
-
-  final ThemeBloc theme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Row(
-          children: [
-            StreamBuilder<bool>(
-                stream: theme.stream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Text(
-                      snapshot.data ?? false ? 'Light Mode' : 'Dark Mode',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline3
-                          ?.copyWith(fontSize: 16),
-                    );
-                  }
-
-                  return Container();
-                }),
-            DarkModeToggle(theme: theme, iconSize: 30),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class Header extends StatelessWidget {
-  const Header({Key? key, required this.themeSnapshot}) : super(key: key);
+class SettingsHeader extends StatelessWidget {
+  const SettingsHeader({Key? key, required this.themeSnapshot}) : super(key: key);
   final AsyncSnapshot<bool> themeSnapshot;
 
   @override
@@ -210,3 +188,4 @@ class Header extends StatelessWidget {
         });
   }
 }
+

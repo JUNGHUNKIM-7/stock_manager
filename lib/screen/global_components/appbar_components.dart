@@ -70,8 +70,8 @@ class Settings extends StatelessWidget {
   }
 }
 
-class InputUserInventory extends StatelessWidget {
-  const InputUserInventory(
+class UserInventory extends StatelessWidget {
+  const UserInventory(
       {Key? key, required this.theme, required this.handler})
       : super(key: key);
   final ThemeBloc theme;
@@ -119,7 +119,7 @@ class InputUserInventory extends StatelessWidget {
             SnackBar(
               backgroundColor: Colors.red[600],
               content: Text(
-                'Failed: ${e.toString().split(':')[1]}',
+                'Error: Can\'t extract your inventory from "inventory" sheet',
                 style: Theme.of(context)
                     .textTheme
                     .headline4

@@ -4,14 +4,14 @@ import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
 import '../../styles.dart';
 
 class DarkModeContainer extends StatelessWidget {
-  const DarkModeContainer(
-      {Key? key,
-      required this.height,
-      required this.child,
-      this.align,
-      this.reverse,
-      this.theme})
-      : super(key: key);
+  const DarkModeContainer({
+    Key? key,
+    required this.height,
+    required this.child,
+    this.align,
+    this.reverse,
+    this.theme,
+  }) : super(key: key);
 
   final ThemeBloc? theme;
   final double height;

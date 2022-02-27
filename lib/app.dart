@@ -15,7 +15,8 @@ import 'database/repository/gsheet_repository.dart';
 
 Future<void> runApplication() async {
   final boxHandler = await SettingBoxHandler.returnBox();
-  var connectivityResult = await (Connectivity().checkConnectivity());
+  ConnectivityResult connectivityResult =
+      await (Connectivity().checkConnectivity());
 
   if (connectivityResult == ConnectivityResult.mobile ||
       connectivityResult == ConnectivityResult.wifi) {

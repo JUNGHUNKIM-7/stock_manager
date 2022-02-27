@@ -12,7 +12,7 @@ class FeaturesMarkdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: showAppBarWithBackBtn(context: context, typeOfForm: 'Features'),
+        appBar: showAppBarWithBackBtn(context: context, typeOfForm: 'features'),
         body: ListView(
           children: [
             BodyForFeatures(data: """

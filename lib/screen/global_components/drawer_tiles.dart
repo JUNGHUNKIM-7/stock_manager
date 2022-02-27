@@ -144,9 +144,10 @@ class CredentialsTile extends StatelessWidget {
                                                 ? Styles.lightColor
                                                 : Styles.darkColor),
                                   ),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
+                                  onPressed: () async {
                                     RestartWidget.restartApp(context);
+                                    await runApplication();
+                                    Navigator.of(context).pop();
                                   },
                                 ),
                               ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qr_sheet_stock_manager/database/in_app_purchase/inapp_test.dart';
 import 'package:qr_sheet_stock_manager/database/model/history_model.dart';
 import 'package:qr_sheet_stock_manager/screen/bottom_nav_components/bottom_nav_home.dart';
 import 'package:qr_sheet_stock_manager/screen/history_components/history_details.dart';
@@ -30,6 +31,11 @@ class PageRouter {
         name: 'features',
         path: '/features',
         builder: (context, state) => const FeaturesMarkdown(),
+      ),
+      GoRoute(
+        name: 'subscription',
+        path: '/subscription',
+        builder: (context, state) => const InAppTest(),
       ),
       GoRoute(
         name: 'historyDetails',

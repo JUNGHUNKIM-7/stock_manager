@@ -49,6 +49,7 @@ class FilterButtonGenerator extends StatelessWidget {
     final outStatus = combiner.outStatus;
     final descendingStatus = combiner.descendingStatus;
     const historyBtnText = ['In', 'Out', 'DESC'];
+    final settings = BlocProvider.of<BlocsCombiner>(context).settings;
 
     switch (btnType) {
       case 'history':
@@ -89,10 +90,20 @@ class FilterButtonGenerator extends StatelessWidget {
         });
       case 'inventory':
         return [
-          FilterBtns(
-            text: 'Add',
-            onPressed: () => context.goNamed('inventoryForm'),
-          )
+          StreamBuilder<Map<String, dynamic>>(
+              stream: settings.stream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!['secret'].isNotEmpty &&
+                      snapshot.data!['sheetId'].isNotEmpty) {
+                    return FilterBtns(
+                      text: 'Add',
+                      onPressed: () => context.goNamed('inventoryForm'),
+                    );
+                  }
+                }
+                return Container();
+              })
         ];
       default:
         throw Exception('Unknown btnType');

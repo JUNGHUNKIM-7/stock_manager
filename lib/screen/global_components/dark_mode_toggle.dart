@@ -14,7 +14,7 @@ class DarkModeToggle extends StatelessWidget {
       stream: theme.stream,
       builder: (_, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
-          return IconButton(
+          return TextButton.icon(
             onPressed: theme.darkMode,
             icon: snapshot.data ?? theme.state
                 ? Icon(
@@ -27,6 +27,11 @@ class DarkModeToggle extends StatelessWidget {
                     size: iconSize,
                     color: Styles.darkColor,
                   ),
+            label: Text(
+              snapshot.data ?? false ? 'Light Mode' : 'Dark Mode',
+              style:
+                  Theme.of(context).textTheme.headline3?.copyWith(fontSize: 16),
+            ),
           );
         } else if (snapshot.error != null) {
           theme.dispose();

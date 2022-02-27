@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/form_bloc.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/history_view.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
@@ -12,6 +13,7 @@ import 'panel_main.dart';
 
 AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
   final handler = SheetHandlerMain();
+  final settings = BlocProvider.of<BlocsCombiner>(context).settings;
 
   switch (pageIdx) {
     case 0:
@@ -35,14 +37,34 @@ AppBar showAppBar(BuildContext context, int pageIdx, ThemeBloc theme) {
       return AppBar(
         automaticallyImplyLeading: false,
         actions: [
-          PdfMaker(
-            theme: theme,
-            handler: handler,
-          ),
-          InputUserInventory(
-            theme: theme,
-            handler: handler,
-          ),
+          StreamBuilder<Map<String, dynamic>>(
+              stream: settings.stream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!['secret'].isNotEmpty &&
+                      snapshot.data!['sheetId'].isNotEmpty) {
+                    return PdfMaker(
+                      theme: theme,
+                      handler: handler,
+                    );
+                  }
+                }
+                return Container();
+              }),
+          StreamBuilder<Map<String, dynamic>>(
+              stream: settings.stream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!['secret'].isNotEmpty &&
+                      snapshot.data!['sheetId'].isNotEmpty) {
+                    return UserInventory(
+                      theme: theme,
+                      handler: handler,
+                    );
+                  }
+                }
+                return Container();
+              }),
           const PanelMain(
             historyViewBlocEnum: PanelEnum.inventory,
           ),
@@ -126,8 +148,10 @@ Widget returnTextWidget(BuildContext context, String typeOfForm) {
       return _textWidget('History   Details');
     case 'manual':
       return _textWidget('Manual');
-    case 'Features':
+    case 'features':
       return _textWidget('Features');
+    case 'subscription':
+      return _textWidget('subscription');
     default:
       return Text(
         typeOfForm.toUpperCase(),
