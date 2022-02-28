@@ -9,12 +9,10 @@ import 'database/hive_utils/hive_handler.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   tz.initializeTimeZones();
-
   await Hive.initFlutter();
   await Future.wait([
     HiveHandler.initialize(),
     SecretHandler.initialize(),
   ]);
-
   await runApplication();
 }

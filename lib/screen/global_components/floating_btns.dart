@@ -15,7 +15,7 @@ class QrCamera extends StatelessWidget {
     return FloatingActionButton(
       tooltip: 'Make a Deal with QR',
       elevation: 10.0,
-      child: const Icon(Icons.camera_enhance),
+      child: const Icon(Icons.camera_alt_rounded),
       onPressed: () => context.goNamed('qrCamera'),
     );
   }
@@ -44,7 +44,7 @@ class ExportToTemp extends StatelessWidget {
                       builder: (context, yearSnapShot) {
                         return FloatingActionButton(
                           tooltip: 'Save Filtered Data',
-                          child: const Icon(Icons.move_to_inbox),
+                          child: const Icon(Icons.document_scanner),
                           onPressed: () async {
                             try {
                               ScaffoldMessenger.of(context).showSnackBar(

@@ -44,7 +44,7 @@ class _QrCameraState extends State<QrCamera> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: showAppBarWithBackBtn(context: context),
+        appBar: showAppBarWithBackBtn(context: context, typeOfForm: 'qr'),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: outerSpacing),
           child: Column(
@@ -224,13 +224,15 @@ class _QrCameraState extends State<QrCamera> {
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+            backgroundColor: Colors.red[600],
             content: Text(
-          'no Permission',
+          'No Permission',
           style: Theme.of(context).textTheme.headline4?.copyWith(fontSize: 14),
         )),
       );
     }
   }
+
 
   @override
   void dispose() {

@@ -124,9 +124,9 @@ class HistoryTile extends StatelessWidget {
           ),
         ],
       ),
-      title: history.title.length > 10
+      title: history.title.length > 13
           ? Text(
-              '${history.title.substring(0, 10).toTitleCase()}...${history.title.substring(history.title.length - 3, history.title.length).toTitleCase()}',
+              '${history.title.substring(0, 13).toTitleCase()}...',
               style:
                   Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 16),
             )
@@ -158,12 +158,12 @@ class HistoryTile extends StatelessWidget {
       ),
       trailing: Text(
         (history.memo ?? '').length > 10
-            ? '${history.memo?.substring(0, 4).toTitleCase()}...${history.memo?.substring(history.memo!.length - 3, history.memo?.length).toTitleCase()}'
+            ? '${history.memo?.substring(0, 10).toTitleCase()}'
             : history.memo?.toTitleCase() ?? '',
         style: Theme.of(context)
             .textTheme
             .bodyText2
-            ?.copyWith(fontSize: 14, fontWeight: FontWeight.normal),
+            ?.copyWith(fontSize: 13, fontWeight: FontWeight.normal),
       ),
     );
   }

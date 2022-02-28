@@ -6,7 +6,7 @@ import 'bloc/constant/provider.dart';
 import 'styles.dart';
 import 'utils/restart_widget.dart';
 
-void runFallback(Map<String, dynamic> boxHandler, Widget child) {
+void runFallback(Map<String, dynamic> boxHandler, Widget child) async {
   runApp(
     RestartWidget(
       child: BlocProvider<BlocsCombiner>(

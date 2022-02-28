@@ -146,16 +146,17 @@ Widget returnTextWidget(BuildContext context, String typeOfForm) {
       return _textWidget('Inventory   Form');
     case 'historyDetails':
       return _textWidget('History   Details');
+    case 'inventoryDetails':
+      return _textWidget('Inventory   Details');
     case 'manual':
       return _textWidget('Manual');
+    case 'qr':
+      return _textWidget('Qr   Camera');
     case 'features':
       return _textWidget('Features');
     case 'subscription':
-      return _textWidget('subscription');
+      return _textWidget('subscription   plan');
     default:
-      return Text(
-        typeOfForm.toUpperCase(),
-        style: Theme.of(context).textTheme.headline1?.copyWith(fontSize: 18),
-      );
+      throw Exception('Not Found Any  of Form');
   }
 }

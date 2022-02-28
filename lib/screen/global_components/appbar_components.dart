@@ -71,8 +71,7 @@ class Settings extends StatelessWidget {
 }
 
 class UserInventory extends StatelessWidget {
-  const UserInventory(
-      {Key? key, required this.theme, required this.handler})
+  const UserInventory({Key? key, required this.theme, required this.handler})
       : super(key: key);
   final ThemeBloc theme;
   final SheetHandlerMain handler;
@@ -119,7 +118,7 @@ class UserInventory extends StatelessWidget {
             SnackBar(
               backgroundColor: Colors.red[600],
               content: Text(
-                'Error: Can\'t extract your inventory from "inventory" sheet',
+                'Error: Can\'t extract your inventory from "inventory" sheet, Check your "inventory" sheet and try again',
                 style: Theme.of(context)
                     .textTheme
                     .headline4

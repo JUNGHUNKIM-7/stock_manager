@@ -34,7 +34,6 @@ class HistoryDetails extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       "${history.title.toTitleCase()}",

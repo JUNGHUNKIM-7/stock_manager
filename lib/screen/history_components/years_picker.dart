@@ -28,14 +28,15 @@ class Years extends StatelessWidget {
                       : Styles.lightColor,
                   icon: themeSnapShot.data == true
                       ? const Icon(
-                          Icons.arrow_drop_down_rounded,
+                          Icons.date_range,
                           color: Styles.lightColor,
                         )
                       : const Icon(
-                          Icons.arrow_drop_down_rounded,
+                          Icons.date_range,
                           color: Styles.darkColor,
                         ),
-                  iconSize: 40,
+                  iconSize: 25,
+                  tooltip: 'Select Year',
                   itemBuilder: (BuildContext context) =>
                       List.generate(yearSnapShot.data! ~/ 200, (index) {
                     return PopupMenuItem(
@@ -44,8 +45,31 @@ class Years extends StatelessWidget {
                       value: yearSnapShot.data! + index,
                       textStyle: Theme.of(context).textTheme.bodyText1,
                       child: Center(
-                        child: Text(
-                          '${yearSnapShot.data! + index}',
+                        child: Column(
+                          children: [
+                            if (yearSnapShot.data! + index ==
+                                DateTime.now().year)
+                              Text(
+                                'Current Year',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.copyWith(fontSize: 16),
+                              ),
+                            SizedBox(height: innerSpacing),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                if (yearSnapShot.data! + index ==
+                                    DateTime.now().year)
+                                  Icon(Icons.arrow_forward, size: 20,),
+                                SizedBox(width: 10),
+                                Text(
+                                  '${yearSnapShot.data! + index}',
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                       onTap: () {

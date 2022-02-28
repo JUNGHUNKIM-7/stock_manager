@@ -303,13 +303,13 @@ class Tiles extends StatelessWidget {
       },
       title: Text(
         inventory.title.length > 15
-            ? '${inventory.title.substring(0, 15).toTitleCase()}...${inventory.title.substring(inventory.title.length - 3, inventory.title.length).toTitleCase()}'
+            ? '${inventory.title.substring(0, 15).toTitleCase()}...'
             : inventory.title.toTitleCase(),
         style: Theme.of(context).textTheme.bodyText2,
       ),
       subtitle: Text(
         inventory.memo.length > 15
-            ? '${inventory.memo.substring(0, 15).toTitleCase()}...${inventory.memo.substring(inventory.memo.length - 3, inventory.memo.length).toTitleCase()}'
+            ? '${inventory.memo.substring(0, 15).toTitleCase()}...'
             : inventory.memo.toTitleCase(),
         style: Theme.of(context).textTheme.bodyText2,
       ),

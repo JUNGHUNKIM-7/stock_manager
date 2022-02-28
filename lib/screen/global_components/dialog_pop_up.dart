@@ -33,6 +33,8 @@ class DialogPopUp extends StatelessWidget {
             stream: theme.stream,
             builder: (context, AsyncSnapshot<bool> snapshot) {
               return AlertDialog(
+                insetPadding: EdgeInsets.zero,
+                contentPadding: EdgeInsets.zero,
                 backgroundColor: snapshot.data == true
                     ? Styles.lightColor
                     : Styles.darkColor,
@@ -98,9 +100,9 @@ class DialogPopUp extends StatelessWidget {
                                         : Styles.lightColor,
                                   ),
                         ),
-                        title: history.title.length > 4
+                        title: history.title.length > 10
                             ? Text(
-                                '${history.title.substring(0, 4).toCapitalized()}...${history.title.substring(history.title.length - 3, history.title.length)}',
+                                '${history.title.substring(0, 10).toCapitalized()}...',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText2
@@ -154,6 +156,8 @@ class DialogPopUp extends StatelessWidget {
             stream: theme.stream,
             builder: (context, AsyncSnapshot<bool> snapshot) {
               return AlertDialog(
+                  insetPadding: EdgeInsets.zero,
+                  contentPadding: EdgeInsets.zero,
                   backgroundColor: snapshot.data == true
                       ? Styles.lightColor
                       : Styles.darkColor,
@@ -179,19 +183,34 @@ class DialogPopUp extends StatelessWidget {
                                 ? Styles.darkColor
                                 : Styles.lightColor,
                           ),
-                          subtitle: Text(
-                            inventory.memo.toCapitalized(),
-                            style:
-                                Theme.of(context).textTheme.bodyText2?.copyWith(
-                                      fontSize: 14,
-                                      color: snapshot.data == true
-                                          ? Styles.darkColor
-                                          : Styles.lightColor,
-                                    ),
-                          ),
-                          title: inventory.title.length > 4
+                          subtitle: inventory.memo.length > 11
                               ? Text(
-                                  '${inventory.title.substring(0, 4).toCapitalized()}...${inventory.title.substring(inventory.title.length - 3, inventory.title.length)}',
+                                  '${inventory.memo.substring(0, 11).toCapitalized()}...',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      ?.copyWith(
+                                        fontSize: 14,
+                                        color: snapshot.data == true
+                                            ? Styles.darkColor
+                                            : Styles.lightColor,
+                                      ),
+                                )
+                              : Text(
+                                  inventory.memo.toCapitalized(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      ?.copyWith(
+                                        fontSize: 14,
+                                        color: snapshot.data == true
+                                            ? Styles.darkColor
+                                            : Styles.lightColor,
+                                      ),
+                                ),
+                          title: inventory.title.length > 11
+                              ? Text(
+                                  '${inventory.title.substring(0, 11).toCapitalized()}...',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2
