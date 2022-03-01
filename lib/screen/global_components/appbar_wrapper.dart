@@ -6,7 +6,7 @@ import 'package:qr_sheet_stock_manager/bloc/global/history_view.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
-import '../../database/repository/gsheet_handler.dart';
+import '../../database/utils/gsheet_handler.dart';
 import 'appbar_components.dart';
 import 'dark_mode_toggle.dart';
 import 'panel_main.dart';

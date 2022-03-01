@@ -146,7 +146,7 @@ class CredentialsTile extends StatelessWidget {
                                   ),
                                   onPressed: () async {
                                     RestartWidget.restartApp(context);
-                                    await runApplication();
+                                    await RunApp.runApplication();
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -314,7 +314,7 @@ class SheetIdTile extends StatelessWidget {
                                   ),
                                   onPressed: () async {
                                     RestartWidget.restartApp(context);
-                                    await runApplication();
+                                    await RunApp.runApplication();
                                     Navigator.of(context).pop();
                                     Navigator.of(context).pop();
                                   },

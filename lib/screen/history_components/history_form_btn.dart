@@ -5,7 +5,7 @@ import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/form_bloc.dart';
 import 'package:qr_sheet_stock_manager/database/model/history_model.dart';
 import 'package:qr_sheet_stock_manager/database/model/inventory_model.dart';
-import 'package:qr_sheet_stock_manager/database/repository/gsheet_handler.dart';
+import 'package:qr_sheet_stock_manager/database/utils/gsheet_handler.dart';
 
 class SubmitHistory extends StatelessWidget {
   const SubmitHistory({

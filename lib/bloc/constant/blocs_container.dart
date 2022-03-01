@@ -2,7 +2,6 @@ import 'package:hive/hive.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/form_bloc.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/history_view.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/settings_bloc.dart';
-import 'package:qr_sheet_stock_manager/database/hive_utils/box_handler.dart';
 
 import '../../bloc/global/page_bloc.dart';
 import '../../bloc/global/theme_bloc.dart';
@@ -15,7 +14,7 @@ import '../../bloc/inventory/inventory_bloc.dart';
 import '../../bloc/inventory/inventory_search_bloc.dart';
 import '../../database/model/history_model.dart';
 import '../../database/model/inventory_model.dart';
-import '../../database/repository/gsheet_handler.dart';
+import '../../database/utils/gsheet_handler.dart';
 
 class Blocs {
   late Box settingBox;

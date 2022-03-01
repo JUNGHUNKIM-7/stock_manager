@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qr_sheet_stock_manager/bloc/constant/blocs_combiner.dart';
 import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
 import 'package:qr_sheet_stock_manager/database/model/history_model.dart';
-import 'package:qr_sheet_stock_manager/database/repository/gsheet_handler.dart';
+import 'package:qr_sheet_stock_manager/database/utils/gsheet_handler.dart';
 
 class QrCamera extends StatelessWidget {
   const QrCamera({

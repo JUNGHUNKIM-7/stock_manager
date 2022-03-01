@@ -5,7 +5,7 @@ import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
 import 'package:qr_sheet_stock_manager/bloc/inventory/inventory_bloc.dart';
 import 'package:qr_sheet_stock_manager/database/model/inventory_model.dart';
-import 'package:qr_sheet_stock_manager/database/repository/gsheet_handler.dart';
+import 'package:qr_sheet_stock_manager/database/utils/gsheet_handler.dart';
 
 import '../../styles.dart';
 import '../../utils/string_handler.dart';

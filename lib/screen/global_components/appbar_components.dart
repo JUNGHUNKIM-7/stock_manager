@@ -11,7 +11,7 @@ import 'package:qr_sheet_stock_manager/styles.dart';
 import 'package:qr_sheet_stock_manager/utils/move_file.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
-import '../../database/repository/gsheet_handler.dart';
+import '../../database/utils/gsheet_handler.dart';
 
 class MainHeader extends StatelessWidget {
   const MainHeader({Key? key, required this.title, required this.theme})

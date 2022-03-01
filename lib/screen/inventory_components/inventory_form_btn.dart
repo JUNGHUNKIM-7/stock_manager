@@ -4,7 +4,7 @@ import 'package:qr_sheet_stock_manager/bloc/global/form_bloc.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
-import '../../database/repository/gsheet_handler.dart';
+import '../../database/utils/gsheet_handler.dart';
 
 class InventorySubmit extends StatelessWidget {
   const InventorySubmit({

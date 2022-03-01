@@ -13,9 +13,8 @@ import 'package:qr_sheet_stock_manager/screen/qr_camera_components/qr_camera.dar
 
 import 'database/model/inventory_model.dart';
 
-class PageRouter {
-  static final router = GoRouter(
-    initialLocation: '/',
+GoRouter getRouter() {
+  return GoRouter(
     routes: [
       GoRoute(
         name: 'home',
