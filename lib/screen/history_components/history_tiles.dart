@@ -35,27 +35,37 @@ class HistoryTiles extends StatelessWidget {
       itemCount: snapshot.data!.length,
       itemBuilder: (context, idx) {
         final history = snapshot.data?[idx];
+        final date = history?.date?.split(' ')[0];
+        final dateObj = DateTime.parse('$date');
 
         return GestureDetector(
           onTap: () {
             historyHistory.push(history);
             context.goNamed('historyDetails', extra: history);
           },
-          child: Dismissible(
-            key: ValueKey(history?.id),
-            secondaryBackground: const SecondBackGround(),
-            background: const PrimaryBackGround(),
-            direction: DismissDirection.endToStart,
-            confirmDismiss: (direction) async {
-              return await dismissHistory(
-                  context, handler, history, historyBloc, inventoryBloc, theme);
-            },
-            child: StreamBuilder<bool>(
-                stream: theme.stream,
-                builder: (context, snapshot) {
-                  return HistoryTile(snapshot: snapshot, history: history!);
-                }),
-          ),
+          child: (dateObj.month < DateTime.now().month ||
+                  dateObj.year < DateTime.now().year)
+              ? StreamBuilder<bool>(
+                  stream: theme.stream,
+                  builder: (context, snapshot) {
+                    return HistoryTile(snapshot: snapshot, history: history!);
+                  })
+              : Dismissible(
+                  key: ValueKey(history?.id),
+                  secondaryBackground: const SecondBackGround(),
+                  background: const PrimaryBackGround(),
+                  direction: DismissDirection.endToStart,
+                  confirmDismiss: (direction) async {
+                    return await dismissHistory(context, handler, history,
+                        historyBloc, inventoryBloc, theme);
+                  },
+                  child: StreamBuilder<bool>(
+                      stream: theme.stream,
+                      builder: (context, snapshot) {
+                        return HistoryTile(
+                            snapshot: snapshot, history: history!);
+                      }),
+                ),
         );
       },
       separatorBuilder: (BuildContext context, int index) {
