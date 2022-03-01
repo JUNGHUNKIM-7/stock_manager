@@ -85,7 +85,7 @@ class SettingsDrawer extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      RunSubscription(
+                      SubscriptionButton(
                         snapshot: themeSnapshot,
                       ),
                       DarkModeToggle(
@@ -106,7 +106,8 @@ class SettingsDrawer extends StatelessWidget {
 }
 
 class SettingsHeader extends StatelessWidget {
-  const SettingsHeader({Key? key, required this.themeSnapshot}) : super(key: key);
+  const SettingsHeader({Key? key, required this.themeSnapshot})
+      : super(key: key);
   final AsyncSnapshot<bool> themeSnapshot;
 
   @override
@@ -188,4 +189,3 @@ class SettingsHeader extends StatelessWidget {
         });
   }
 }
-

@@ -35,7 +35,7 @@ class PageRouter {
       GoRoute(
         name: 'subscription',
         path: '/subscription',
-        builder: (context, state) => const InAppTest(),
+        builder: (context, state) => const RevenueCat(),
       ),
       GoRoute(
         name: 'historyDetails',

@@ -226,13 +226,13 @@ class _QrCameraState extends State<QrCamera> {
         SnackBar(
             backgroundColor: Colors.red[600],
             content: Text(
-          'No Permission',
-          style: Theme.of(context).textTheme.headline4?.copyWith(fontSize: 14),
-        )),
+              'No Permission',
+              style:
+                  Theme.of(context).textTheme.headline4?.copyWith(fontSize: 14),
+            )),
       );
     }
   }
-
 
   @override
   void dispose() {

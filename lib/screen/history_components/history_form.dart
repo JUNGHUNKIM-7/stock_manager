@@ -26,7 +26,7 @@ class HistoryForm extends StatelessWidget {
       child: Scaffold(
         appBar: showAppBarWithBackBtn(
             context: context, combiner: combiner, typeOfForm: 'history'),
-        body: ListView(
+        body: Column(
           children: [
             const SizedBox(
               height: outerSpacing,
@@ -49,7 +49,7 @@ class HistoryForm extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: outerSpacing * 1.5),
               child: DarkModeContainer(
-                height: height * 0.0008,
+                height: height * 0.00085,
                 reverse: true,
                 child:
                     HistoryInfoCard(inventory: inventory, out: out, val: val),

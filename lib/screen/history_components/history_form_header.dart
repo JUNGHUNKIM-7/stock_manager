@@ -119,8 +119,8 @@ class ItemDetails extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Text(
-              inventory.title.length > 32
-                  ? '${inventory.title.substring(0, 32)}...'.toTitleCase()
+              inventory.title.length > 25
+                  ? '${inventory.title.substring(0, 25)}...'.toTitleCase()
                   : inventory.title.toTitleCase(),
               style:
                   Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 18),
@@ -139,8 +139,8 @@ class ItemDetails extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Text(
-              inventory.memo.length > 32
-                  ? '${inventory.memo.substring(0, 32)}...'.toTitleCase()
+              inventory.memo.length > 25
+                  ? '${inventory.memo.substring(0, 25)}...'.toTitleCase()
                   : inventory.memo.toTitleCase(),
               style:
                   Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 18),
@@ -159,9 +159,7 @@ class ItemDetails extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Text(
-              inventory.qty.toString().length > 35
-                  ? '${inventory.qty.toString().substring(0, 35)}...'
-                  : inventory.qty.toString(),
+              inventory.qty.toString(),
               style:
                   Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 18),
             ),
@@ -195,8 +193,8 @@ class HistoryDetails extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Text(
-              (history.memo ?? '').length > 32
-                  ? '${history.memo?.substring(0, 32)}...'.toTitleCase()
+              (history.memo ?? '').length > 25
+                  ? '${history.memo?.substring(0, 25)}...'.toTitleCase()
                   : history.memo?.toTitleCase() ?? '',
               style:
                   Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 18),
@@ -229,9 +227,7 @@ class HistoryDetails extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Text(
-              history.qty.toString().length > 35
-                  ? '${history.qty.toString().substring(0, 35)}...'
-                  : history.qty.toString(),
+              history.qty.toString(),
               style:
                   Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 18),
             ),

@@ -62,7 +62,10 @@ class Years extends StatelessWidget {
                               children: [
                                 if (yearSnapShot.data! + index ==
                                     DateTime.now().year)
-                                  Icon(Icons.arrow_forward, size: 20,),
+                                  Icon(
+                                    Icons.arrow_forward,
+                                    size: 20,
+                                  ),
                                 SizedBox(width: 10),
                                 Text(
                                   '${yearSnapShot.data! + index}',

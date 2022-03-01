@@ -22,7 +22,7 @@ class InventoryForm extends StatelessWidget {
       child: Scaffold(
         appBar: showAppBarWithBackBtn(
             context: context, combiner: combiner, typeOfForm: 'inventory'),
-        body: ListView(
+        body: Column(
           children: [
             const SizedBox(
               height: outerSpacing,

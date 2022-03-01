@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -10,10 +12,8 @@ import '../../navigation.dart';
 import '../../styles.dart';
 import 'bloc/constant/blocs_combiner.dart';
 import 'bloc/constant/provider.dart';
-import 'database/hive_utils/hive_handler.dart';
 import 'database/repository/gsheet_handler.dart';
 import 'database/repository/gsheet_repository.dart';
-import 'database/secret/secret.dart';
 
 Future<void> runApplication() async {
   final boxHandler = await SettingBoxHandler.returnBox();

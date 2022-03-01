@@ -79,8 +79,8 @@ class InventoryDetails extends StatelessWidget {
                               Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  inventory.title.length > 32
-                                      ? '${inventory.title.substring(0, 32)}...'
+                                  inventory.title.length > 20
+                                      ? '${inventory.title.substring(0, 20)}...'
                                           .toTitleCase()
                                       : inventory.title.toTitleCase(),
                                   style: Theme.of(context)
@@ -104,8 +104,8 @@ class InventoryDetails extends StatelessWidget {
                               Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  inventory.memo.length > 32
-                                      ? '${inventory.memo.substring(0, 32)}...'
+                                  inventory.memo.length > 20
+                                      ? '${inventory.memo.substring(0, 20)}...'
                                           .toTitleCase()
                                       : inventory.memo.toTitleCase(),
                                   style: Theme.of(context)
@@ -177,16 +177,5 @@ class InventoryDetails extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class InventoryDetailsBtn extends StatelessWidget {
-  const InventoryDetailsBtn({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: () {}, child: const Text('Edit?'));
   }
 }
