@@ -1,7 +1,9 @@
 import 'package:hive/hive.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/form_bloc.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/history_view.dart';
+import 'package:qr_sheet_stock_manager/bloc/global/selected_subscription.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/settings_bloc.dart';
+import 'package:qr_sheet_stock_manager/bloc/global/sub_status.dart';
 
 import '../../bloc/global/page_bloc.dart';
 import '../../bloc/global/theme_bloc.dart';
@@ -84,4 +86,6 @@ class Blocs {
   final qtyFieldBloc = FormBloc(fields: FormFields.qty);
   final statusFieldBloc = FormBloc(state: 'y', fields: FormFields.status);
   final valFieldBloc = FormBloc(fields: FormFields.val);
+
+  final selectedPlan = SelectedSubscriptionBloc(state: null);
 }
