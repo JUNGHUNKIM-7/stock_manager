@@ -5,9 +5,9 @@ import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
 import 'package:qr_sheet_stock_manager/screen/global_components/dark_mode_toggle.dart';
 
 import '../../bloc/global/theme_bloc.dart';
-import 'subscription_button.dart';
 import '../../styles.dart';
 import 'drawer_tiles.dart';
+import 'subscription_button.dart';
 
 class SettingsDrawer extends StatelessWidget {
   const SettingsDrawer({

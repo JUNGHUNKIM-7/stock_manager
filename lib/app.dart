@@ -9,12 +9,14 @@ import '../../navigation.dart';
 import '../../styles.dart';
 import 'bloc/constant/blocs_combiner.dart';
 import 'bloc/constant/provider.dart';
+import 'bloc/global/sub_status.dart';
+import 'database/in_app_purchase/purchase_api.dart';
 import 'database/utils/get_box.dart';
 import 'database/utils/gsheet_handler.dart';
 import 'database/utils/gsheet_repository.dart';
 
 class RunApp {
-  static Future<void> runApplication() async {
+  static Future<void> runApplication([SubStatusBloc? subStatusBloc]) async {
     final boxHandler = await returnBox();
     ConnectivityResult connectivityResult =
         await (Connectivity().checkConnectivity());
@@ -24,7 +26,8 @@ class RunApp {
       if (boxHandler['secret'] != null && boxHandler['sheetId'] != null) {
         if (boxHandler['secret'].isNotEmpty &&
             boxHandler['sheetId'].isNotEmpty) {
-          await runAppWithNetwork(boxHandler);
+          await runAppWithNetwork(
+              boxHandler, subStatusBloc ?? purchaseApi.getSubStatusBloc);
         }
       } else {
         runFallback(boxHandler, App(router: getRouter()));
@@ -34,7 +37,10 @@ class RunApp {
     }
   }
 
-  static Future<void> runAppWithNetwork(Map<String, dynamic> boxHandler) async {
+  static Future<void> runAppWithNetwork(
+    Map<String, dynamic> boxHandler,
+    SubStatusBloc subStatusBloc,
+  ) async {
     await SheetHandlerMain.init(sheetId: boxHandler['sheetId']);
     final initialMap = await getDataMap();
 
@@ -45,6 +51,7 @@ class RunApp {
           handlerMap: boxHandler['handler'],
           historyData: initialMap['history']!.cast<History>(),
           inventoryData: initialMap['inventory']!.cast<Inventory>(),
+          subStatusBloc: subStatusBloc,
         ),
       ),
     );

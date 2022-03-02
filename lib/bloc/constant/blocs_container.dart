@@ -23,19 +23,22 @@ class Blocs {
   late Map<String, dynamic> handlerMap;
   late List<History> historyData;
   late List<Inventory> inventoryData;
+  late SubStatusBloc subStatusBloc;
 
-  Blocs._();
+  Blocs();
 
   Blocs.initializer({
     required this.historyData,
     required this.inventoryData,
     required this.settingBox,
     required this.handlerMap,
+    required this.subStatusBloc,
   }) {
     settingBox = settingBox;
     handlerMap = handlerMap;
     historyData = historyData;
     inventoryData = inventoryData;
+    subStatusBloc = subStatusBloc;
   }
 
   late final themeBloc = ThemeBloc(
@@ -88,4 +91,5 @@ class Blocs {
   final valFieldBloc = FormBloc(fields: FormFields.val);
 
   final selectedPlan = SelectedSubscriptionBloc(state: null);
+  late final isPro = subStatusBloc;
 }

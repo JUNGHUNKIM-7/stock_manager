@@ -18,5 +18,8 @@ void main() async {
     SecretHandler.initialize(),
   ]);
 
-  await RunApp.runApplication();
+  await purchaseApi.init();
+  await purchaseApi.getUserStatus();
+
+  await RunApp.runApplication(purchaseApi.getSubStatusBloc);
 }

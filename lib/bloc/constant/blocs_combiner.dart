@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:hive/hive.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../database/in_app_purchase/purchase_api.dart';
 import '../../database/model/history_model.dart';
 import '../../database/model/inventory_model.dart';
+import '../global/sub_status.dart';
 import 'blocs_container.dart';
 
 class BlocsCombiner extends Blocs
@@ -15,11 +17,13 @@ class BlocsCombiner extends Blocs
     List<History>? historyData,
     List<Inventory>? inventoryData,
     Box? settingsBox,
+    SubStatusBloc? subStatusBloc,
   }) : super.initializer(
           settingBox: settingsBox ?? Hive.box('settings'),
           handlerMap: handlerMap,
           historyData: historyData ?? [],
           inventoryData: inventoryData ?? [],
+          subStatusBloc: subStatusBloc ?? purchaseApi.getSubStatusBloc,
         );
 
   @override
