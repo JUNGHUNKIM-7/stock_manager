@@ -27,26 +27,6 @@ class BlocsCombiner extends Blocs
         );
 
   @override
-  void disposeFirstPage() {
-    chipBloc.dispose();
-    historySearchBloc.dispose();
-    historyBloc.dispose();
-  }
-
-  @override
-  void disposeSecondPage() {
-    inventoryBloc.dispose();
-    inventorySearchBloc.dispose();
-  }
-
-  @override
-  void disposeForm() {
-    titleFieldBloc.dispose();
-    memoFieldBloc.dispose();
-    qtyFieldBloc.dispose();
-  }
-
-  @override
   Stream<List<History>> get filterHisByYear => CombineLatestStream.combine2(
         historyBloc.stream,
         yearSelection.yearStream,
@@ -197,12 +177,6 @@ class BlocsCombiner extends Blocs
 }
 
 abstract class BlocsCombinerInterface {
-  void disposeFirstPage();
-
-  void disposeSecondPage();
-
-  void disposeForm();
-
   Stream<List<History>> get filterHisByYear;
 
   Stream<List<History>> get filterHisByParams;
