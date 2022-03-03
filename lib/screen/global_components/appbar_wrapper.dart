@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/form_bloc.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/history_view.dart';
+import 'package:qr_sheet_stock_manager/bloc/global/selected_subscription.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
@@ -98,6 +99,7 @@ AppBar showAppBarWithBackBtn({
   required BuildContext context,
   String? typeOfForm,
   BlocsCombiner? combiner,
+  SelectedSubscriptionBloc? selectedPlan,
 }) =>
     AppBar(
       actions: [
@@ -118,6 +120,9 @@ AppBar showAppBarWithBackBtn({
               }
               if (typeOfForm == 'inventoryDetails') {
                 combiner?.inventorySearchBloc.onChanged('');
+              }
+              if (typeOfForm == 'subscription') {
+                selectedPlan?.clear();
               }
             }
             context.goNamed('home');

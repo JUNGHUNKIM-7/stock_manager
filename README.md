@@ -1,4 +1,6 @@
-# Qr Sheet Stock Manager
+ # Qr Sheet Stock Manager
+### Logo
+![Logo](lib/for_md/app_logo.png)
 
 ### App View
 

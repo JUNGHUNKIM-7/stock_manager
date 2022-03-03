@@ -77,6 +77,13 @@ class FeaturesMarkdown extends StatelessWidget {
             SizedBox(
               height: innerSpacing,
             ),
+            BodyForFeatures(data: """
+### 1-5. Each tiles can be draggable
+#### (Right to Left : Delete item from "Inventory" sheet, Left to Right : add a deal to "History" sheet)
+            """),
+            SizedBox(
+              height: innerSpacing,
+            ),
             ImageBorder(
               child: Image(
                 image: AssetImage('assets/manual/dragging.png'),
@@ -84,11 +91,12 @@ class FeaturesMarkdown extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: innerSpacing,
+              height: outerSpacing,
             ),
             BodyForFeatures(data: """
-### 1-5. Each tiles can be draggable
-#### (Right to Left : Delete item from "Inventory" sheet, Left to Right : add a deal to "History" sheet)
+## 2. Qr Scanner
+### 2-1. You can find Qr code in both the inventory details and PDF file
+### 2-2. This button will make PDF file which contains Qr Codes based on your current inventory to your cellphone storage.
             """),
             SizedBox(
               height: innerSpacing,
@@ -99,14 +107,6 @@ class FeaturesMarkdown extends StatelessWidget {
                 fit: BoxFit.contain,
               ),
             ),
-            SizedBox(
-              height: innerSpacing,
-            ),
-            BodyForFeatures(data: """
-## 2. Qr Scanner
-### 2-1. You can find Qr code in both the inventory details and PDF file
-### 2-2. This button will make PDF file which contains Qr Codes based on your current inventory to your cellphone storage.
-            """),
             SizedBox(
               height: innerSpacing,
             ),

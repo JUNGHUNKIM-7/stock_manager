@@ -52,10 +52,8 @@ flutter_native_splash:
   ios: true
   color: "#A3A3A3"
   color_dark: "#404040"
-#  image
-#  image_dark
-#  branding: "assets/app_logo.png"
-#  branding_mode: bottom
+  image: "assets/splash_light.png"
+  image_dark: "assets/splash_dark.png"
 
 #  flutter pub run flutter_launcher_icons:main
 flutter_icons:
