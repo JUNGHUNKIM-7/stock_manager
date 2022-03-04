@@ -11,26 +11,37 @@ MarkdownStyleSheet markdownBase(BuildContext context) {
   return MarkdownStyleSheet(
     textAlign: WrapAlignment.spaceBetween,
     code: GoogleFonts.jetBrainsMono(
-      fontSize: 14,
+      fontSize: 16,
       fontWeight: FontWeight.bold,
-      color: Colors.black,
+      color: Colors.grey,
+    ),
+    strong: GoogleFonts.inter(
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+      color: Colors.redAccent,
     ),
     p: Theme.of(context)
         .textTheme
         .bodyText1
-        ?.copyWith(fontSize: 16, color: Colors.black),
+        ?.copyWith(fontSize: 16, letterSpacing: 0.4),
     codeblockDecoration: (BoxDecoration(
-      color: Colors.red,
+      color: Colors.redAccent,
     )),
     codeblockPadding: EdgeInsets.all(5),
-    h1: Theme.of(context).textTheme.headline3?.copyWith(fontSize: 24),
+    h1: Theme.of(context)
+        .textTheme
+        .headline3
+        ?.copyWith(fontSize: 24, letterSpacing: 0.2),
     h1Align: WrapAlignment.center,
-    h2: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 20),
+    h2: Theme.of(context)
+        .textTheme
+        .headline2
+        ?.copyWith(fontSize: 20, letterSpacing: 0.2),
     h3: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
     h4: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 16),
     a: Theme.of(context)
         .textTheme
         .bodyText2
-        ?.copyWith(fontSize: 16, color: Colors.red),
+        ?.copyWith(fontSize: 16, color: Colors.redAccent),
   );
 }

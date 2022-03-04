@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
 
 import '../../styles.dart';
 
 class SubscriptionButton extends StatelessWidget {
-  const SubscriptionButton({Key? key, required this.snapshot})
+  const SubscriptionButton(
+      {Key? key, required this.snapshot, required this.theme})
       : super(key: key);
   final AsyncSnapshot<bool> snapshot;
+  final ThemeBloc theme;
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +18,16 @@ class SubscriptionButton extends StatelessWidget {
         context.goNamed('subscription');
       },
       icon: Icon(
-        Icons.subscriptions,
+        Icons.attach_money,
         size: 30,
-        color: snapshot.data == true ? Styles.lightColor : Styles.darkColor,
+        color: snapshot.data ?? false ? Styles.lightColor : Styles.darkColor,
       ),
       label: Text(
-        'Plans',
-        style: Theme.of(context).textTheme.headline3?.copyWith(fontSize: 16),
+        'Subscription',
+        style: Theme.of(context).textTheme.headline3?.copyWith(
+            fontSize: 16,
+            color:
+                snapshot.data ?? false ? Styles.lightColor : Styles.darkColor),
       ),
     );
   }

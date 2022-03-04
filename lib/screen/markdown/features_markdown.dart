@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:qr_sheet_stock_manager/bloc/constant/blocs_combiner.dart';
+import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
+import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
 import 'package:qr_sheet_stock_manager/screen/global_components/appbar_wrapper.dart';
 import 'package:qr_sheet_stock_manager/styles.dart';
 
@@ -10,6 +13,8 @@ class FeaturesMarkdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
+
     return SafeArea(
       child: Scaffold(
         appBar: showAppBarWithBackBtn(context: context, typeOfForm: 'features'),
@@ -20,6 +25,7 @@ class FeaturesMarkdown extends StatelessWidget {
 ### 
             """),
             ImageBorder(
+              theme: theme,
               child: Image(
                 image: AssetImage('assets/manual/filters.png'),
                 fit: BoxFit.contain,
@@ -34,29 +40,26 @@ class FeaturesMarkdown extends StatelessWidget {
 ### 
 ### 1-1. You can filter history by searching, month tabs & years tabs and in & out buttons
 ### 1-2. When you applied filters, your history will react to the filters directly
+### 1-3. You can export current filtered history as sheet via docked button
               """,
             ),
             SizedBox(
               height: innerSpacing,
             ),
             ImageBorder(
+              theme: theme,
               child: Image(
                 image: AssetImage('assets/manual/features1.png'),
                 fit: BoxFit.contain,
               ),
             ),
-            SizedBox(
-              height: innerSpacing,
-            ),
-            BodyForFeatures(data: """
-### 1-3. You can export current filtered history as sheet via docked button
-            """),
             ParagraphDivider(),
             BodyForFeatures(data: """
 # Inventory Screen
 ### 
             """),
             ImageBorder(
+              theme: theme,
               child: Image(
                 image: AssetImage('assets/manual/features2.png'),
                 fit: BoxFit.fill,
@@ -85,6 +88,7 @@ class FeaturesMarkdown extends StatelessWidget {
               height: innerSpacing,
             ),
             ImageBorder(
+              theme: theme,
               child: Image(
                 image: AssetImage('assets/manual/dragging.png'),
                 fit: BoxFit.contain,
@@ -102,6 +106,7 @@ class FeaturesMarkdown extends StatelessWidget {
               height: innerSpacing,
             ),
             ImageBorder(
+              theme: theme,
               child: Image(
                 image: AssetImage('assets/manual/qrscanner.png'),
                 fit: BoxFit.contain,
@@ -111,6 +116,7 @@ class FeaturesMarkdown extends StatelessWidget {
               height: innerSpacing,
             ),
             ImageBorder(
+              theme: theme,
               child: Image(
                 image: AssetImage('assets/manual/bulk.png'),
                 fit: BoxFit.contain,
@@ -138,6 +144,7 @@ class FeaturesMarkdown extends StatelessWidget {
               height: innerSpacing,
             ),
             ImageBorder(
+              theme: theme,
               child: Image(
                 image: AssetImage('assets/manual/darkmode.png'),
                 fit: BoxFit.contain,
@@ -151,25 +158,33 @@ class FeaturesMarkdown extends StatelessWidget {
 }
 
 class ImageBorder extends StatelessWidget {
-  const ImageBorder({Key? key, required this.child}) : super(key: key);
+  const ImageBorder({Key? key, required this.child, required this.theme})
+      : super(key: key);
 
   final Widget child;
+  final ThemeBloc theme;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
-      child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.black,
-              width: 1,
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: child,
-          )),
+      child: StreamBuilder<bool>(
+          stream: theme.stream,
+          builder: (context, snapshot) {
+            return Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: snapshot.data ?? false
+                        ? Styles.lightColor
+                        : Styles.darkColor,
+                    width: 1,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: child,
+                ));
+          }),
     );
   }
 }
@@ -206,7 +221,10 @@ class BodyForFeatures extends StatelessWidget {
         styleSheet: markdownBase(context).copyWith(
           h1Align: WrapAlignment.start,
           h4: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 14),
-          h3: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
+          h3: Theme.of(context)
+              .textTheme
+              .bodyText1
+              ?.copyWith(fontSize: 16, letterSpacing: 0.4),
         ),
         onTapLink: linkUrl,
         data: data,

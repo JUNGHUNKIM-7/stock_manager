@@ -27,6 +27,7 @@ class SettingsDrawer extends StatelessWidget {
           return Drawer(
             child: Column(
               mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 SettingsHeader(themeSnapshot: themeSnapshot),
                 Column(
@@ -82,15 +83,16 @@ class SettingsDrawer extends StatelessWidget {
                 Expanded(child: Container()),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: innerSpacing),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      SubscriptionButton(
-                        snapshot: themeSnapshot,
-                      ),
                       DarkModeToggle(
                         theme: theme,
                         iconSize: 30,
+                      ),
+                      SubscriptionButton(
+                        snapshot: themeSnapshot,
+                        theme: theme,
                       ),
                     ],
                   ),
@@ -176,7 +178,7 @@ class SettingsHeader extends StatelessWidget {
                   ),
                 ],
               ),
-              decoration: themeSnapshot.data == true
+              decoration: themeSnapshot.data ?? false
                   ? const BoxDecoration(
                       color: Styles.lightColor,
                     )

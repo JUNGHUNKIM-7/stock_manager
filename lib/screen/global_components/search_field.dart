@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';
 
-class SearchField extends StatefulWidget {
+class SearchField extends HookWidget {
   const SearchField({Key? key, required this.type, required this.hintText})
       : super(key: key);
 
@@ -11,21 +12,9 @@ class SearchField extends StatefulWidget {
   final String hintText;
 
   @override
-  State<SearchField> createState() => _SearchFieldState();
-}
-
-class _SearchFieldState extends State<SearchField> {
-  late final TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final bloc = getSearchBloc(context, widget.type);
+    final bloc = _getSearchBloc(context, type);
+    final controller = useTextEditingController();
 
     return StreamBuilder(
         stream: bloc.stream,
@@ -36,11 +25,11 @@ class _SearchFieldState extends State<SearchField> {
                 bloc.onChanged(val);
               },
               textInputAction: TextInputAction.done,
-              controller: _controller,
+              controller: controller,
               style: Theme.of(context).textTheme.bodyText1,
               decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.search),
-                  labelText: widget.hintText,
+                  labelText: hintText,
                   labelStyle: Theme.of(context)
                       .textTheme
                       .headline2
@@ -52,9 +41,9 @@ class _SearchFieldState extends State<SearchField> {
                           icon: const Icon(Icons.clear),
                           iconSize: 26,
                           splashColor: Colors.red,
-                          onPressed: _controller.text.isNotEmpty
+                          onPressed: controller.text.isNotEmpty
                               ? () {
-                                  _controller.clear();
+                                  controller.clear();
                                   bloc.onChanged('');
                                 }
                               : null,
@@ -68,7 +57,7 @@ class _SearchFieldState extends State<SearchField> {
         });
   }
 
-  getSearchBloc(BuildContext context, String type) {
+  _getSearchBloc(BuildContext context, String type) {
     switch (type) {
       case 'history':
         return BlocProvider.of<BlocsCombiner>(context).historySearchBloc;
@@ -77,12 +66,5 @@ class _SearchFieldState extends State<SearchField> {
       default:
         throw Exception('SearchField');
     }
-  }
-
-  @override
-  void dispose() {
-    _controller.clear();
-    _controller.dispose();
-    super.dispose();
   }
 }

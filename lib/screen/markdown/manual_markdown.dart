@@ -25,7 +25,7 @@ class ManualMarkdown extends StatelessWidget {
 ### 
 ### 
 ### 
-**That is essential steps for running the app**
+**ALL STEPS ARE ESSENTIAL FOR RUNNING THE APP**
 ### 
 
 ## 1. Set your Timezone 

@@ -24,10 +24,12 @@ class CredentialsTile extends StatelessWidget {
             return ListTile(
               title: Text(
                 'GoogleSheet Credentials',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3
-                    ?.copyWith(fontSize: 16, letterSpacing: 0.6),
+                style: Theme.of(context).textTheme.headline3?.copyWith(
+                    fontSize: 16,
+                    letterSpacing: 0.6,
+                    color: themeSnapshot.data ?? false
+                        ? Styles.lightColor
+                        : Styles.darkColor),
               ),
               leading: snapshot.data!['secret'].isNotEmpty
                   ? const Icon(
@@ -180,10 +182,12 @@ class SheetIdTile extends StatelessWidget {
             return ListTile(
               title: Text(
                 'GoogleSheet ID',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3
-                    ?.copyWith(fontSize: 16, letterSpacing: 0.6),
+                style: Theme.of(context).textTheme.headline3?.copyWith(
+                    fontSize: 16,
+                    letterSpacing: 0.6,
+                    color: themeSnapshot.data ?? false
+                        ? Styles.lightColor
+                        : Styles.darkColor),
               ),
               leading: snapshot.data!['sheetId'].isNotEmpty
                   ? const Icon(
@@ -350,10 +354,12 @@ class TimeZoneTile extends StatelessWidget {
             return ListTile(
               title: Text(
                 'Select TimeZone',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3
-                    ?.copyWith(fontSize: 16, letterSpacing: 0.6),
+                style: Theme.of(context).textTheme.headline3?.copyWith(
+                    fontSize: 16,
+                    letterSpacing: 0.6,
+                    color: themeSnapshot.data ?? false
+                        ? Styles.lightColor
+                        : Styles.darkColor),
               ),
               trailing: const Icon(Icons.arrow_forward_ios),
               leading: snapshot.data!['tz'].isNotEmpty
@@ -462,10 +468,12 @@ class HeaderTile extends StatelessWidget {
             ),
       title: Text(
         text,
-        style: Theme.of(context)
-            .textTheme
-            .headline3
-            ?.copyWith(fontSize: 16, letterSpacing: 0.6),
+        style: Theme.of(context).textTheme.headline3?.copyWith(
+            fontSize: 16,
+            letterSpacing: 0.6,
+            color: themeSnapshot.data ?? false
+                ? Styles.lightColor
+                : Styles.darkColor),
       ),
       onTap: onTap,
     );

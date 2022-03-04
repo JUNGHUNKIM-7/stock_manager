@@ -268,13 +268,7 @@ class PdfMaker extends StatelessWidget {
                             ); // Page
                           }
 
-                          final output =
-                              Hive.box('settings').get('storagePath');
-                          final file = File(
-                              '${output}/qr_code-${DateTime.now().millisecondsSinceEpoch}.pdf');
-                          await file.writeAsBytes(await doc.save());
-                          await moveFile(file,
-                              '/storage/emulated/0/Download/qr_code-${DateTime.now().millisecondsSinceEpoch}.pdf');
+                          await _writingPDF(doc);
 
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -332,5 +326,14 @@ class PdfMaker extends StatelessWidget {
                 )
               : Container();
         });
+  }
+
+  Future<void> _writingPDF(pw.Document doc) async {
+    final output = Hive.box('settings').get('storagePath');
+    final file =
+        File('${output}/qr_code-${DateTime.now().millisecondsSinceEpoch}.pdf');
+    await file.writeAsBytes(await doc.save());
+    await moveFile(file,
+        '/storage/emulated/0/Download/qr_code-${DateTime.now().millisecondsSinceEpoch}.pdf');
   }
 }

@@ -29,8 +29,11 @@ class DarkModeToggle extends StatelessWidget {
                   ),
             label: Text(
               snapshot.data ?? false ? 'Light Mode' : 'Dark Mode',
-              style:
-                  Theme.of(context).textTheme.headline3?.copyWith(fontSize: 16),
+              style: Theme.of(context).textTheme.headline3?.copyWith(
+                  fontSize: 16,
+                  color: snapshot.data ?? false
+                      ? Styles.lightColor
+                      : Styles.darkColor),
             ),
           );
         } else if (snapshot.error != null) {
