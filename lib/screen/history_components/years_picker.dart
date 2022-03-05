@@ -42,8 +42,7 @@ class Years extends HookWidget {
                 child: Center(
                   child: Column(
                     children: [
-                      if ((yearStream.data!) + index ==
-                          DateTime.now().year)
+                      if ((yearStream.data!) + index == DateTime.now().year)
                         Text(
                           'Current Year',
                           style: Theme.of(context)
@@ -55,8 +54,7 @@ class Years extends HookWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          if ((yearStream.data!) + index ==
-                              DateTime.now().year)
+                          if ((yearStream.data!) + index == DateTime.now().year)
                             Icon(
                               Icons.arrow_forward,
                               size: 20,
