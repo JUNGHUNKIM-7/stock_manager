@@ -119,28 +119,20 @@ dismissHistory(
 
                       if (history.status == 'y') {
                         try {
-                          await handler
-                              .deleteAndUpdateQty(
-                                history: history,
-                                nowVal: nowVal,
-                              )
-                              .whenComplete(() => Future.wait([
-                                    historyBloc.reload(),
-                                    inventoryBloc.reload()
-                                  ]))
-                              .whenComplete(() =>
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: Colors.green[600],
-                                      content: Text(
-                                        'Success: Deleted Item from "history" Sheet (and Restored Qty in "inventory" Sheet)',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline4
-                                            ?.copyWith(fontSize: 14),
-                                      ),
-                                    ),
-                                  ));
+                          await _draggingFunc(handler, history, nowVal,
+                              historyBloc, inventoryBloc, context);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.green[600],
+                              content: Text(
+                                'Success: Deleted Item from "history" Sheet (and Restored Qty in "inventory" Sheet)',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline4
+                                    ?.copyWith(fontSize: 14),
+                              ),
+                            ),
+                          );
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -157,28 +149,20 @@ dismissHistory(
                         }
                       } else {
                         try {
-                          await handler
-                              .deleteAndUpdateQty(
-                                  history: history,
-                                  nowVal: nowVal,
-                                  workingType: 'subtract')
-                              .whenComplete(() => Future.wait([
-                                    historyBloc.reload(),
-                                    inventoryBloc.reload()
-                                  ]))
-                              .whenComplete(() =>
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: Colors.green[600],
-                                      content: Text(
-                                        'Success: Deleted Item from "history" Sheet (and Restored Qty in "inventory" Sheet)',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline4
-                                            ?.copyWith(fontSize: 14),
-                                      ),
-                                    ),
-                                  ));
+                          await _draggingFunc(handler, history, nowVal,
+                              historyBloc, inventoryBloc, context, 'subtract');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.green[600],
+                              content: Text(
+                                'Success: Deleted Item from "history" Sheet (and Restored Qty in "inventory" Sheet)',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline4
+                                    ?.copyWith(fontSize: 14),
+                              ),
+                            ),
+                          );
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             backgroundColor: Colors.red[600],
@@ -202,4 +186,21 @@ dismissHistory(
           });
     },
   );
+}
+
+Future<void> _draggingFunc(
+    SheetHandlerMain handler,
+    History history,
+    String nowVal,
+    HistoryBloc historyBloc,
+    InventoryBloc inventoryBloc,
+    BuildContext context,
+    [String? workingType]) async {
+  await handler
+      .deleteAndUpdateQty(
+        history: history,
+        nowVal: nowVal,
+      )
+      .whenComplete(
+          () => Future.wait([historyBloc.reload(), inventoryBloc.reload()]));
 }

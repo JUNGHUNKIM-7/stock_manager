@@ -14,47 +14,39 @@ class SearchField extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = _getSearchBloc(context, type);
+    final blocStream = useStream(bloc.stream);
     final controller = useTextEditingController();
 
-    return StreamBuilder(
-        stream: bloc.stream,
-        builder: (context, AsyncSnapshot<String> snapshot) {
-          if (snapshot.hasData) {
-            return TextField(
-              onChanged: (String val) {
-                bloc.onChanged(val);
-              },
-              textInputAction: TextInputAction.done,
-              controller: controller,
-              style: Theme.of(context).textTheme.bodyText1,
-              decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.search),
-                  labelText: hintText,
-                  labelStyle: Theme.of(context)
-                      .textTheme
-                      .headline2
-                      ?.copyWith(fontSize: 16),
-                  hintText: 'Product Name?',
-                  hintStyle: const TextStyle(fontSize: 14.0),
-                  suffixIcon: snapshot.data!.isNotEmpty
-                      ? IconButton(
-                          icon: const Icon(Icons.clear),
-                          iconSize: 26,
-                          splashColor: Colors.red,
-                          onPressed: controller.text.isNotEmpty
-                              ? () {
-                                  controller.clear();
-                                  bloc.onChanged('');
-                                }
-                              : null,
-                        )
+    return TextField(
+      onChanged: (String val) {
+        bloc.onChanged(val);
+      },
+      textInputAction: TextInputAction.done,
+      controller: controller,
+      style: Theme.of(context).textTheme.bodyText1,
+      decoration: InputDecoration(
+          prefixIcon: const Icon(Icons.search),
+          labelText: hintText,
+          labelStyle:
+              Theme.of(context).textTheme.headline2?.copyWith(fontSize: 16),
+          hintText: 'Product Name?',
+          hintStyle: const TextStyle(fontSize: 14.0),
+          suffixIcon: blocStream.hasData && blocStream.data!.isNotEmpty
+              ? IconButton(
+                  icon: const Icon(Icons.clear),
+                  iconSize: 26,
+                  splashColor: Colors.red,
+                  onPressed: controller.text.isNotEmpty
+                      ? () {
+                          controller.clear();
+                          bloc.onChanged('');
+                        }
                       : null,
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none),
-            );
-          }
-          return Container();
-        });
+                )
+              : null,
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none),
+    );
   }
 
   _getSearchBloc(BuildContext context, String type) {

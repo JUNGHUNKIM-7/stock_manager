@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/form_bloc.dart';
+import 'package:qr_sheet_stock_manager/bloc/global/hide_btn.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/history_view.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/selected_subscription.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/settings_bloc.dart';
@@ -40,6 +41,8 @@ class Blocs {
     inventoryData = inventoryData;
     subStatusBloc = subStatusBloc;
   }
+
+  final hideButton = HideButtonBloc(state: false);
 
   late final themeBloc = ThemeBloc(
       state: settingBox.get('darkMode') ?? false, settingBox: settingBox);

@@ -41,7 +41,7 @@ class ManualMarkdown extends StatelessWidget {
 -- [How to get Credentials? (Link)](https://medium.com/@a.marenkov/how-to-get-credentials-for-google-sheets-456b7e88c430)
 * Go json viewer, Find "Open" tap above, then, Click "Open from disk" and copy the content of the file 
 -- [Online json file viewer (Link)](https://jsoneditoronline.org/)
-* Need: { ALL Content include curly bracket }
+* Need: { ALL Content } (Including curly brackets)
 * Apply Credentials to app
 
 ### 

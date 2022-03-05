@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
 
 import '../../styles.dart';
 
-class DarkModeContainer extends StatelessWidget {
+class DarkModeContainer extends HookWidget {
   const DarkModeContainer({
     Key? key,
     required this.height,
@@ -21,24 +22,21 @@ class DarkModeContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: theme?.stream,
-      builder: (context, AsyncSnapshot<bool> snapshot) {
-        return Container(
-          alignment: align ?? Alignment.center,
-          height: MediaQuery.of(context).size.height * height,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Theme.of(context).scaffoldBackgroundColor,
-            boxShadow: reverse != null && reverse == true
-                ? Styles.innerShadow
-                : snapshot.data ?? theme?.state ?? false
-                    ? Styles.darkShadow
-                    : Styles.lightShadow,
-          ),
-          child: child,
-        );
-      },
+    final themeStream = useStream(theme?.stream);
+
+    return Container(
+      alignment: align ?? Alignment.center,
+      height: MediaQuery.of(context).size.height * height,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Theme.of(context).scaffoldBackgroundColor,
+        boxShadow: reverse != null && reverse == true
+            ? Styles.innerShadow
+            : themeStream.hasData && themeStream.data!
+                ? Styles.darkShadow
+                : Styles.lightShadow,
+      ),
+      child: child,
     );
   }
 }
