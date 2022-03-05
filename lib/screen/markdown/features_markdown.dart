@@ -20,8 +20,10 @@ class FeaturesMarkdown extends StatelessWidget {
         appBar: showAppBarWithBackBtn(context: context, typeOfForm: 'features'),
         body: ListView(
           children: [
+            SizedBox(height: outerSpacing),
             BodyForFeatures(data: """
 # History Screen
+### 
 ### 
             """),
             ImageBorder(
@@ -56,6 +58,7 @@ class FeaturesMarkdown extends StatelessWidget {
             ParagraphDivider(),
             BodyForFeatures(data: """
 # Inventory Screen
+### 
 ### 
             """),
             ImageBorder(
@@ -99,6 +102,7 @@ class FeaturesMarkdown extends StatelessWidget {
             ),
             BodyForFeatures(data: """
 ## 2. Qr Scanner
+### 
 ### 2-1. You can find Qr code in both the inventory details and PDF file
 ### 2-2. This button will make PDF file which contains Qr Codes based on your current inventory to your cellphone storage.
             """),
@@ -126,9 +130,11 @@ class FeaturesMarkdown extends StatelessWidget {
             BodyForFeatures(data: """
 # Extra Features
 ### 
+### 
             """),
             BodyForFeatures(data: """
 ## 1. Automatically wrap up your history monthly & yearly 
+### 
 ### 1-1. Your history sheet will be split into previous month(year) & current month(year)
 ### 1-2. for example, file will be split into "2019-12" & "history"(current month)
             """),
@@ -137,6 +143,7 @@ class FeaturesMarkdown extends StatelessWidget {
             ),
             BodyForFeatures(data: """
 ## 2. Dark Mode 
+### 
 ### 2-1. Set theme on your preference
 ### 2-2. You can find this on settings button
             """),
@@ -149,6 +156,9 @@ class FeaturesMarkdown extends StatelessWidget {
                 image: AssetImage('assets/manual/darkmode.png'),
                 fit: BoxFit.contain,
               ),
+            ),
+            SizedBox(
+              height: outerSpacing,
             ),
           ],
         ),

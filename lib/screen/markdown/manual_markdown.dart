@@ -15,6 +15,7 @@ class ManualMarkdown extends StatelessWidget {
         appBar: showAppBarWithBackBtn(context: context, typeOfForm: 'manual'),
         body: ListView(
           children: [
+            SizedBox(height: outerSpacing),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
               child: MarkdownBody(
@@ -69,7 +70,8 @@ docs.google.com/spreadsheets/d/ "YOUR SHEET ID" /edit#gid=...
                 image: AssetImage('assets/manual/share.png'),
                 fit: BoxFit.contain,
               ),
-            )
+            ),
+            SizedBox(height: outerSpacing),
           ],
         ),
       ),

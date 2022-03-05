@@ -9,7 +9,6 @@ void linkUrl(text, href, title) {
 
 MarkdownStyleSheet markdownBase(BuildContext context) {
   return MarkdownStyleSheet(
-    textAlign: WrapAlignment.spaceBetween,
     code: GoogleFonts.jetBrainsMono(
       fontSize: 16,
       fontWeight: FontWeight.bold,
