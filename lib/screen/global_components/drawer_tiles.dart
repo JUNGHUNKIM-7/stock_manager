@@ -59,32 +59,12 @@ class CredentialsTile extends StatelessWidget {
                                         ? Styles.lightColor
                                         : Styles.darkColor),
                           ),
-                          content: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Please provide your GoogleSheet credentials.\n',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline2
-                                    ?.copyWith(fontSize: 18),
-                              ),
-                              Text(
-                                '{"type": ..., "client_x509_cert_url": ...}\n',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(
-                                        fontSize: 16, color: Colors.redAccent),
-                              ),
-                              Text(
-                                '`If you don\'t have google credentials yet, See \"Starting Guide\" first`',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(fontSize: 14),
-                              ),
-                            ],
+                          content: Text(
+                            'Please provide your GoogleSheet credentials',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline2
+                                ?.copyWith(fontSize: 18),
                           ),
                           actions: [
                             TextField(
@@ -216,46 +196,12 @@ class SheetIdTile extends StatelessWidget {
                                         ? Styles.lightColor
                                         : Styles.darkColor),
                           ),
-                          content: Column(
-                            children: [
-                              Text(
-                                'Please provide your GoogleSheet ID.\n',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline2
-                                    ?.copyWith(fontSize: 18),
-                              ),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          'https://docs.google.com/spreadsheets/d/',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          ?.copyWith(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'Your Sheet ID',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          ?.copyWith(
-                                              fontSize: 16,
-                                              color: Colors.redAccent),
-                                    ),
-                                    TextSpan(
-                                      text: '/edit#gid=xxx',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          ?.copyWith(fontSize: 14),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
+                          content: Text(
+                            'Please provide your GoogleSheet ID',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline2
+                                ?.copyWith(fontSize: 18),
                           ),
                           actions: [
                             TextField(

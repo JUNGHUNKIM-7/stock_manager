@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:qr_sheet_stock_manager/bloc/constant/blocs_combiner.dart';
+import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
 import 'package:qr_sheet_stock_manager/screen/global_components/appbar_wrapper.dart';
 import 'package:qr_sheet_stock_manager/styles.dart';
 
 import 'markdown_util_func.dart';
 
-class ManualMarkdown extends StatelessWidget {
+class ManualMarkdown extends HookWidget {
   const ManualMarkdown({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
+    final themeStream = useStream(theme.stream);
+
     return SafeArea(
       child: Scaffold(
         appBar: showAppBarWithBackBtn(context: context, typeOfForm: 'manual'),
@@ -19,7 +25,7 @@ class ManualMarkdown extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
               child: MarkdownBody(
-                styleSheet: markdownBase(context),
+                styleSheet: markdownBase(context, themeStream),
                 onTapLink: linkUrl,
                 data: """
 # The Guide of Linking Sheet to App
@@ -42,14 +48,21 @@ class ManualMarkdown extends StatelessWidget {
 -- [How to get Credentials? (Link)](https://medium.com/@a.marenkov/how-to-get-credentials-for-google-sheets-456b7e88c430)
 * Go json viewer, Find "Open" tap above, then, Click "Open from disk" and copy the content of the file 
 -- [Online json file viewer (Link)](https://jsoneditoronline.org/)
-* Need: { ALL Content } (Including curly brackets)
+## 
+- Example : 
+- MUST INCLUDE CURLY BRACKETS
+
+```
+{"type" : ... "client_x509_cert_url": ...}
+```
 * Apply Credentials to app
 
 ### 
 ### 
 
 ## 3. Set Google Sheet ID
-* Make a Google sheet and Find sheet ID
+* Make a GoogleSheet in your Google Drive, then, you can find the ID in the Sheet URL.
+* Example :
 ```
 docs.google.com/spreadsheets/d/ "YOUR SHEET ID" /edit#gid=...
 ```
@@ -59,7 +72,7 @@ docs.google.com/spreadsheets/d/ "YOUR SHEET ID" /edit#gid=...
 ### 
 
 ## 4. Share Document
-* Add your google service account to your sheet you made
+* Share your "Google Service Account" in your sheet
           """,
               ),
             ),

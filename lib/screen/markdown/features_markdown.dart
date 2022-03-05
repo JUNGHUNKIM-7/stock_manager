@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:qr_sheet_stock_manager/bloc/constant/blocs_combiner.dart';
 import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
@@ -216,7 +217,7 @@ class ParagraphDivider extends StatelessWidget {
   }
 }
 
-class BodyForFeatures extends StatelessWidget {
+class BodyForFeatures extends HookWidget {
   const BodyForFeatures({
     Key? key,
     required this.data,
@@ -225,10 +226,13 @@ class BodyForFeatures extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = BlocProvider.of<BlocsCombiner>(context).themeBloc;
+    final themeStream = useStream(theme.stream);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: outerSpacing),
       child: MarkdownBody(
-        styleSheet: markdownBase(context).copyWith(
+        styleSheet: markdownBase(context, themeStream).copyWith(
           h1Align: WrapAlignment.start,
           h4: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 14),
           h3: Theme.of(context)
