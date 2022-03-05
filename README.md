@@ -30,16 +30,17 @@ like e-commerce, retail, office, even school. therefore, we are supporting start
 - Revenue Management (development in progress)
 - Graph for History Data (development in progress)
 
-All features are tested done this app on Samsung S9(Android 10)
+### All features are tested done this app on Samsung S9(Android 10)
 and there are some permissions required from this app to run.
 
 - Camera for QR code scanner
 - Google Credentials(app will handle it encrypted) to connect to Google Sheet API
 - Google Sheet ID to connect to Google Sheet API
-
-if you have problem with this app or any suggestion
+ 
+### if you have problem with this app or any suggestion*
 
 telegram: @ddonikim
 email: k01084758975dev@gmail.com
+
 ### PlayStore
 
