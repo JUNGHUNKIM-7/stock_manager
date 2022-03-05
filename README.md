@@ -37,10 +37,10 @@ and there are some permissions required from this app to run.
 - Google Credentials(app will handle it encrypted) to connect to Google Sheet API
 - Google Sheet ID to connect to Google Sheet API
  
-### if you have problem with this app or any suggestion*
+### if you have problem with this app or any suggestion
 
-telegram: @ddonikim
-email: k01084758975dev@gmail.com
+- telegram: @ddonikim
+- email: k01084758975dev@gmail.com
 
 ### PlayStore
 
