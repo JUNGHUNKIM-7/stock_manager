@@ -45,15 +45,13 @@ class RunApp {
     final initialMap = await getDataMap();
 
     runApp(
-      RestartWidget(
-        child: BlocProvider<BlocsCombiner>(
-          child: App(router: getRouter()),
-          combiner: BlocsCombiner(
-            handlerMap: boxHandler['handler'],
-            historyData: initialMap['history']!.cast<History>(),
-            inventoryData: initialMap['inventory']!.cast<Inventory>(),
-            subStatusBloc: subStatusBloc,
-          ),
+      BlocProvider<BlocsCombiner>(
+        child: App(router: getRouter()),
+        combiner: BlocsCombiner(
+          handlerMap: boxHandler['handler'],
+          historyData: initialMap['history']!.cast<History>(),
+          inventoryData: initialMap['inventory']!.cast<Inventory>(),
+          subStatusBloc: subStatusBloc,
         ),
       ),
     );

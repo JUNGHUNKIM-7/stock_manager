@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:permission_handler/permission_handler.dart' as pm;
 import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
 import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
 import 'package:qr_sheet_stock_manager/styles.dart';
@@ -195,6 +196,7 @@ class PdfMaker extends StatelessWidget {
                           await rootBundle.load("assets/CascadiaMonoPL.ttf");
                       final myFont = pw.Font.ttf(data);
                       final myStyle = pw.TextStyle(font: myFont);
+                      var status = await pm.Permission.storage.status;
 
                       List chunk(List list, int chunkSize) {
                         List chunks = [];
@@ -268,7 +270,12 @@ class PdfMaker extends StatelessWidget {
                             ); // Page
                           }
 
-                          await _writingPDF(doc);
+                          if (!status.isGranted) {
+                            await pm.Permission.storage.request();
+                            await _writingPDF(doc);
+                          } else {
+                            await _writingPDF(doc);
+                          }
 
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -298,11 +305,12 @@ class PdfMaker extends StatelessWidget {
                         }
                       }
                     } catch (e) {
+                      print(e);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           backgroundColor: Colors.red[600],
                           content: Text(
-                            'Failed to export QrCode list. Check your network connection and "inventory sheet" are not empty',
+                            'Failed : Please Allow Storage Permission or Your Inventory Might be Empty',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline4
@@ -330,10 +338,10 @@ class PdfMaker extends StatelessWidget {
 
   Future<void> _writingPDF(pw.Document doc) async {
     final output = Hive.box('settings').get('storagePath');
-    final file =
-        File('${output}/qr_code-${DateTime.now().millisecondsSinceEpoch}.pdf');
+    final file = File(
+        '${output}/qr_code-${DateTime.now().toString().toString().split('.')[0]}.pdf');
     await file.writeAsBytes(await doc.save());
     await moveFile(file,
-        '/storage/emulated/0/Download/qr_code-${DateTime.now().millisecondsSinceEpoch}.pdf');
+        '/storage/emulated/0/Download/qr_code-${DateTime.now().toString().toString().split('.')[0]}.pdf');
   }
 }

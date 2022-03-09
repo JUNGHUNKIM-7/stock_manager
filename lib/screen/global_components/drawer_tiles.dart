@@ -3,6 +3,7 @@ import 'package:qr_sheet_stock_manager/styles.dart';
 
 import '../../app.dart';
 import '../../bloc/global/settings_bloc.dart';
+import '../../database/in_app_purchase/purchase_api.dart';
 import '../../utils/datetime_tz_handler.dart';
 import '../../utils/restart_widget.dart';
 
@@ -128,7 +129,6 @@ class CredentialsTile extends StatelessWidget {
                                   ),
                                   onPressed: () async {
                                     RestartWidget.restartApp(context);
-                                    await RunApp.runApplication();
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -264,8 +264,9 @@ class SheetIdTile extends StatelessWidget {
                                   ),
                                   onPressed: () async {
                                     RestartWidget.restartApp(context);
-                                    await RunApp.runApplication();
-                                    Navigator.of(context).pop();
+                                    await purchaseApi.getUserStatus();
+                                    await RunApp.runApplication(
+                                        purchaseApi.getSubStatusBloc);
                                     Navigator.of(context).pop();
                                   },
                                 ),
