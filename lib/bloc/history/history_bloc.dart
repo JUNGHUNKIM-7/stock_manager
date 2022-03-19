@@ -1,6 +1,6 @@
-import 'package:qr_sheet_stock_manager/bloc/constant/base_controller.dart';
-import 'package:qr_sheet_stock_manager/database/model/history_model.dart';
-import 'package:qr_sheet_stock_manager/database/utils/gsheet_handler.dart';
+import 'package:inventory_tracker/bloc/constant/base_controller.dart';
+import 'package:inventory_tracker/database/model/history_model.dart';
+import 'package:inventory_tracker/database/utils/gsheet_handler.dart';
 
 abstract class HistoryBlocInterface {
   void reload();

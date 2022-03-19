@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:qr_sheet_stock_manager/bloc/global/form_bloc.dart';
+import 'package:inventory_tracker/bloc/global/form_bloc.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';

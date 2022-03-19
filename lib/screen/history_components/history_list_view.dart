@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
-import 'package:qr_sheet_stock_manager/database/model/history_model.dart';
-import 'package:qr_sheet_stock_manager/screen/global_components/filter_button_generator.dart';
+import 'package:inventory_tracker/bloc/global/theme_bloc.dart';
+import 'package:inventory_tracker/database/model/history_model.dart';
+import 'package:inventory_tracker/screen/global_components/filter_button_generator.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';

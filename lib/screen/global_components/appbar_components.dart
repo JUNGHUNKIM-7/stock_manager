@@ -6,10 +6,10 @@ import 'package:hive/hive.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:permission_handler/permission_handler.dart' as pm;
-import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
-import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
-import 'package:qr_sheet_stock_manager/styles.dart';
-import 'package:qr_sheet_stock_manager/utils/move_file.dart';
+import 'package:inventory_tracker/bloc/constant/provider.dart';
+import 'package:inventory_tracker/bloc/global/theme_bloc.dart';
+import 'package:inventory_tracker/styles.dart';
+import 'package:inventory_tracker/utils/move_file.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../database/utils/gsheet_handler.dart';

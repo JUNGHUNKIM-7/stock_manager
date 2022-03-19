@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_sheet_stock_manager/styles.dart';
+import 'package:inventory_tracker/styles.dart';
 
 import '../../app.dart';
 import '../../bloc/global/settings_bloc.dart';

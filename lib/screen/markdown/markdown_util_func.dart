@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qr_sheet_stock_manager/styles.dart';
+import 'package:inventory_tracker/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void linkUrl(text, href, title) {

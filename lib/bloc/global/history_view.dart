@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:hive/hive.dart';
-import 'package:qr_sheet_stock_manager/bloc/constant/base_controller.dart';
-import 'package:qr_sheet_stock_manager/database/model/history_model.dart';
-import 'package:qr_sheet_stock_manager/database/model/inventory_model.dart';
+import 'package:inventory_tracker/bloc/constant/base_controller.dart';
+import 'package:inventory_tracker/database/model/history_model.dart';
+import 'package:inventory_tracker/database/model/inventory_model.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../database/utils/gsheet_handler.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
-import 'package:qr_sheet_stock_manager/styles.dart';
+import 'package:inventory_tracker/bloc/global/theme_bloc.dart';
+import 'package:inventory_tracker/styles.dart';
 
 import '../../bloc/constant/blocs_combiner.dart';
 import '../../bloc/constant/provider.dart';

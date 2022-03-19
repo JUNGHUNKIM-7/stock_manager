@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:qr_sheet_stock_manager/bloc/constant/blocs_combiner.dart';
-import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
-import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
-import 'package:qr_sheet_stock_manager/styles.dart';
+import 'package:inventory_tracker/bloc/constant/blocs_combiner.dart';
+import 'package:inventory_tracker/bloc/constant/provider.dart';
+import 'package:inventory_tracker/bloc/global/theme_bloc.dart';
+import 'package:inventory_tracker/styles.dart';
 
 class Years extends HookWidget {
   const Years({Key? key, required this.theme}) : super(key: key);
@@ -14,7 +14,6 @@ class Years extends HookWidget {
     final year = BlocProvider.of<BlocsCombiner>(context).yearSelection;
     final yearStream = useStream(year.stream);
     final themeStream = useStream(theme.stream);
-    final defaultDate = DateTime.now().year;
 
     return PopupMenuButton(
       padding: const EdgeInsets.symmetric(horizontal: innerSpacing),

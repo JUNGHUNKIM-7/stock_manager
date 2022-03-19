@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:qr_sheet_stock_manager/bloc/constant/blocs_combiner.dart';
-import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
-import 'package:qr_sheet_stock_manager/database/model/history_model.dart';
-import 'package:qr_sheet_stock_manager/screen/global_components/appbar_wrapper.dart';
-import 'package:qr_sheet_stock_manager/screen/global_components/dark_mode_container.dart';
-import 'package:qr_sheet_stock_manager/screen/history_components/history_form_header.dart';
-import 'package:qr_sheet_stock_manager/styles.dart';
+import 'package:inventory_tracker/bloc/constant/blocs_combiner.dart';
+import 'package:inventory_tracker/bloc/constant/provider.dart';
+import 'package:inventory_tracker/database/model/history_model.dart';
+import 'package:inventory_tracker/screen/global_components/appbar_wrapper.dart';
+import 'package:inventory_tracker/screen/global_components/dark_mode_container.dart';
+import 'package:inventory_tracker/screen/history_components/history_form_header.dart';
+import 'package:inventory_tracker/styles.dart';
 
 import '../../utils/string_handler.dart';
 

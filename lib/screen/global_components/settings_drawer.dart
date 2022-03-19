@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:qr_sheet_stock_manager/bloc/constant/blocs_combiner.dart';
-import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
-import 'package:qr_sheet_stock_manager/screen/global_components/dark_mode_toggle.dart';
+import 'package:inventory_tracker/bloc/constant/blocs_combiner.dart';
+import 'package:inventory_tracker/bloc/constant/provider.dart';
+import 'package:inventory_tracker/screen/global_components/dark_mode_toggle.dart';
 
 import '../../bloc/global/theme_bloc.dart';
 import '../../styles.dart';

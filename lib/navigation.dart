@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:qr_sheet_stock_manager/database/in_app_purchase/subscription_plans.dart';
-import 'package:qr_sheet_stock_manager/database/model/history_model.dart';
-import 'package:qr_sheet_stock_manager/screen/bottom_nav_components/bottom_nav_home.dart';
-import 'package:qr_sheet_stock_manager/screen/history_components/history_details.dart';
-import 'package:qr_sheet_stock_manager/screen/history_components/history_form.dart';
-import 'package:qr_sheet_stock_manager/screen/inventory_components/inventory_details.dart';
-import 'package:qr_sheet_stock_manager/screen/inventory_components/inventory_form_group.dart';
-import 'package:qr_sheet_stock_manager/screen/markdown/features_markdown.dart';
-import 'package:qr_sheet_stock_manager/screen/markdown/manual_markdown.dart';
-import 'package:qr_sheet_stock_manager/screen/qr_camera_components/qr_camera.dart';
+import 'package:inventory_tracker/database/in_app_purchase/subscription_plans.dart';
+import 'package:inventory_tracker/database/model/history_model.dart';
+import 'package:inventory_tracker/screen/bottom_nav_components/bottom_nav_home.dart';
+import 'package:inventory_tracker/screen/history_components/history_details.dart';
+import 'package:inventory_tracker/screen/history_components/history_form.dart';
+import 'package:inventory_tracker/screen/inventory_components/inventory_details.dart';
+import 'package:inventory_tracker/screen/inventory_components/inventory_form_group.dart';
+import 'package:inventory_tracker/screen/markdown/features_markdown.dart';
+import 'package:inventory_tracker/screen/markdown/manual_markdown.dart';
+import 'package:inventory_tracker/screen/qr_camera_components/qr_camera.dart';
 
 import 'database/model/inventory_model.dart';
 

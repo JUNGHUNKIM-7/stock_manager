@@ -1,10 +1,10 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_sheet_stock_manager/bloc/constant/blocs_combiner.dart';
-import 'package:qr_sheet_stock_manager/bloc/constant/provider.dart';
-import 'package:qr_sheet_stock_manager/bloc/global/history_view.dart';
-import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
-import 'package:qr_sheet_stock_manager/styles.dart';
+import 'package:inventory_tracker/bloc/constant/blocs_combiner.dart';
+import 'package:inventory_tracker/bloc/constant/provider.dart';
+import 'package:inventory_tracker/bloc/global/history_view.dart';
+import 'package:inventory_tracker/bloc/global/theme_bloc.dart';
+import 'package:inventory_tracker/styles.dart';
 
 import '../../database/model/history_model.dart';
 import '../../database/model/inventory_model.dart';

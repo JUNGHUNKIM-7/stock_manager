@@ -1,6 +1,6 @@
-import 'package:qr_sheet_stock_manager/bloc/constant/base_controller.dart';
-import 'package:qr_sheet_stock_manager/bloc/history/history_search_bloc.dart';
-import 'package:qr_sheet_stock_manager/bloc/inventory/inventory_search_bloc.dart';
+import 'package:inventory_tracker/bloc/constant/base_controller.dart';
+import 'package:inventory_tracker/bloc/history/history_search_bloc.dart';
+import 'package:inventory_tracker/bloc/inventory/inventory_search_bloc.dart';
 
 abstract class PageBlocInterface {
   void switchPage(int onTapVal);

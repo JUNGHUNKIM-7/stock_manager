@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:qr_sheet_stock_manager/database/in_app_purchase/purchase_api.dart';
-import 'package:qr_sheet_stock_manager/database/utils/secret.dart';
+import 'package:inventory_tracker/database/in_app_purchase/purchase_api.dart';
+import 'package:inventory_tracker/database/utils/secret.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 import 'app.dart';

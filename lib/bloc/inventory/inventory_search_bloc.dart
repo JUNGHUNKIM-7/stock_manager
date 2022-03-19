@@ -1,4 +1,4 @@
-import 'package:qr_sheet_stock_manager/bloc/constant/base_controller.dart';
+import 'package:inventory_tracker/bloc/constant/base_controller.dart';
 
 abstract class InventorySearchBlocInterface {
   void onChanged(String val);

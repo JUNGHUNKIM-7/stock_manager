@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:qr_sheet_stock_manager/bloc/global/theme_bloc.dart';
-import 'package:qr_sheet_stock_manager/bloc/history/history_bloc.dart';
-import 'package:qr_sheet_stock_manager/bloc/inventory/inventory_bloc.dart';
-import 'package:qr_sheet_stock_manager/database/model/history_model.dart';
-import 'package:qr_sheet_stock_manager/database/utils/gsheet_handler.dart';
+import 'package:inventory_tracker/bloc/global/theme_bloc.dart';
+import 'package:inventory_tracker/bloc/history/history_bloc.dart';
+import 'package:inventory_tracker/bloc/inventory/inventory_bloc.dart';
+import 'package:inventory_tracker/database/model/history_model.dart';
+import 'package:inventory_tracker/database/utils/gsheet_handler.dart';
 
 import '../../styles.dart';
 

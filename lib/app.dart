@@ -1,9 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:qr_sheet_stock_manager/database/model/history_model.dart';
-import 'package:qr_sheet_stock_manager/database/model/inventory_model.dart';
-import 'package:qr_sheet_stock_manager/utils/restart_widget.dart';
+import 'package:inventory_tracker/database/model/history_model.dart';
+import 'package:inventory_tracker/database/model/inventory_model.dart';
+import 'package:inventory_tracker/utils/restart_widget.dart';
 
 import '../../navigation.dart';
 import '../../styles.dart';
@@ -27,7 +27,9 @@ class RunApp {
         if (boxHandler['secret'].isNotEmpty &&
             boxHandler['sheetId'].isNotEmpty) {
           await runAppWithNetwork(
-              boxHandler, subStatusBloc ?? purchaseApi.getSubStatusBloc);
+            boxHandler,
+            subStatusBloc ?? purchaseApi.getSubStatusBloc,
+          );
         }
       } else {
         runFallback(boxHandler, App(router: getRouter()));
@@ -142,11 +144,13 @@ class NoConnectionPage extends StatelessWidget {
                 RestartWidget.restartApp(context);
                 await RunApp.runApplication();
               },
-              child: Text('Restart App',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3
-                      ?.copyWith(fontSize: 14)),
+              child: Text(
+                'Restart App',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3
+                    ?.copyWith(fontSize: 14),
+              ),
             ),
           ],
         ),
