@@ -29,18 +29,11 @@ class ManualMarkdown extends HookWidget {
                 onTapLink: linkUrl,
                 data: """
 # The Guide of Linking Sheet to App
-###
-###
-###
 **ALL STEPS ARE ESSENTIAL FOR RUNNING THE APP**
-###
 
 ## 1. Set your Timezone
 * Default: "America/New_York"
 * That is essential for getting correct time
-
-###
-###
 
 ## 2. Set Google Sheet Credentials
 * Open your desktop for settings.
@@ -48,7 +41,6 @@ class ManualMarkdown extends HookWidget {
 -- [How to get Credentials? (Link)](https://medium.com/@a.marenkov/how-to-get-credentials-for-google-sheets-456b7e88c430)
 * Go json viewer, Find "Open" tap above, then, Click "Open from disk" and copy the content of the file
 -- [Online json file viewer (Link)](https://jsoneditoronline.org/)
-##
 - Example :
 - MUST INCLUDE CURLY BRACKETS
 
@@ -56,10 +48,6 @@ class ManualMarkdown extends HookWidget {
 {"type" : ... "client_x509_cert_url": ...}
 ```
 * Apply Credentials to app
-
-###
-###
-
 ## 3. Set Google Sheet ID
 * Make a GoogleSheet in your Google Drive, then, you can find the ID in the Sheet URL.
 * Example :
@@ -67,10 +55,6 @@ class ManualMarkdown extends HookWidget {
 docs.google.com/spreadsheets/d/ "YOUR SHEET ID" /edit#gid=...
 ```
 * Apply your sheet ID to app
-
-###
-###
-
 ## 4. Share Document
 * Share your "Google Service Account" in your sheet
           """,
