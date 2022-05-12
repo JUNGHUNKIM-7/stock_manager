@@ -42,4 +42,4 @@ and there are some permissions required from this app to run.
 - telegram: @ddonikim
 
 ### PlayStore
-com.hunnykim.inventory_tracker
+- com.hunnykim.inventory_tracker
