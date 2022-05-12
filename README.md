@@ -40,7 +40,6 @@ and there are some permissions required from this app to run.
 ### If you have problem with this app or any suggestion
 
 - telegram: @ddonikim
-- email: k01084758975dev@gmail.com
 
 ### PlayStore
-
+com.hunnykim.inventory_tracker
